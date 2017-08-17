@@ -1,0 +1,15 @@
+
+.background-body
+{
+	position: absolute;
+  bottom: 5%;
+	width: 100%;
+	z-index: -10;
+}
+
+.htw-logo
+{
+	position: relative;
+	width: 100%;
+	z-index: -10;
+}
