@@ -8,7 +8,7 @@ import { RestService } from '../service/rest.service';
 })
 export class SignupComponent implements OnInit {
   name: string;
-  email: string;
+  e_mail: string;
   password: string;
 
   constructor(private restService: RestService) {
@@ -19,8 +19,17 @@ export class SignupComponent implements OnInit {
 
   sendSignUpData() {
     this.name = (<HTMLInputElement>document.getElementById('inName')).value;
-    this.email = (<HTMLInputElement>document.getElementById('inEmail')).value;
+    this.e_mail = (<HTMLInputElement>document.getElementById('inEmail')).value;
     this.password = (<HTMLInputElement>document.getElementById('inPassword')).value;
+    this.restService.signup(this.name, this.e_mail, this.password).subscribe((posts) => {
+      console.log(posts);
+    }, (err: any) => {
+      console.log(err.status);
+      if (err.status === 500) {
+        console.log('Vorhanden');
+      }else {
+        console.log('FEHLER!');
+      }
+    });
   }
-
 }

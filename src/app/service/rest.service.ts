@@ -15,7 +15,11 @@ export class RestService {
     return this.http.get('http://localhost:8080/quiz/webapi/auth/login', {headers: myHeader}).map(res => res.json());
   }
 
-  signup(name: string, email: string, password: string) {
-
+  signup(name: string, e_mail: string, passwort: string) {
+    const myHeader = new Headers();
+    myHeader.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:8080/quiz/webapi/profile',
+      JSON.stringify({name: name, e_mail: e_mail, passwort: passwort}), {headers: myHeader}, )
+      .map(res => res.json());
   }
 }

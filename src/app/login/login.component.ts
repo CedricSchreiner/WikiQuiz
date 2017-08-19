@@ -29,7 +29,11 @@ export class LoginComponent implements OnInit {
       console.log(err.status);
       console.log(err.toString());
       this.status = err.status;
-      this.text = 'Email oder Passwort falsch!';
+      if (err.status === 404) {
+        this.text = 'Email oder Passwort falsch!';
+      }else {
+        this.text = 'Fehler!';
+      }
     });
   }
 
