@@ -6,7 +6,17 @@ import { QuizComponent } from './quiz/quiz.component';
 import { TimerbarComponent } from './timerbar/timerbar.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { BackgroundComponent } from './background/background.component';
-import { LoginComponent} from './login/login.component';
+import { LoginComponent } from './login/login.component';
+import { RouterModule, Routes } from '@angular/router';
+import { RestService} from './service/rest.service';
+import { HttpModule} from '@angular/http';
+import { SignupComponent } from './signup/signup.component';
+
+const appRoutes: Routes = [
+  {path: '', component: LoginComponent},
+  {path: 'game', component: QuizComponent},
+  {path: 'signup', component: SignupComponent}
+];
 
 @NgModule({
   declarations: [
@@ -15,12 +25,15 @@ import { LoginComponent} from './login/login.component';
     TimerbarComponent,
     NavbarComponent,
     BackgroundComponent,
-    LoginComponent
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    RouterModule.forRoot(appRoutes),
+    HttpModule
   ],
-  providers: [],
+  providers: [RestService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

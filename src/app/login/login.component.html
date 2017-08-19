@@ -5,6 +5,32 @@
     <title>Title</title>
 </head>
 <body>
-
+  <!-- <startLogin>Felder zum einfügen der login Informationen -->
+  <label >Email: </label><br>
+  <input style="width: 204px" type="email" id="inEmail"/><br>
+  <label >Password: </label><br>
+  <input style="width: 204px" type="password" id="inPassword"/><br>
+  <button style="width: 100px" (click)="sendLoginData()">Login</button>
+  <button style="width: 100px">Registrieren</button>
+  <!-- </endLogin>-->
+  <!-- <startOutputData>Ausgabe der erhaltenen User Daten(kann spaeter entfaernt werden) -->
+  <div *ngIf="status != null">
+    <label>Status: </label>
+    <label>{{status + ' ' + text}}</label>
+  </div>
+  <h2>User</h2>
+  <div *ngIf="user != null">
+  <label>Name: </label>
+  {{user.name}}<br>
+  <label>Email: </label>
+  {{user.e_mail}}<br>
+  <label>Passwort: </label>
+  {{user.passwort}}<br>
+  <label>Avatar Link:</label>
+  {{user.avatar_link}}<br>
+  <label>ID</label>
+  {{user.id}}
+  </div>
+  <!-- </endOutputData> -->
 </body>
 </html>
