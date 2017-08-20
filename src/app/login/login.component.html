@@ -18,18 +18,18 @@
     <label>Status: </label>
     <label>{{status + ' ' + text}}</label>
   </div>
-  <div *ngIf="user != null">
+  <div *ngIf="test">
     <h2>User</h2>
     <label>Name: </label>
-    {{user.name}}<br>
+    {{name}}<br>
     <label>Email: </label>
-    {{user.e_mail}}<br>
+    {{email}}<br>
     <label>Passwort: </label>
-    {{user.passwort}}<br>
+    {{password}}<br>
     <label>Avatar Link:</label>
-    {{user.avatar_link}}<br>
+    {{link}}<br>
     <label>ID</label>
-    {{user.id}}
+    {{id}}
   </div>
   <!-- </endOutputData> -->
 </body>

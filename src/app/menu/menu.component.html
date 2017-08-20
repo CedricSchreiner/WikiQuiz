@@ -2,8 +2,18 @@
   <title>Menu</title>
 </head>
 <body>
-  <div *ngIf="test">
-    <h1>Eingelogt</h1>
+  <div *ngIf="user">
+    <h2>User</h2>
+    <label>Name: </label>
+    {{name}}<br>
+    <label>Email: </label>
+    {{email}}<br>
+    <label>Passwort: </label>
+    {{password}}<br>
+    <label>Avatar Link:</label>
+    {{link}}<br>
+    <label>ID</label>
+    {{id}}
   </div>
   <div *ngIf="!test">
     <h1>Bitte Einlogen</h1>
