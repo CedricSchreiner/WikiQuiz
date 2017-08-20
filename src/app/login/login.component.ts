@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
     this.restService.login(this.email, this.password).subscribe((posts) => {
         console.log(posts);
         this.user = posts;
+        window.location.href = 'menu';
     }, (err: any) => {
       console.log(err.status);
       console.log(err.toString());
