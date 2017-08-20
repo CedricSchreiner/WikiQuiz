@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../user/user.component';
-///import * as global from '../user/user.component';
 
 @Component({
   selector: 'app-menu',
@@ -16,18 +14,19 @@ export class MenuComponent implements OnInit {
   text: string;
   test: boolean; ///a
   link: string; ///a
+  ok: string;
 
   ngOnInit() {
     console.log('Menu initialisiert');
-    ///this.test = true; ///a
-    /**
-    if (this.test) {
-      this.email = this.user.user.e_mail; ///a
-      this.id = this.user.user.id; ///a
-      this.password = this.user.user.passwort; ///a
-      this.name = this.user.user.name; ///a
-      this.link = this.user.user.avatar_link; ///a
+    sessionStorage.getItem('username');
+    console.log(sessionStorage.length);
+    if (sessionStorage.getItem('email') !== null) {
+      this.test = true;
+      this.email = sessionStorage.getItem('email');
+      this.id = Number.parseInt(sessionStorage.getItem('id'));
+      this.password = sessionStorage.getItem('password');
+      this.name = sessionStorage.getItem('username');
+      this.link = sessionStorage.getItem('link');
     }
-     */
-    }
+  }
 }

@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   text: string;
   test: boolean; ///a
   link: string; ///a
-  user: User;
+  ///user: User;
 
   constructor(private restService: RestService) {
     this.test = false;
@@ -33,14 +33,19 @@ export class LoginComponent implements OnInit {
     this.password = (<HTMLInputElement>document.getElementById('inPassword')).value;
     this.restService.login(this.email, this.password).subscribe((posts) => {
         console.log(posts);
-        this.user.user = posts;
-        ///window.location.href = 'menu';
+        User.user = posts;
         this.test = true; ///a
-        this.email = this.user.user.e_mail; ///a
-        this.id = this.user.user.id; ///a
-        this.password = this.user.user.passwort; ///a
-        this.name = this.user.user.name; ///a
-        this.link = this.user.user.avatar_link; ///a
+        this.email = User.user.e_mail;
+        this.id = User.user.id; ///a
+        this.password = User.user.passwort; ///a
+        this.name = User.user.name; ///a
+        this.link = User.user.avatar_link; ///a
+        sessionStorage.setItem('username', User.user.name);
+        sessionStorage.setItem('email', User.user.e_mail);
+        sessionStorage.setItem('id', User.user.id.toString());
+        sessionStorage.setItem('link', User.user.avatar_link);
+        sessionStorage.setItem('password', User.user.passwort);
+       window.location.href = 'menu';
     }, (err: any) => {
       this.status = err.status;
       if (err.status === 404) {

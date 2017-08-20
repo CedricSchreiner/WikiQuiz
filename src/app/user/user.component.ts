@@ -1,5 +1,5 @@
 export class User {
-  user: UserData;
+  static user: UserData;
 }
 
 interface UserData {
