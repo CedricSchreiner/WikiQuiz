@@ -19,7 +19,7 @@
 	width: 80%;
 	/*top: 365px;*/
 	left: 9.9%;
-	z-index: -2;
+	/*z-index: -2 <= Verhindert das Drücken der Buttons*/;
 }
 
 #question-string
