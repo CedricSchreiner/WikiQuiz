@@ -1,36 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-  <!-- <startLogin>Felder zum einfügen der login Informationen -->
-  <label >Email: </label><br>
-  <input style="width: 204px" type="email" id="inEmail"/><br>
-  <label >Password: </label><br>
-  <input style="width: 204px" type="text" id="inPassword"/><br>
-  <button style="width: 100px" (click)="sendLoginData()">Login</button>
-  <button style="width: 100px"><a href="signup" id="test">Registrieren</a></button>
-  <!-- </endLogin>-->
-  <!-- <startOutputData>Ausgabe der erhaltenen User Daten(kann spaeter entfaernt werden) -->
-  <div *ngIf="status != null">
-    <label>Status: </label>
-    <label>{{status + ' ' + text}}</label>
-  </div>
-  <div *ngIf="test">
-    <h2>User</h2>
-    <label>Name: </label>
-    {{name}}<br>
-    <label>Email: </label>
-    {{email}}<br>
-    <label>Passwort: </label>
-    {{password}}<br>
-    <label>Avatar Link:</label>
-    {{link}}<br>
-    <label>ID</label>
-    {{id}}
-  </div>
-  <!-- </endOutputData> -->
-</body>
-</html>
+ <!-- <startLogin>Felder zum einfügen der login Informationen -->
+ <app-background></app-background>
+ <app-timerbar></app-timerbar>
+
+<!-- <app-signup></app-signup> -->
+
+ <!--Navbar-->
+ <nav class="navbar navbar-default">
+
+   <div class="container-fluid">
+     <!-- Brand and toggle get grouped for better mobile display -->
+     <div class="navbar-header">
+
+       <button id="burger" onclick="questionHidden()" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+
+         <span class="sr-only">Menue navigation</span>
+         <span id="firstBar" class="icon-bar"></span>
+         <span id="secondBar" class="icon-bar"></span>
+         <span id="thirdBar" class="icon-bar"></span>
+
+       </button>
+
+     <!--  <img class="navbar-brand" href="#" src="./assets/avatar.jpg"> -->
+
+     </div>
+     <!-- Collect the nav links, forms, and other content for toggling -->
+     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+
+
+     </div> <!--/.navbar-collapse -->
+
+   </div><!-- /.container-fluid -->
+
+ </nav>
+
+ <!--End-Navbar-->
+
+ <div class="login">
+   <div class="login-screen">
+     <div class="app-title">
+       <h1>Login</h1>
+     </div>
+
+     <div class="login-form">
+       <div class="control-group">
+         <input type="text" class="login-field" value="" placeholder="e-mail" id="inEmail">
+         <label class="login-field-icon fui-user" for="inEmail"></label>
+       </div>
+
+       <div class="control-group">
+         <input type="password" class="login-field" value="" placeholder="password" id="inPassword">
+         <label class="login-field-icon fui-lock" for="inPassword"></label>
+       </div>
+
+       <a class="btn btn-primary btn-large btn-block" (click)="sendLoginData()">login</a>
+       <a class="login-link" href="signup">Or Sign Up?</a>
+     </div>
+   </div>
+ </div>
