@@ -1,7 +1,40 @@
-<div *ngIf="test">
-  <app-navbar></app-navbar>
+<div *ngIf="!test">
   <app-timerbar></app-timerbar>
   <app-background></app-background>
+
+  <!--Navbar-->
+  <nav class="navbar navbar-default">
+
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+
+        <button id="burger" onclick="questionHidden()" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+
+          <span class="sr-only">Menue navigation</span>
+          <span id="firstBar" class="icon-bar"></span>
+          <span id="secondBar" class="icon-bar"></span>
+          <span id="thirdBar" class="icon-bar"></span>
+
+        </button>
+        <ul>
+
+          <!--  <img class="navbar-brand" href="#" src="./assets/avatar.jpg"> -->
+
+        </ul>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+
+
+      </div> <!--/.navbar-collapse -->
+
+    </div><!-- /.container-fluid -->
+
+  </nav>
+
+
   <div class="question-frame" id="rahmenderFrage">
     <p class="frage-string" id="question-string"> {{greeting.content}} </p>
   </div>
@@ -26,6 +59,6 @@
 
   </div>
 </div>
-<div *ngIf="!test">
+<div *ngIf="test">
   <h1>Bitte Einloggen</h1>
 </div>
