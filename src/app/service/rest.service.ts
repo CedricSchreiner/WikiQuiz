@@ -23,11 +23,11 @@ export class RestService {
       .map(res => res.json());
   }
 
-  getQuestions(anzahlFragen: number, quiztyoe: number) {
+  getQuestions(anzahlFragen: number, quiztype: number) {
     const myHeader = new Headers();
     myHeader.append('Authorization', 'Basic ' + btoa(sessionStorage.getItem('email') +
       ':' + sessionStorage.getItem('password')));
-    return this.http.get('http://localhost:8080/quiz/webapi/fragenresource/' + anzahlFragen + '?query=' + quiztyoe,
+    return this.http.get('http://localhost:8080/quiz/webapi/fragenresource/' + anzahlFragen + '?query=' + quiztype,
                          {headers: myHeader}).map(res => res.json());
   }
 }
