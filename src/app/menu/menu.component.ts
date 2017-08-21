@@ -20,7 +20,7 @@ export class MenuComponent implements OnInit {
     console.log('Menu initialisiert');
     sessionStorage.getItem('username');
     console.log(sessionStorage.length);
-    if (sessionStorage.getItem('email') !== null) {
+    if (sessionStorage.length > 0) {
       this.test = true;
       this.email = sessionStorage.getItem('email');
       this.id = Number.parseInt(sessionStorage.getItem('id'));

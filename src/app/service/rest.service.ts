@@ -22,4 +22,10 @@ export class RestService {
       JSON.stringify({name: name, e_mail: e_mail, passwort: passwort}), {headers: myHeader}, )
       .map(res => res.json());
   }
+
+  getQuestions(quiztyoe: number) {
+    const myHeader = new Headers();
+    myHeader.append('Authorization', 'Basic ' + btoa(sessionStorage.getItem('email') +
+      ':' + sessionStorage.getItem('password')));
+  }
 }
