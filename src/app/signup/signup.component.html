@@ -1,16 +1,85 @@
 
 
-<!-- <startSignup>Felder zum einfügen der Registrierungs Informationen -->
-<label>Name: </label><br>
-<input style="width: 204px" type="text" id="inName"/><br>
-<label>Email: </label><br>
-<input style="width: 204px" type="email" id="inEmail"/><br>
-<label>Password: </label><br>
-<input style="width: 204px" type="password" id="inPassword"/><br>
-<button style="width: 100px" (click)="sendSignUpData()">Signup</button>
-<!-- </endSignup>-->
-<!-- <startOutputData>Ausgabe der erhaltenen User Daten(kann spaeter entfaernt werden) -->
-<div>
-  <label>Status: </label>
-  <label></label>
+<!-- <startLogin>Felder zum einfügen der login Informationen -->
+<app-background></app-background>
+
+<!-- <app-signup></app-signup> -->
+
+<!--Navbar-->
+<nav class="navbar navbar-default">
+
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+
+      <button id="burger" onclick="questionHidden()" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+
+        <span class="sr-only">Menue navigation</span>
+        <span id="firstBar" class="icon-bar"></span>
+        <span id="secondBar" class="icon-bar"></span>
+        <span id="thirdBar" class="icon-bar"></span>
+
+      </button>
+
+      <!--  <img class="navbar-brand" href="#" src="./assets/avatar.jpg"> -->
+
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+
+
+    </div> <!--/.navbar-collapse -->
+
+  </div><!-- /.container-fluid -->
+
+</nav>
+
+<!--End-Navbar-->
+
+<div class="signup">
+  <div class="signup-screen">
+    <div class="app-title">
+      <h1>Sign Up</h1>
+    </div>
+
+    <div class="login-form">
+
+      <div class="control-group">
+        <input type="text" class="name-field" value="" placeholder="name" id="inName">
+        <label class="login-field-icon fui-user" for="inName"></label>
+      </div>
+
+      <div class="control-group">
+        <input type="text" class="login-field" value="" placeholder="e-mail" id="inEmail">
+        <label class="login-field-icon fui-user" for="inEmail"></label>
+      </div>
+
+      <div class="control-group">
+        <input type="password" class="login-field" value="" placeholder="password" id="inPassword">
+        <label class="login-field-icon fui-lock" for="inPassword"></label>
+      </div>
+
+      <a class="btn btn-primary btn-large btn-block" (click)="sendSignUpData()">Sign Up</a>
+     <!-- <a class="login-link" href="signup">Or Sign Up?</a> -->
+    </div>
+  </div>
 </div>
+
+<!-- Timebar -->
+
+<div class="anchor-frame">
+
+
+
+  <div class="Timer">
+    Status: {{text}}
+
+
+
+
+
+  </div>
+</div>
+
+<!-- End Timebar -->
