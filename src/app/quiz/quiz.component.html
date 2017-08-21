@@ -1,4 +1,4 @@
-<div *ngIf="!test">
+<div *ngIf="test">
   <app-timerbar></app-timerbar>
   <app-background></app-background>
 
@@ -36,25 +36,25 @@
 
 
   <div class="question-frame" id="rahmenderFrage">
-    <p class="frage-string" id="question-string"> {{greeting.content}} </p>
+    <p class="frage-string" id="question-string"> {{frage.Verbalization}} </p>
   </div>
 
   <div class="answer-frame" id="rahmenderAntwort">
 
-    <button class="btn btn-default btn-lg" id="answerA" onclick="answerClick()">
-      <p class="answer-string" id="answer-stringA"> {{greeting.id}} </p>
+    <button class="btn btn-default btn-lg" id="answerA" onclick="nextQuestion()">
+      <p class="answer-string" id="answer-stringA"> {{frage.Option0}} </p>
     </button>
 
-    <button class="btn btn-default btn-lg" id="answerB" onclick="answerClick()">
-      <p class="answer-string" id="answer-stringB"> {{greeting.id}} </p>
+    <button class="btn btn-default btn-lg" id="answerB" onclick="nextQuestion()">
+      <p class="answer-string" id="answer-stringB"> {{frage.Option1}} </p>
     </button>
 
-   <button class="btn btn-default btn-lg" id="answerC" onclick="answerClick()">
-      <p class="answer-string" id="answer-stringC"> {{greeting.id}} </p>
+   <button class="btn btn-default btn-lg" id="answerC" onclick="nextQuestion()">
+      <p class="answer-string" id="answer-stringC"> {{frage.Option2}} </p>
     </button>
 
-    <button class="btn btn-default btn-lg" id="answerD" onclick="answerClick()">
-      <p class="answer-string" id="answer-stringD"> {{greeting.id}} </p>
+    <button class="btn btn-default btn-lg" id="answerD" onclick="nextQuestion()">
+      <p class="answer-string" id="answer-stringD"> {{frage.Option3}} </p>
     </button>
 
   </div>
@@ -65,7 +65,6 @@
 
 
     <div class="Timer">
-      Status: {{text}}
 
 
 
@@ -76,6 +75,8 @@
 
   <!-- End Timebar -->
 </div>
-<div *ngIf="test">
+<!--
+<div *ngIf="!test">
   <h1>Bitte Einloggen</h1>
 </div>
+-->

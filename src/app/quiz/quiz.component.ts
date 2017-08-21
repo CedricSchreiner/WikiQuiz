@@ -10,8 +10,9 @@ export class QuizComponent implements OnInit {
   test: boolean;
   fragenArray: Frage[];
   fragenPointer: number;
+  frage: Frage;
 
-  constructor(private restService: RestService){
+  constructor(private restService: RestService) {
   }
   ngOnInit() {
     if (sessionStorage.length > 0) {
@@ -20,12 +21,14 @@ export class QuizComponent implements OnInit {
       this.restService.getQuestions(4, 1).subscribe((fragen) => {
         this.fragenArray = fragen;
         console.log(fragen);
+        this.frage = this.fragenArray[this.fragenPointer];
       });
     }
   }
 
   nextQuestion() {
-
+    this.fragenPointer++;
+    this.frage = this.fragenArray[this.fragenPointer];
   }
 }
 interface Frage {
