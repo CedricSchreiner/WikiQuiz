@@ -19,13 +19,15 @@ export class RestService {
     const myHeader = new Headers();
     myHeader.append('Content-Type', 'application/json');
     return this.http.post('http://localhost:8080/quiz/webapi/profile',
-      JSON.stringify({name: name, e_mail: e_mail, passwort: passwort}), {headers: myHeader}, )
+      JSON.stringify({name: name, e_mail: e_mail, passwort: passwort}), {headers: myHeader})
       .map(res => res.json());
   }
 
-  getQuestions(quiztyoe: number) {
+  getQuestions(anzahlFragen: number, quiztyoe: number) {
     const myHeader = new Headers();
     myHeader.append('Authorization', 'Basic ' + btoa(sessionStorage.getItem('email') +
       ':' + sessionStorage.getItem('password')));
+    return this.http.get('http://localhost:8080/quiz/webapi/fragenresource/' + anzahlFragen + '?query=' + quiztyoe,
+                         {headers: myHeader}).map(res => res.json());
   }
 }
