@@ -13,13 +13,15 @@ import { RestService } from './service/rest.service';
 import { SignupComponent } from './signup/signup.component';
 import { MenuComponent } from './menu/menu.component';
 import {OptionsComponent} from "./options/options.component";
+import { ImpressumComponent } from './impressum/impressum.component';
 
 const appRoutes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'game', component: QuizComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'menu', component: MenuComponent},
-  {path: 'options', component: OptionsComponent}
+  {path: 'options', component: OptionsComponent},
+  {path: 'impressum', component: ImpressumComponent},
 
 ];
 
@@ -33,7 +35,8 @@ const appRoutes: Routes = [
     LoginComponent,
     SignupComponent,
     OptionsComponent,
-    MenuComponent
+    MenuComponent,
+    ImpressumComponent
   ],
   imports: [
     BrowserModule,
