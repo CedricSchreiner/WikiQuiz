@@ -1,11 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-
 import { AppComponent } from './app.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { TimerbarComponent } from './timerbar/timerbar.component';
-import { NavbarComponent } from './navbar/navbar.component';
 import { BackgroundComponent } from './background/background.component';
 import { LoginComponent } from './login/login.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -15,6 +13,9 @@ import { MenuComponent } from './menu/menu.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { OptionsComponent } from './options/options.component';
 import { InfoComponent} from './info/info.component';
+
+
+
 
 const appRoutes: Routes = [
   {path: '', component: LoginComponent},
@@ -32,7 +33,6 @@ const appRoutes: Routes = [
     AppComponent,
     QuizComponent,
     TimerbarComponent,
-    NavbarComponent,
     BackgroundComponent,
     LoginComponent,
     SignupComponent,

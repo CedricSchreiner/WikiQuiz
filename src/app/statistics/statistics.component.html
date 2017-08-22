@@ -23,6 +23,7 @@
 
       <ul id="menu-topmenu" class="nav navbar-nav navbar-left">
         <li id="menu-item-1"><a href="">Login</a></li>
+          <li id="menu-item-2"><a href="info">Info</a></li>
       </ul>
 
 
@@ -36,21 +37,28 @@
 
 <div>
   <br>
-  <table *ngFor="let statistic of stats" border="1px">
-    <!--
-    <tr>
-      <td width="40px">{{statistic.anzahlFragen}}</td>
-      <td width="40px">{{statistic.anzahlSpiele}}</td>
-      <td width="40px">{{statistic.fragenRichtig}}</td>
-      <td width="40px">{{statistic.gameMode}}</td>
-      <td width="40px">{{statistic.punktZahl}}</td>
-      <td width="40px">{{statistic.userId}}</td>
-    </tr>
-    -->
-  </table>
-  <table border="1px" id="statsTable">
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#top10p">Top10 Personal</a></li>
+    <li><a data-toggle="tab" href="#top10w">Top10 WorldWide</a></li>
+    <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
+  </ul>
 
-  </table>
+  <div class="tab-content">
+    <div id="top10p" class="tab-pane fade in active">
+      <h3>HOME</h3>
+      <table border="1px" id="statsTable">
+      </table>
+      <p>Some content.</p>
+    </div>
+    <div id="top10w" class="tab-pane fade">
+      <h3>Menu 1</h3>
+      <p>Some content in menu 1.</p>
+    </div>
+    <div id="menu2" class="tab-pane fade">
+      <h3>Menu 2</h3>
+      <p>Some content in menu 2.</p>
+    </div>
+  </div>
 </div>
 <div class="anchor-frame">
 </div>
