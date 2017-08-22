@@ -12,6 +12,9 @@ export class OptionsComponent implements OnInit {
   password1: string;
   password2: string;
   status: number;
+  changepwframe: HTMLDivElement;
+  changebuttondiv: HTMLDivElement;
+
   text: string;
 
   constructor(private restService: RestService) {
@@ -50,5 +53,13 @@ export class OptionsComponent implements OnInit {
       this.status = 404;
       this.text = 'Passwöter nicht gleich';
     }
+  }
+
+  changePasswordvisibile() {
+    this.changepwframe = (<HTMLDivElement>document.getElementById('change-password-frame'));
+    this.changebuttondiv = (<HTMLDivElement>document.getElementById('change-option-button-div'));
+    this.changepwframe.style.visibility = 'visible';
+    this.changebuttondiv.style.visibility = 'hidden';
+
   }
 }
