@@ -25,6 +25,7 @@ const appRoutes: Routes = [
   {path: 'menu', component: MenuComponent},
   {path: 'options', component: OptionsComponent},
   {path: 'stats', component: StatisticsComponent},
+  {path: 'info', component: InfoComponent},
 ];
 
 @NgModule({
