@@ -12,9 +12,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { RestService } from './service/rest.service';
 import { SignupComponent } from './signup/signup.component';
 import { MenuComponent } from './menu/menu.component';
+import { OptionsComponent } from './options/options.component';
 import { ImpressumComponent } from './impressum/impressum.component';
 import { StatisticsComponent } from './statistics/statistics.component';
-import {OptionsComponent} from './options/options.component';
 
 const appRoutes: Routes = [
   {path: '', component: LoginComponent},
@@ -24,7 +24,6 @@ const appRoutes: Routes = [
   {path: 'options', component: OptionsComponent},
   {path: 'impressum', component: ImpressumComponent},
   {path: 'stats', component: StatisticsComponent}
-
 ];
 
 @NgModule({
