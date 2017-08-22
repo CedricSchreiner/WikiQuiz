@@ -57,7 +57,7 @@ export class RestService {
     console.log(sessionStorage.getItem('email'));
     console.log(password);
     return this.http.post('http://localhost:8080/quiz/webapi/auth/profile/chPas',
-      JSON.stringify({name: sessionStorage.getItem('username'), e_mail: sessionStorage.getItem('email'), password: password}),
+      JSON.stringify({name: sessionStorage.getItem('username'), e_mail: sessionStorage.getItem('email'), passwort: password}),
       {headers: myHeader})
                         .map(res => res.json());
   }
