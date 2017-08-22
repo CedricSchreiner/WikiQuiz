@@ -14,6 +14,7 @@ import { SignupComponent } from './signup/signup.component';
 import { MenuComponent } from './menu/menu.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { OptionsComponent } from './options/options.component';
+import { InfoComponent} from './info/info.component';
 
 const appRoutes: Routes = [
   {path: '', component: LoginComponent},
@@ -36,6 +37,7 @@ const appRoutes: Routes = [
     LoginComponent,
     SignupComponent,
     OptionsComponent,
+    InfoComponent,
     MenuComponent,
     StatisticsComponent
   ],
