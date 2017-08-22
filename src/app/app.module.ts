@@ -12,13 +12,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { RestService } from './service/rest.service';
 import { SignupComponent } from './signup/signup.component';
 import { MenuComponent } from './menu/menu.component';
-<<<<<<< HEAD
-import {OptionsComponent} from "./options/options.component";
-import { ImpressumComponent } from './impressum/impressum.component';
-=======
+import { OptionsComponent } from './options/options.component';
 import { StatisticsComponent } from './statistics/statistics.component';
-import {OptionsComponent} from './options/options.component';
->>>>>>> origin/master
+import { InfoComponent } from './info/info.component';
+
+
 
 const appRoutes: Routes = [
   {path: '', component: LoginComponent},
@@ -26,12 +24,7 @@ const appRoutes: Routes = [
   {path: 'signup', component: SignupComponent},
   {path: 'menu', component: MenuComponent},
   {path: 'options', component: OptionsComponent},
-<<<<<<< HEAD
-  {path: 'impressum', component: ImpressumComponent},
-
-=======
-  {path: 'stats', component: StatisticsComponent}
->>>>>>> origin/master
+  {path: 'stats', component: StatisticsComponent},
 ];
 
 @NgModule({
@@ -45,11 +38,8 @@ const appRoutes: Routes = [
     SignupComponent,
     OptionsComponent,
     MenuComponent,
-<<<<<<< HEAD
-    ImpressumComponent
-=======
-    StatisticsComponent
->>>>>>> origin/master
+    StatisticsComponent,
+    InfoComponent,
   ],
   imports: [
     BrowserModule,
