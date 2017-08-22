@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
           sessionStorage.setItem('email', User.user.e_mail);
           sessionStorage.setItem('id', User.user.id.toString());
           sessionStorage.setItem('link', User.user.avatar_link);
-          sessionStorage.setItem('password', User.user.passwort);
+          sessionStorage.setItem('password', this.password);
           window.location.href = 'menu';
         }, (err: any) => {
           this.status = err.status;

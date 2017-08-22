@@ -32,11 +32,20 @@ export class RestService {
   }
 
   getTopTenStatisticsOverall() {
+    console.log('test');
     const myHeader = new Headers();
     myHeader.append('Authorization', 'Basic ' + btoa(sessionStorage.getItem('email') +
       ':' + sessionStorage.getItem('password')));
     return this.http.get('http://localhost:8080/quiz/webapi/stats/topTenOverall', {headers: myHeader})
                          .map (res => res.json());
+  }
+
+  getTopTenStatisticsPlayer() {
+    const myHeader = new Headers();
+    myHeader.append('Authorization', 'Basic ' + btoa(sessionStorage.getItem('email') +
+      ':' + sessionStorage.getItem('password')));
+    return this.http.get('http://localhost:8080/quiz/webapi/stats/auth/TopTenPlayer', {headers: myHeader})
+      .map(res => res.json());
   }
 
   changePassword(password: string) {
