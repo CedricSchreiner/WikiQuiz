@@ -30,4 +30,12 @@ export class RestService {
     return this.http.get('http://localhost:8080/quiz/webapi/fragenresource/' + anzahlFragen + '?query=' + quiztype,
                          {headers: myHeader}).map(res => res.json());
   }
+
+  getTopTenStatisticsOverall() {
+    const myHeader = new Headers();
+    myHeader.append('Authorization', 'Basic ' + btoa(sessionStorage.getItem('email') +
+      ':' + sessionStorage.getItem('password')));
+    return this.http.get('http://localhost:8080/quiz/webapi/stats/topTenOverall', {headers: myHeader})
+                         .map (res => res.json());
+  }
 }

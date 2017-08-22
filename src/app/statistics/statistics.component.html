@@ -1,0 +1,47 @@
+<app-background></app-background>
+<!--Navbar-->
+<nav class="navbar navbar-default">
+
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+
+      <button id="burger" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+
+        <span class="sr-only">Menue navigation</span>
+        <span id="firstBar" class="icon-bar"></span>
+        <span id="secondBar" class="icon-bar"></span>
+        <span id="thirdBar" class="icon-bar"></span>
+
+      </button>
+
+      <!--  <img class="navbar-brand" href="#" src="./assets/avatar.jpg"> -->
+
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+      <ul id="menu-topmenu" class="nav navbar-nav navbar-left">
+        <li id="menu-item-1"><a href="">Login</a></li>
+      </ul>
+
+
+    </div> <!--/.navbar-collapse -->
+
+  </div><!-- /.container-fluid -->
+
+</nav>
+
+<!--End-Navbar-->
+
+<div *ngFor="let statistic of stats">
+  <p><b>Anzahl Fragen: </b>{{statistic.anzahlFragen}}
+  <b>Anzahl Spiele: </b>{{statistic.anzahlSpiele}}
+  <b>Anzahl richtiger Fragen: </b>{{statistic.fragenRichtig}}
+  <b>Gamemode: </b>{{statistic.gameMode}}
+  <b>Punktzahl: </b>{{statistic.punktZahl}}
+  {{statistic.userId}}</p>
+  <br>
+</div>
+<div class="anchor-frame">
+</div>
