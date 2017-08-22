@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-
 import { AppComponent } from './app.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { TimerbarComponent } from './timerbar/timerbar.component';
@@ -15,6 +14,9 @@ import { MenuComponent } from './menu/menu.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { OptionsComponent } from './options/options.component';
 import { InfoComponent} from './info/info.component';
+
+
+
 
 const appRoutes: Routes = [
   {path: '', component: LoginComponent},
