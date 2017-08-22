@@ -21,12 +21,9 @@ const appRoutes: Routes = [
   {path: 'signup', component: SignupComponent},
   {path: 'menu', component: MenuComponent},
   {path: 'options', component: OptionsComponent},
-<<<<<<< HEAD
   {path: 'stats', component: StatisticsComponent},
   {path: 'info', component: InfoComponent},
-=======
-  {path: 'stats', component: StatisticsComponent}
->>>>>>> origin/master
+  {path: 'stats', component: StatisticsComponent},
 ];
 
 @NgModule({
