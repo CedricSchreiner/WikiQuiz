@@ -37,6 +37,27 @@
 
 <!--End-Navbar-->
 
+<div class="login">
+  <div class="login-screen">
+    <div class="app-title">
+      <h1>Change Password</h1>
+    </div>
+
+    <div class="login-form">
+      <div class="control-group">
+        <input type="password" class="login-field" value="" placeholder="new password" id="newpasswd1">
+        <label class="login-field-icon fui-user" for="newpasswd1"></label>
+      </div>
+
+      <div class="control-group">
+        <input type="password" class="login-field" value="" placeholder="repeat password" id="newpasswd2">
+        <label class="login-field-icon fui-lock" for="newpasswd2"></label>
+      </div>
+
+      <a class="btn btn-primary btn-large btn-block" (click)="sendLoginData()">Save</a>
+    </div>
+  </div>
+</div>
 
 <!-- Timebar -->
 
@@ -54,28 +75,4 @@
   </div>
 </div>
 
-<div class="container" id="changePassword-Frame">
-  <div class="row">
-    <div class="col-sm-12">
-      <h1>Change Password</h1>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-6 col-sm-offset-3">
-      <form method="post" id="passwordForm">
-        <input type="password" class="input-lg form-control" name="password1" id="password1" placeholder="New Password" autocomplete="off">
-        <div class="row">
-  <br>
-        </div>
-        <input type="password" class="input-lg form-control" name="password2" id="password2" placeholder="Repeat Password" autocomplete="off">
-        <div class="row">
-
-        </div>
-        <br>
-        <input type="submit" class="col-xs-12 btn btn-primary btn-load btn-lg" data-loading-text="Changing Password..." value="Change Password">
-      </form>
-    </div><!--/col-sm-6-->
-  </div><!--/row-->
-</div>
 <!-- End Timebar -->
-
