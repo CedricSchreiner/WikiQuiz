@@ -1,6 +1,5 @@
 import {Component, OnInit } from '@angular/core';
 import {RestService} from '../service/rest.service';
-import { User } from '../user/user.component';
 
 @Component({
   selector: 'app-options',
