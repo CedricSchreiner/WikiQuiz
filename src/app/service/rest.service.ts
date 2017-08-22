@@ -38,4 +38,13 @@ export class RestService {
     return this.http.get('http://localhost:8080/quiz/webapi/stats/topTenOverall', {headers: myHeader})
                          .map (res => res.json());
   }
+
+  changePassword(password: string) {
+    const myHeader = new Headers();
+    myHeader.append('Authorization', 'Basic ' + btoa(sessionStorage.getItem('email') +
+      ':' + sessionStorage.getItem('password')));
+    return this.http.put('http://localhost:8080/quiz/webapi/auth/chPas',
+      JSON.stringify({sessionStorage.getItem('name'), sessionStorage.getItem('e_mail'), password: password}), {headers: myHeader})
+                        .map(res => res.json());
+  }
 }
