@@ -1,4 +1,29 @@
+/**Navbar Css */
+.navbar {
+  background-color: #0d87cf;
+}
 
+.navbar a
+{
+  color: white;
+  opacity: 0.85;
+}
+
+.navbar button:focus, .navbar button:active {
+  background-color: #0d87cf;
+  opacity: 0.85;
+}
+
+.navbar button span{
+
+  background-color: white;
+}
+
+.menuePoint
+{
+  font-size: 14px;
+}
+/** End Navbar CSS*/
 
 /** Login*/
 
