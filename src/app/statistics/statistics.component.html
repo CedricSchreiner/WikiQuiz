@@ -34,14 +34,23 @@
 
 <!--End-Navbar-->
 
-<div *ngFor="let statistic of stats">
-  <p><b>Anzahl Fragen: </b>{{statistic.anzahlFragen}}
-  <b>Anzahl Spiele: </b>{{statistic.anzahlSpiele}}
-  <b>Anzahl richtiger Fragen: </b>{{statistic.fragenRichtig}}
-  <b>Gamemode: </b>{{statistic.gameMode}}
-  <b>Punktzahl: </b>{{statistic.punktZahl}}
-  {{statistic.userId}}</p>
+<div>
   <br>
+  <table *ngFor="let statistic of stats" border="1px">
+    <!--
+    <tr>
+      <td width="40px">{{statistic.anzahlFragen}}</td>
+      <td width="40px">{{statistic.anzahlSpiele}}</td>
+      <td width="40px">{{statistic.fragenRichtig}}</td>
+      <td width="40px">{{statistic.gameMode}}</td>
+      <td width="40px">{{statistic.punktZahl}}</td>
+      <td width="40px">{{statistic.userId}}</td>
+    </tr>
+    -->
+  </table>
+  <table border="1px" id="statsTable">
+
+  </table>
 </div>
 <div class="anchor-frame">
 </div>
