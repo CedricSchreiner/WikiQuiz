@@ -20,9 +20,7 @@ const appRoutes: Routes = [
   {path: 'game', component: QuizComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'menu', component: MenuComponent},
-  {path: 'options', component: OptionsComponent}
-
-  {path: 'menu', component: MenuComponent},
+  {path: 'options', component: OptionsComponent},
   {path: 'stats', component: StatisticsComponent}
 ];
 
@@ -36,7 +34,6 @@ const appRoutes: Routes = [
     LoginComponent,
     SignupComponent,
     OptionsComponent,
-    MenuComponent
     MenuComponent,
     StatisticsComponent
   ],
