@@ -1,25 +1,46 @@
 <!-- <startLogin>Felder zum einfügen der login Informationen -->
 <app-background></app-background>
 
-<app-navbar></app-navbar>
 
-<!-- Timebar -->
+<!--Navbar-->
+ <nav class="navbar navbar-default">
 
-<div class="anchor-frame" id="status-frame">
+   <div class="container-fluid">
+     <!-- Brand and toggle get grouped for better mobile display -->
+     <div class="navbar-header">
+
+       <button id="burger" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+
+         <span class="sr-only">Menue navigation</span>
+         <span id="firstBar" class="icon-bar"></span>
+         <span id="secondBar" class="icon-bar"></span>
+         <span id="thirdBar" class="icon-bar"></span>
+
+       </button>
+        <ul>
+
+       <!--  <img class="navbar-brand" href="#" src="./assets/avatar.jpg"> -->
+
+        </ul>
+     </div>
+     <!-- Collect the nav links, forms, and other content for toggling -->
+     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+          <ul id="menu-topmenu" class="nav navbar-nav navbar-left">
+
+        <li id="menu-item-2"><a href="info">Info</a></li>
+    </ul>
+    
+
+     </div> <!--/.navbar-collapse -->
+
+   </div><!-- /.container-fluid -->
+
+ </nav>
+<!--End-Navbar-->
 
 
 
-  <div class="Timer" *ngIf="text != null">
-    Status: {{text}}
-
-
-
-
-
-  </div>
-</div>
-
-<!-- End Timebar -->
 
 
 <div class="info">
@@ -45,3 +66,22 @@
     
     
 </div>
+
+<!-- Timebar -->
+
+<div class="anchor-frame" id="status-frame">
+
+
+
+  <div class="Timer" *ngIf="text != null">
+    Status: {{text}}
+
+
+
+
+
+  </div>
+</div>
+
+<!-- End Timebar -->
+
