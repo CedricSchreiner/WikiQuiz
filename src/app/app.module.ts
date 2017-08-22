@@ -12,12 +12,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { RestService } from './service/rest.service';
 import { SignupComponent } from './signup/signup.component';
 import { MenuComponent } from './menu/menu.component';
+import {OptionsComponent} from "./options/options.component";
 
 const appRoutes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'game', component: QuizComponent},
   {path: 'signup', component: SignupComponent},
-  {path: 'menu', component: MenuComponent}
+  {path: 'menu', component: MenuComponent},
+  {path: 'options', component: OptionsComponent}
+
 ];
 
 @NgModule({
@@ -29,6 +32,7 @@ const appRoutes: Routes = [
     BackgroundComponent,
     LoginComponent,
     SignupComponent,
+    OptionsComponent,
     MenuComponent
   ],
   imports: [
