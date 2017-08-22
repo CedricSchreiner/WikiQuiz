@@ -11,8 +11,8 @@ import { User } from '../user/user.component';
 export class OptionsComponent implements OnInit {
   password1: string;
   password2: string;
-  changepwframe: HTMLDivElement;
   status: number;
+  text: string;
 
   constructor(private restService: RestService) {
   }
@@ -36,15 +36,19 @@ export class OptionsComponent implements OnInit {
           console.log(post);
           }, (err: any) => {
             this.status = err.status;
-            if (status === 0){
+            if (err.status === 0) {
+              this.text = 'Keine Verbindung zum Server';
+            }else {
+              this.text = 'Ups, da ist etwas schief gelaufen';
             }
-          }
-        });
+          });
+      }else {
+        this.status = 404;
+        this.text = 'Länge 8-20, min 1 Großbuchstabe, min 1 Zahl, min 1 Sonderzeichen';
+      }
+    }else {
+      this.status = 404;
+      this.text = 'Passwöter nicht gleich';
     }
-  }
-
-  changePasswordvisibile(){
-    this.changepwframe = (<HTMLDivElement>document.getElementById('change-option-button-pw'));
-    this.changepwframe.style.visibility = 'visible';
   }
 }
