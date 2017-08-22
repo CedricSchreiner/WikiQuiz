@@ -13,7 +13,6 @@ import { RestService } from './service/rest.service';
 import { SignupComponent } from './signup/signup.component';
 import { MenuComponent } from './menu/menu.component';
 import { OptionsComponent } from './options/options.component';
-import { ImpressumComponent } from './impressum/impressum.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 
 const appRoutes: Routes = [
@@ -22,7 +21,6 @@ const appRoutes: Routes = [
   {path: 'signup', component: SignupComponent},
   {path: 'menu', component: MenuComponent},
   {path: 'options', component: OptionsComponent},
-  {path: 'impressum', component: ImpressumComponent},
   {path: 'stats', component: StatisticsComponent}
 ];
 
@@ -37,7 +35,6 @@ const appRoutes: Routes = [
     SignupComponent,
     OptionsComponent,
     MenuComponent,
-    ImpressumComponent,
     StatisticsComponent
   ],
   imports: [
