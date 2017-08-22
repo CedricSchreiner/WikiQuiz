@@ -11,6 +11,7 @@ import { User } from '../user/user.component';
 export class OptionsComponent implements OnInit {
   password1: string;
   password2: string;
+  changepwframe: HTMLDivElement;
   status: number;
 
   constructor(private restService: RestService) {
@@ -35,9 +36,15 @@ export class OptionsComponent implements OnInit {
           console.log(post);
           }, (err: any) => {
             this.status = err.status;
-            if(status === 0)
+            if (status === 0){
+            }
           }
         });
     }
+  }
+
+  changePasswordvisibile(){
+    this.changepwframe = (<HTMLDivElement>document.getElementById('change-option-button-pw'));
+    this.changepwframe.style.visibility = 'visible';
   }
 }
