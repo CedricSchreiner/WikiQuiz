@@ -27,7 +27,10 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-
+      <ul id="menu-changeavatar" class="nav navbar-nav navbar-left">
+        <li id="menu-item-1"><a href="menue">Menue</a></li>
+        <li id="menu-item.3"><a href="">Log Out</a></li>
+      </ul>
 
     </div> <!--/.navbar-collapse -->
 
@@ -37,7 +40,7 @@
 
 <!--End-Navbar-->
 
-<div class="login">
+<div class="login" id="change-password-frame">
   <div class="login-screen">
     <div class="app-title">
       <h1>Change Password</h1>
@@ -75,4 +78,7 @@
   </div>
 </div>
 
+<a id="change-option-button-pw" class="btn btn-primary btn-large btn-block" (click)="changePassword()">Change Password</a>
+<br>
+<a id="change-option-button-av" class="btn btn-primary btn-large btn-block" (click)="changeAvatar()">Change Avatar</a>
 <!-- End Timebar -->
