@@ -11,7 +11,7 @@ export class RestService {
   login(email: string, password: string) {
     const myHeader = new Headers();
     myHeader.append('Authorization', 'Basic ' + btoa(email + ':' + password));
-    return this.http.get('http://localhost:8080/quiz/webapi/auth/login', {headers: myHeader}).map(res => res.json());
+    return this.http.get('http://localhost:8080/quiz/webapi/profile/auth/login', {headers: myHeader}).map(res => res.json());
   }
 
   signup(name: string, e_mail: string, passwort: string) {
@@ -35,7 +35,7 @@ export class RestService {
     const myHeader = new Headers();
     myHeader.append('Authorization', 'Basic ' + btoa(sessionStorage.getItem('email') +
       ':' + sessionStorage.getItem('password')));
-    return this.http.get('http://localhost:8080/quiz/webapi/stats/topTenOverall', {headers: myHeader})
+    return this.http.get('http://localhost:8080/quiz/webapi/stats/auth/topTenOverall', {headers: myHeader})
                          .map (res => res.json());
   }
 
@@ -52,7 +52,7 @@ export class RestService {
     myHeader.append('Authorization', 'Basic ' + btoa(sessionStorage.getItem('email') +
       ':' + sessionStorage.getItem('password')));
     myHeader.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:8080/quiz/webapi/auth/profile/chPas',
+    return this.http.post('http://localhost:8080/quiz/webapi/profile/auth/chPas',
       JSON.stringify({name: sessionStorage.getItem('username'), e_mail: sessionStorage.getItem('email'), passwort: password}),
       {headers: myHeader})
                         .map(res => res.json());
@@ -64,7 +64,7 @@ export class RestService {
       ':' + sessionStorage.getItem('password')));
     myHeader.append('Content-Type', 'application/json');
 
-    return this.http.post('http://localhost:8080/quiz/webapi/auth/profile/changeAvatar',
+    return this.http.post('http://localhost:8080/quiz/webapi/profile/auth/chAvl',
         JSON.stringify({e_mail: sessionStorage.getItem('email'), avatar_link: avatarLink}),
         {headers: myHeader})
         .map(res => res.json());
