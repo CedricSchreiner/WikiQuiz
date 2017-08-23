@@ -45,7 +45,7 @@ body {
   margin: 20px auto;
   width: 300px;
 }
-.login-screen {
+.login-screen, changeavatar-screen {
   background-color: #FFF;
   padding: 20px;
   border-radius: 5px
@@ -138,7 +138,7 @@ input:focus {
 
 /** End Timebar */
 
-#change-password-frame
+#change-password-frame, #change-avatar-frame
 {
   visibility: hidden;
 }
@@ -148,7 +148,18 @@ input:focus {
   #change-option-button-av, #change-option-button-pw
   {
     position: relative;
-    bottom: 250px;
+    bottom: auto;
+  }
+
+  #avatarPicture
+  {
+    cursor: pointer;
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    padding: 3px;
+    top: 2px;
+    right: 5%;
   }
 }
 
@@ -175,4 +186,20 @@ input:focus {
   top: 2px;
   padding: 3px;
   left: 25px;
+}
+
+.avatar-picture :hover
+{
+  cursor: pointer;
+}
+
+#avatarPicture
+{
+  cursor: pointer;
+  width: 45px;
+  height: 45px;
+  position: fixed;
+  padding: 3px;
+  top: 2px;
+  right: 6%;
 }

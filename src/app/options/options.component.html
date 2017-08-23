@@ -21,6 +21,11 @@
       <ul>
       <a href="menu"> <img id="logoPicture" class="navbar-brand" src="../assets/logo.png"> </a>
       </ul>
+
+      <ul>
+        <a href="options"> <img id="avatarPicture" class="navbar-brand" src={{avatarLinkString}}></a>
+      </ul>
+
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -62,6 +67,23 @@
       <br>
       <br>
       <a class="btn btn-primary btn-large btn-block" href="options">Back</a>
+    </div>
+  </div>
+</div>
+
+<div class="changeavatar" id="change-avatar-frame">
+  <div class="changeavatar-screen">
+    <div class="app-title">
+      <h1>Change Avatar</h1>
+    </div>
+
+    <div class="avatar-frame" id="avatar-collection">
+      <a class="avatar-picture" (click)="sendChangeAvatar('Yellow-Avatar.png')"><img id="avatar1" class="" src="../assets/Yellow-Avatar.png"></a>
+      <a class="avatar-picture" (click)="sendChangeAvatar('Green-Avatar.png')"><img id="avatar2" class="" src="../assets/Green-Avatar.png"></a>
+      <a class="avatar-picture" (click)="sendChangeAvatar('Blue-Avatar.png')"><img id="avatar3" class="" src="../assets/Blue-Avatar.png"></a>
+      <a class="avatar-picture" (click)="sendChangeAvatar('Red-Avatar.png')"><img id="avatar4" class="" src="../assets/Red-Avatar.png"></a>
+      <a class="avatar-picture" (click)="sendChangeAvatar('Cat-Robot-Avatar.png')"><img id="avatar5" class="" src="../assets/Cat-Robot-Avatar.png"></a>
+      <a class="avatar-picture" (click)="sendChangeAvatar('Pink-Avatar.png')"><img id="avatar6" class="" src="../assets/Pink-Avatar.png"></a>
     </div>
   </div>
 </div>

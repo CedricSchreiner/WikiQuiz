@@ -15,13 +15,14 @@ export class OptionsComponent implements OnInit {
   changeavatarframe: HTMLDivElement;
   changebuttondiv: HTMLDivElement;
   avatarLink: string;
-
+  avatarLinkString: string;
   text: string;
 
   constructor(private restService: RestService) {
   }
 
   ngOnInit() {
+    this.avatarLinkString = './assets/' + sessionStorage.getItem('link');
   }
 
   sendChangePassword() {
@@ -62,15 +63,15 @@ export class OptionsComponent implements OnInit {
     this.changepwframe.style.visibility = 'visible';
   }
 
-  // changeAvatarvisible() {
-  //   this.changeavatarframe = (<HTMLDivElement>document.getElementById(''));
-  //   this.changebuttondiv = (<HTMLDivElement>document.getElementById('change-option-button-div'));
-  //   this.changebuttondiv.style.visibility = 'hidden';
-  //   this.changepwframe.style.visibility = 'visible';
-  // }
+  changeAvatarvisible() {
+    this.changeavatarframe = (<HTMLDivElement>document.getElementById('change-avatar-frame'));
+    this.changebuttondiv = (<HTMLDivElement>document.getElementById('change-option-button-div'));
+    this.changebuttondiv.style.visibility = 'hidden';
+    this.changeavatarframe.style.visibility = 'visible';
+  }
 
   sendChangeAvatar(avatarLink: string) {
-    this.restService.changeAvatar(this.avatarLink).subscribe((post) => {
+    this.restService.changeAvatar(avatarLink).subscribe((post) => {
       console.log(post);
     }, (err: any) => {
       this.status = err.status;
