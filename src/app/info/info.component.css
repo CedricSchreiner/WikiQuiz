@@ -74,4 +74,14 @@
   text-align: center;
   font-size: 100%;
 }
+
+#logoPicture
+{
+  width: 45px;
+  height: 45px;
+  position: absolute;
+  top: 2px;
+  padding: 3px;
+  left: 25px;
+}
 /** End Timebar */
