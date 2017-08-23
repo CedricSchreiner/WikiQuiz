@@ -59,4 +59,14 @@
 {
   font-size: 14px;
 }
+
+#logoPicture
+{
+  width: 45px;
+  height: 45px;
+  position: absolute;
+  top: 2px;
+  padding: 3px;
+  left: 25px;
+}
 /** End Navbar CSS*/
