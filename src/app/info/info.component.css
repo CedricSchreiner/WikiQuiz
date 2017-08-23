@@ -44,15 +44,12 @@
 
 @media (max-width:960px)
 {
-	.beteiligte
+	.beteiligte, .danke
 	{
 		position: relative;
-	}
-
-    .danke {
-        position: relative;
+        font-size: 85%;
         left: 5%;
-    }
+	}
 
 }
 
