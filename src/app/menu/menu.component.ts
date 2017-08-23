@@ -14,7 +14,6 @@ export class MenuComponent implements OnInit {
   text: string;
   test: boolean; ///a
   link: string; ///a
-  ok: string;
 
   ngOnInit() {
     console.log('Menu initialisiert');
