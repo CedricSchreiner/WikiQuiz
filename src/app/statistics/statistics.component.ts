@@ -29,17 +29,14 @@ export class StatisticsComponent implements OnInit {
         header = table.createTHead();
         row = header.insertRow(i);
         cell = row.insertCell(0);
-        cell.innerHTML = stats[i].anzahlFragen;
-        cell = row.insertCell(1);
-        cell.innerHTML = stats[i].fragenRichtig;
-        cell = row.insertCell(2);
-        cell.innerHTML = stats[i].anzahlSpiele;
-        cell = row.insertCell(3);
-        cell.innerHTML = stats[i].gameMode;
-        cell = row.insertCell(4);
-        cell.innerHTML = stats[i].punktZahl;
-        cell = row.insertCell(5);
-        cell.innerHTML = stats[i].userId;
+        cell.innerHTML = '<b>' + String(i + 1) + '.</b>';
+        for (let j = 1; j < 7; j++) {
+          cell = row.insertCell(j);
+          cell.width = '100px';
+          if (this.stats.length > i) {
+            cell.innerHTML = this.get(i, j);
+          }
+        }
       }
     }));
   }
@@ -56,19 +53,32 @@ export class StatisticsComponent implements OnInit {
         header = table.createTHead();
         row = header.insertRow(i);
         cell = row.insertCell(0);
-        cell.innerHTML = stats[i].anzahlFragen;
-        cell = row.insertCell(1);
-        cell.innerHTML = stats[i].fragenRichtig;
-        cell = row.insertCell(2);
-        cell.innerHTML = stats[i].anzahlSpiele;
-        cell = row.insertCell(3);
-        cell.innerHTML = stats[i].gameMode;
-        cell = row.insertCell(4);
-        cell.innerHTML = stats[i].punktZahl;
-        cell = row.insertCell(5);
-        cell.innerHTML = stats[i].userId;
+        cell.innerHTML = '<b>' + String(i + 1) + '.</b>';
+        for (let j = 1; j < 7; j++) {
+          cell = row.insertCell(j);
+          cell.width = '100px';
+          if (this.stats.length >= i) {
+            cell.innerHTML = this.get(i, j);
+          }
+        }
       }
     }));
+  }
+
+  get(index: number, indexAttribute) {
+    if (indexAttribute === 1) {
+      return String(this.stats[index].anzahlFragen);
+    } else if (indexAttribute === 2) {
+      return String(this.stats[index].fragenRichtig);
+    } else if (indexAttribute === 3) {
+      return String(this.stats[index].anzahlSpiele);
+    } else if (indexAttribute === 4) {
+      return this.stats[index].gameMode;
+    } else if (indexAttribute === 5) {
+      return String(this.stats[index].punktZahl);
+    } else if (indexAttribute === 6) {
+      return String(this.stats[index].userId);
+    }
   }
 }
 
