@@ -12,7 +12,9 @@ export class OptionsComponent implements OnInit {
   password2: string;
   status: number;
   changepwframe: HTMLDivElement;
+  changeavatarframe: HTMLDivElement;
   changebuttondiv: HTMLDivElement;
+  avatarLink: string;
 
   text: string;
 
@@ -25,7 +27,6 @@ export class OptionsComponent implements OnInit {
   sendChangePassword() {
     this.password1 = (<HTMLInputElement>document.getElementById('newpasswd1')).value;
     this.password2 = (<HTMLInputElement>document.getElementById('newpasswd2')).value;
-    const regexEmail = new RegExp('.+@.+.\\..+');
     const regexPasswordSpecialCharachter = new RegExp('.*[\\W].*');
     const regexPasswordContainsCapital = new RegExp('.*[A-Z]+.*');
     const regexPasswordContainsNumber = new RegExp('.*[0-9].*');
@@ -50,7 +51,7 @@ export class OptionsComponent implements OnInit {
       }
     }else {
       this.status = 404;
-      this.text = 'Passwöter nicht gleich';
+      this.text = 'Passwörter nicht gleich';
     }
   }
 
@@ -59,6 +60,27 @@ export class OptionsComponent implements OnInit {
     this.changebuttondiv = (<HTMLDivElement>document.getElementById('change-option-button-div'));
     this.changebuttondiv.style.visibility = 'hidden';
     this.changepwframe.style.visibility = 'visible';
+  }
 
+  // changeAvatarvisible() {
+  //   this.changeavatarframe = (<HTMLDivElement>document.getElementById(''));
+  //   this.changebuttondiv = (<HTMLDivElement>document.getElementById('change-option-button-div'));
+  //   this.changebuttondiv.style.visibility = 'hidden';
+  //   this.changepwframe.style.visibility = 'visible';
+  // }
+
+  sendChangeAvatar(avatarLink: string) {
+    this.restService.changeAvatar(this.avatarLink).subscribe((post) => {
+      console.log(post);
+    }, (err: any) => {
+      this.status = err.status;
+      if (err.status === 0) {
+        this.text = 'keine Verbindung zum Server';
+      } else if (err.status === 201) {
+        this.text = 'Passwort erfolgreich geändert';
+      } else {
+        this.text = 'Ups, da ist etwas schief gelaufen';
+      }
+    });
   }
 }
