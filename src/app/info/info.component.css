@@ -1,9 +1,3 @@
-.info {
-  position: relative;
-  margin: auto;
-  width: 300px;
-}
-
 /**Navbar Css */
 .navbar {
   background-color: #0d87cf;
@@ -30,6 +24,21 @@
   font-size: 14px;
 }
 /** End Navbar CSS*/
+
+
+/** aussenframe */
+.beteiligte {
+    left: 5%;
+    position: absolute;
+
+}
+
+
+.kontakt {
+    right: 15%;
+    position: absolute;
+ }
+
 
 /** Timebar */
 
