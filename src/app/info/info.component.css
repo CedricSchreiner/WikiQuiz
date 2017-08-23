@@ -33,12 +33,28 @@
 
 }
 
-
-.kontakt {
+.danke {
     right: 15%;
     position: absolute;
- }
+    width: 150px;
+}
 
+
+
+
+@media (max-width:960px)
+{
+	.beteiligte
+	{
+		position: relative;
+	}
+
+    .danke {
+        position: relative;
+        left: 5%;
+    }
+
+}
 
 /** Timebar */
 
