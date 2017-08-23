@@ -143,10 +143,28 @@ input:focus {
   visibility: hidden;
 }
 
+@media (max-width:960px)
+{
+  #change-option-button-av, #change-option-button-pw
+  {
+    position: relative;
+    bottom: 250px;
+  }
+}
+
+@media (orientation: landscape)
+{
+  #change-option-button-av, #change-option-button-pw
+  {
+    position: relative;
+    bottom: 400px;
+  }
+}
+
 #change-option-button-av, #change-option-button-pw
 {
-position: relative;
-  bottom: 150px;
+  position: relative;
+  bottom: 250px;
 }
 
 #logoPicture
