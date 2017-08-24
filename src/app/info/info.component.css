@@ -26,7 +26,8 @@
 /** End Navbar CSS*/
 
 /** aussenframe */
-.beteiligte {
+
+.prof {
     left: 5%;
     position: absolute;
 
@@ -38,19 +39,52 @@
     width: 150px;
 }
 
+.students {
+    
+}
+
+@media (max-width:1366px)
+{
+    .prof, .danke, .students {
+        position: relative;
+        left: 5%;
+    }
+}
 
 
 
 @media (max-width:960px)
 {
-	.beteiligte, .danke
-	{
+	.prof, .danke, .students {
 		position: relative;
         font-size: 85%;
         left: 5%;
 	}
-
 }
+
+@media (max-height:420px)
+{
+    .prof {
+        font-size: 85%;
+        position: absolute;
+    }
+    
+    .students {
+        position: absolute;
+        left: 35%;
+        width: 150px;
+        top: 160px;
+        
+    }
+    
+    .danke {
+        font-size: 85%;
+        position: absolute;
+        left: 65%;
+    }
+}
+
+
 
 /** Timebar */
 .anchor-frame
