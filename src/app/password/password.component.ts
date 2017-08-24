@@ -11,7 +11,6 @@ export class PasswordComponent implements OnInit {
   password1: string;
   password2: string;
   status: number;
-  avatarLink: string;
   avatarLinkString: string;
   text: string;
 
