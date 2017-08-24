@@ -7,14 +7,16 @@ export class SurvivalQuizService {
   fragenArrayT1: Frage[];
   fragenPointer: number;
   t1: boolean;
+  lives: number;
   constructor(public restService: RestService) {
   }
 
   async startQuiz() {
+    this.lives = 3;
     while (!this.t1) {
       this.loadQuestionTable1();
       console.log('2');
-      await this.delay(1000);
+      await this.delay(2000);
     }
     this.t1 = false;
     this.fragenArrayInUse = this.fragenArrayT1;
@@ -31,12 +33,16 @@ export class SurvivalQuizService {
   async updateTable() {
     while (!this.t1) {
       this.loadQuestionTable1();
-      console.log('1');
       await this.delay(1000);
     }
   }
 
+  reduceLives() {
+    this.lives--;
+  }
+
   isFinished () {
+    return (this.lives === 0);
   }
 
   getQuestion() {

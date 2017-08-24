@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -34,6 +33,7 @@ export class MenuComponent implements OnInit {
       this.link = sessionStorage.getItem('link');
     }
   }
+
   GameModeMenu() {
     this.mainMenudiv = (<HTMLDivElement>document.getElementById('mainMenu'));
     this.mainMenudiv.style.display = 'none';
@@ -50,6 +50,10 @@ export class MenuComponent implements OnInit {
     this.mainMenudiv4.style.visibility = 'visible';
   }
 
+  start(gamemode: string) {
+    sessionStorage.setItem('gamemode', gamemode);
+    window.location.href = 'game';
+  }
 
   logout() {
     sessionStorage.clear();
