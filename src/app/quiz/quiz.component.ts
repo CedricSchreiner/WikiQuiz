@@ -36,6 +36,7 @@ export class QuizComponent implements OnInit {
   }
 
   nextQuestion(buttonNumber: number): any {
+    /*
     if (buttonNumber === Number(this.frage.SolutionNumber)) {
       this.richtigeAntworten++;
     }else {
@@ -56,8 +57,36 @@ export class QuizComponent implements OnInit {
     }
     switch (sessionStorage.getItem('gamemode')) {
       case '1': this.frage = this.survivalQuiz.getQuestion();
-                break;
+        break;
       case '2': this.frage = this.xquiz.getQuestion();
+        break;
+    }
+    */
+    if (buttonNumber === Number(this.frage.SolutionNumber)) {
+      this.richtigeAntworten++;
+    }
+    switch (sessionStorage.getItem('gamemode')) {
+      case '1': if (buttonNumber !== Number(this.frage.SolutionNumber)) {
+                  this.survivalQuiz.reduceLives();
+                  if (this.survivalQuiz.isFinished()) {
+                    sessionStorage.removeItem('gamemode');
+                    /*<===============================================>*/
+                    /*Hier kann das Statistik Fenster aufgerufen werden*/
+                    /*<===============================================>*/
+                    window.location.href = 'menu';
+                  }
+                }
+                this.frage = this.survivalQuiz.getQuestion();
+                break;
+      case '2': if (this.xquiz.isFinished()) {
+                  sessionStorage.removeItem('gamemode');
+                  sessionStorage.removeItem('anzahlFragen');
+                  /*<===============================================>*/
+                  /*Hier kann das Statistik Fenster aufgerufen werden*/
+                  /*<===============================================>*/
+                  window.location.href = 'menu';
+                }
+                this.frage = this.xquiz.getQuestion();
                 break;
     }
   }

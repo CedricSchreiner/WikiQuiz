@@ -15,7 +15,6 @@ export class MenuComponent implements OnInit {
   mainMenudiv2: HTMLDivElement;
   mainMenudiv3: HTMLDivElement;
   mainMenudiv4: HTMLDivElement;
-  mainMenudiv5: HTMLDivElement;
 
   ngOnInit() {
     this.avatarLinkString = './assets/' + sessionStorage.getItem('link');
@@ -52,4 +51,9 @@ export class MenuComponent implements OnInit {
   logout() {
     sessionStorage.clear();
   }
+
+  link(linkToGo: string) {
+    window.location.href = linkToGo;
+  }
 }
+

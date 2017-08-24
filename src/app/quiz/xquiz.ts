@@ -48,23 +48,27 @@ export class XQuizService {
   }
 
   isFinished () {
+    console.log(this.beantworteteFragen);
+    console.log(this.anzahlFragen);
     return (this.beantworteteFragen === this.anzahlFragen);
   }
 
   getQuestion() {
     this.beantworteteFragen++;
-    if (this.fragenPointer < 4) {
-      this.fragenPointer++;
-      return this.fragenArrayInUse[this.fragenPointer];
-    } else {
-      console.log('Alte Fragen leer neue laden');
-      this.fragenPointer = 0;
-      this.fragenArrayInUse = this.fragenArrayLadeFragen;
-      this.updateTable();
-      this.tableFilled = false;
-      console.log(this.fragenArrayInUse);
-      console.log('Neue Fragen werden angezeigt');
-      return this.fragenArrayInUse[this.fragenPointer];
+    if (this.beantworteteFragen <= this.anzahlFragen) {
+      if (this.fragenPointer < 4) {
+        this.fragenPointer++;
+        return this.fragenArrayInUse[this.fragenPointer];
+      } else {
+        console.log('Alte Fragen leer neue laden');
+        this.fragenPointer = 0;
+        this.fragenArrayInUse = this.fragenArrayLadeFragen;
+        this.updateTable();
+        this.tableFilled = false;
+        console.log(this.fragenArrayInUse);
+        console.log('Neue Fragen werden angezeigt');
+        return this.fragenArrayInUse[this.fragenPointer];
+      }
     }
   }
 

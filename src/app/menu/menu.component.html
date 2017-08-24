@@ -17,11 +17,11 @@
       </button>
 
       <ul>
-        <a href="menu"> <img id="logoPicture" class="navbar-brand" src="../assets/logo.png"> </a>
+        <a (click)="link('menu')"> <img id="logoPicture" class="navbar-brand" src="../../assets/logo.png"> </a>
       </ul>
 
       <ul>
-        <a href="options"> <img id="avatarPicture" class="navbar-brand" src={{avatarLinkString}}></a>
+        <a (click)="link('options')"> <img id="avatarPicture" class="navbar-brand" src={{avatarLinkString}}></a>
       </ul>
 
     </div>
@@ -29,11 +29,11 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
       <ul id="menu-topmenu" class="nav navbar-nav navbar-left">
-        <li id="menu-item-2"><a href="info">Info</a></li>
+        <li id="menu-item-2"><a (click)="link('info')">Info</a></li>
       </ul>
 
       <ul id="menu-logout" class="nav navbar-nav navbar-right">
-        <li id="menu-item.2" (click)="logout()"><a href="">Log Out</a></li>
+        <li id="menu-item.2" (click)="logout()"><a (click)="link('')">Log Out</a></li>
       </ul>
 
     </div> <!--/.navbar-collapse -->
@@ -47,9 +47,9 @@
 <br>
 <a class="btn btn-primary btn-large btn-block" (click)="GameModeMenu()">Singleplayer <!--href="game">Singleplayer--></a>
 <br>
-<a class="btn btn-primary btn-large btn-block" href="stats">Statistic</a>
+<a class="btn btn-primary btn-large btn-block" (click)="link('stats')">Statistic</a>
 <br>
-<a class="btn btn-primary btn-large btn-block" href="options">Options</a>
+<a class="btn btn-primary btn-large btn-block" (click)="link('options')">Options</a>
 </div>
 
 
@@ -66,9 +66,9 @@
   <br>
   <a class="btn btn-primary btn-large btn-block" (click)="start('2', '10')">10 Fragen</a>
   <br>
-  <a class="btn btn-primary btn-large btn-block" (click)="start('3', '30')">30 Fragen</a>
+  <a class="btn btn-primary btn-large btn-block" (click)="start('2', '30')">30 Fragen</a>
   <br>
-  <a class="btn btn-primary btn-large btn-block" (click)="start('4', '50')">50 Fragen</a>
+  <a class="btn btn-primary btn-large btn-block" (click)="start('2', '50')">50 Fragen</a>
 </div>
 
 
