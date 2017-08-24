@@ -116,6 +116,13 @@ input:focus {
 
 @media (max-width:960px)
 {
+  #option-avatar-button
+  {
+    position: relative;
+    left: 20%;
+    width: 80%;
+  }
+
   #choosen-avatarPicture
   {
     cursor: pointer;
@@ -158,8 +165,7 @@ input:focus {
   transform:scale(1.25);
 }
 
-#choosen-avatarPicture
-{
+#choosen-avatarPicture {
   cursor: pointer;
   width: 45px;
   height: 45px;
@@ -173,9 +179,31 @@ input:focus {
 {
   float: left;
   margin: 5px;
+  width: 35%;
 }
 
-#option-avatar-button
-{
-  text-align: center;
+#option-avatar-button {
+  position: relative;
+  left: 22%;
+  width: 80%;
+}
+
+@media (orientation: portrait) {
+
+  #avatar1, #avatar2, #avatar3, #avatar4, #avatar5, #avatar6 {
+    height: 80px;
+    width: 80px;
+  }
+}
+
+@media (orientation: landscape) {
+  #avatar-collection
+  {
+    position: relative;
+    bottom: 45px;
+  }
+  #option-avatar-button
+  {
+    bottom: 50px;
+  }
 }
