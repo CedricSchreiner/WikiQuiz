@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {RestService} from '../service/rest.service';
+import { RestService } from '../service/rest.service';
+import { SurvivalQuizService } from './survivalQuiz';
 
 @Component({
   selector: 'app-quiz',
@@ -13,7 +14,7 @@ export class QuizComponent implements OnInit {
   frage: Frage;
   richtigeAntworten: number;
 
-  constructor(private restService: RestService) {
+  constructor(private restService: RestService, private survivalQuiz: SurvivalQuizService) {
   }
   ngOnInit() {
     if (sessionStorage.length > 0) {
