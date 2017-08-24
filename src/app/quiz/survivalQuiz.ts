@@ -7,17 +7,22 @@ export class SurvivalQuizService {
   fragenArrayT1: Frage[];
   fragenPointer: number;
   t1: boolean;
+  tableLoadFailure: boolean;
   lives: number;
   constructor(public restService: RestService) {
   }
 
   async startQuiz() {
+    let tableInitialStart = false;
     this.lives = 3;
     while (!this.t1) {
-      this.loadQuestionTable1();
-      console.log('2');
-      await this.delay(2000);
+      if (!tableInitialStart || (tableInitialStart && this.tableLoadFailure))  {
+        this.loadQuestionTable1();
+        tableInitialStart = true;
+      }
+      await this.delay(100);
     }
+    this.updateTable();
     this.t1 = false;
     this.fragenArrayInUse = this.fragenArrayT1;
     console.log(this.fragenArrayInUse);
@@ -31,9 +36,13 @@ export class SurvivalQuizService {
   }
 
   async updateTable() {
+    let tableInitialStart = false;
     while (!this.t1) {
-      this.loadQuestionTable1();
-      await this.delay(1000);
+      if (!tableInitialStart || (tableInitialStart && this.tableLoadFailure))  {
+        this.loadQuestionTable1();
+        tableInitialStart = true;
+      }
+      await this.delay(100);
     }
   }
 
@@ -63,10 +72,14 @@ export class SurvivalQuizService {
 
   loadQuestionTable1() {
     console.log('Tabelle 1 wird geladen');
+    this.tableLoadFailure = false;
     this.restService.getQuestions(10, 1).subscribe((fragen) => {
       this.fragenArrayT1 = fragen;
       this.t1 = true;
       console.log('Tabelle 1 geladen');
+    }, (err: any) => {
+      console.log('Fehler beim laden der Tabelle');
+      this.tableLoadFailure = true;
     });
   }
 }
