@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SurvivalQuizService } from './survivalquiz';
 import { XQuizService } from './xquiz';
+import {RestService} from '../service/rest.service';
 
 @Component({
   selector: 'app-quiz',
@@ -11,6 +12,7 @@ import { XQuizService } from './xquiz';
 export class QuizComponent implements OnInit {
   test: boolean;
   frage: Frage;
+  avatarLinkString: string;
   richtigeAntworten: number;
   /**
    * 1 = Survival Quiz
@@ -24,6 +26,7 @@ export class QuizComponent implements OnInit {
     if (sessionStorage.length > 0) {
       this.test = true;
       this.richtigeAntworten = 0;
+      this.avatarLinkString = './assets/' + sessionStorage.getItem('link'); // fuer den Avatar
       switch (sessionStorage.getItem('gamemode')) {
         case '1': await this.survivalQuiz.startQuiz();
                   this.frage = this.survivalQuiz.getQuestion();

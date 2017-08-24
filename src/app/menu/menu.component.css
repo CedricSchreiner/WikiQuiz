@@ -16,10 +16,50 @@
   margin: 10px auto;
 }
 
+#avatarPicture
+{
+  cursor: pointer;
+  width: 45px;
+  height: 45px;
+  position: absolute;
+  padding: 3px;
+  top: 2px;
+  right: 95px;
+}
+
+#logoPicture
+{
+  width: 45px;
+  height: 45px;
+  position: absolute;
+  top: 2px;
+  padding: 3px;
+  left: 25px;
+}
+
 @media (max-width: 960px) {
   .btn
   {
     font-size: 16px;
+  }
+
+  #logoPicture
+  {
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    padding: 3px;
+    left: 5px;
+  }
+
+  #avatarPicture
+  {
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    padding: 3px;
+    top: 2px;
+    right: 65px;
   }
 
   @media (orientation: landscape) {
@@ -77,26 +117,7 @@
   font-size: 14px;
 }
 
-#logoPicture
-{
-  width: 45px;
-  height: 45px;
-  position: absolute;
-  top: 2px;
-  padding: 3px;
-  left: 25px;
-}
 
-#avatarPicture
-{
-  cursor: pointer;
-  width: 45px;
-  height: 45px;
-  position: fixed;
-  padding: 3px;
-  top: 2px;
-  right: 6%;
-}
 /** End Navbar CSS*/
  #mainMenu2{
    visibility: hidden;

@@ -151,10 +151,24 @@ input:focus {
   cursor: pointer;
   width: 45px;
   height: 45px;
-  position: fixed;
+  position: absolute;
   padding: 3px;
   top: 2px;
-  right: 6%;
+  right: 95px;
+}
+
+@media (max-width: 960px)
+{
+  #avatarPicture
+  {
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    padding: 3px;
+    top: 2px;
+    right: 65px;
+  }
+
 }
 
 /** End Timebar */

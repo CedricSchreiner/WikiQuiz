@@ -114,27 +114,6 @@ input:focus {
 
 /** End Timebar */
 
-@media (max-width:960px)
-{
-  #option-avatar-button
-  {
-    position: relative;
-    left: 20%;
-    width: 80%;
-  }
-
-  #choosen-avatarPicture
-  {
-    cursor: pointer;
-    width: 45px;
-    height: 45px;
-    position: absolute;
-    padding: 3px;
-    top: 2px;
-    right: 5%;
-  }
-}
-
 #logoPicture
 {
   width: 45px;
@@ -144,6 +123,47 @@ input:focus {
   padding: 3px;
   left: 25px;
 }
+
+#choosen-avatarPicture
+{
+  cursor: pointer;
+  width: 45px;
+  height: 45px;
+  position: absolute;
+  padding: 3px;
+  top: 2px;
+  right: 95px;
+}
+
+@media (max-width:960px)
+{
+  #logoPicture
+  {
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    padding: 3px;
+    left: 5px;
+  }
+
+  #option-avatar-button
+  {
+    position: relative;
+    left: 20%;
+    width: 80%;
+  }
+
+  #choosen-avatarPicture
+  {
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    padding: 3px;
+    top: 2px;
+    right: 65px;
+  }
+}
+
 
 #avatar-collection {
   text-align: center;
@@ -163,16 +183,6 @@ input:focus {
   -ms-transform:scale(1.25); /* IE 9 */
   -o-transform:scale(1.25); /* Opera */
   transform:scale(1.25);
-}
-
-#choosen-avatarPicture {
-  cursor: pointer;
-  width: 45px;
-  height: 45px;
-  position: fixed;
-  padding: 3px;
-  top: 2px;
-  right: 6%;
 }
 
 #button-back, #button-save

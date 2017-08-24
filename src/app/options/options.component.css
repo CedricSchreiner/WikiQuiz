@@ -131,18 +131,15 @@ input:focus {
   font-size: 100%;
 }
 
-@media (max-width:960px)
+#choosen-avatarPicture
 {
-  #choosen-avatarPicture
-  {
-    cursor: pointer;
-    width: 45px;
-    height: 45px;
-    position: absolute;
-    padding: 3px;
-    top: 2px;
-    right: 5%;
-  }
+  cursor: pointer;
+  width: 45px;
+  height: 45px;
+  position: absolute;
+  padding: 3px;
+  top: 2px;
+  right: 95px;
 }
 
 #logoPicture
@@ -155,18 +152,29 @@ input:focus {
   left: 25px;
 }
 
+@media (max-width:960px)
+{
+  #logoPicture
+  {
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    padding: 3px;
+    left: 5px;
+  }
+
+  #choosen-avatarPicture
+  {
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    padding: 3px;
+    top: 2px;
+    right: 65px;
+  }
+}
+
 .change-option-button-div
 {
   top: 50%
-}
-
-#choosen-avatarPicture
-{
-  cursor: pointer;
-  width: 45px;
-  height: 45px;
-  position: fixed;
-  padding: 3px;
-  top: 2px;
-  right: 6%;
 }
