@@ -188,9 +188,21 @@ input:focus {
   left: 25px;
 }
 
+#avatar-collection
+{
+  position: relative;
+  left: 22.5%;
+}
+.avatar-picture
+{
+  position: relative;
+}
+
 .avatar-picture :hover
 {
   cursor: pointer;
+  width: 185px;
+  height: 185px;
 }
 
 #avatarPicture

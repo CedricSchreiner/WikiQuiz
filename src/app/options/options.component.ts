@@ -37,7 +37,9 @@ export class OptionsComponent implements OnInit {
           regexPasswordContainsCapital.test(this.password1) &&
           regexPasswordContainsNumber.test(this.password1)) {
           this.restService.changePassword(this.password1).subscribe((post) => {
-          console.log(post);
+            this.text = 'Password successfully changed';
+            sessionStorage.setItem('password', this.password1);
+            console.log(post);
           }, (err: any) => {
             this.status = err.status;
             if (err.status === 0) {
@@ -72,6 +74,8 @@ export class OptionsComponent implements OnInit {
 
   sendChangeAvatar(avatarLink: string) {
     this.restService.changeAvatar(avatarLink).subscribe((post) => {
+      sessionStorage.setItem('link', avatarLink);
+      this.text = 'Avatar successfully changed';
       console.log(post);
     }, (err: any) => {
       this.status = err.status;
@@ -83,5 +87,9 @@ export class OptionsComponent implements OnInit {
         this.text = 'Ups, da ist etwas schief gelaufen';
       }
     });
+  }
+
+  logout() {
+    sessionStorage.clear();
   }
 }

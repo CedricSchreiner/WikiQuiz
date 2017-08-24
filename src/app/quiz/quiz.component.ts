@@ -37,6 +37,10 @@ export class QuizComponent implements OnInit {
     this.fragenPointer++;
     this.frage = this.fragenArray[this.fragenPointer];
   }
+
+  logout() {
+    sessionStorage.clear();
+  }
 }
 interface Frage {
   Verbalization: string;

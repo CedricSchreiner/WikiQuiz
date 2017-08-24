@@ -28,4 +28,8 @@ export class MenuComponent implements OnInit {
       this.link = sessionStorage.getItem('link');
     }
   }
+
+  logout() {
+    sessionStorage.clear();
+  }
 }
