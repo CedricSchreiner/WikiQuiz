@@ -21,10 +21,13 @@ export class AvatarComponent implements OnInit {
   ngOnInit() {
     this.avatarLinkString = './assets/' + sessionStorage.getItem('link');
   }
+  selectAvatar(avatarLink: string) {
+    this.avatarLink = avatarLink;
+    sessionStorage.setItem('link', avatarLink);
+  }
 
-  sendChangeAvatar(avatarLink: string) {
-    this.restService.changeAvatar(avatarLink).subscribe((post) => {
-      sessionStorage.setItem('link', avatarLink);
+  sendChangeAvatar() {
+    this.restService.changeAvatar(sessionStorage.getItem('link')).subscribe((post) => {
       this.text = 'Avatar successfully changed';
       console.log(post);
     }, (err: any) => {

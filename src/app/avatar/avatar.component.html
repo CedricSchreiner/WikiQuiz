@@ -55,18 +55,18 @@
   <br>
   <br>
   <div class="avatar-frame" id="avatar-collection">
-    <a class="avatar-picture" (click)="sendChangeAvatar('Yellow-Avatar.png')"><img id="avatar1" class="" src="../assets/Yellow-Avatar.png" srcset="../assets/Yellow-Avatar.png 1600w"></a>
-    <a class="avatar-picture" (click)="sendChangeAvatar('Green-Avatar.png')"><img id="avatar2" class="" src="../assets/Green-Avatar.png" srcset="../assets/Green-Avatar.png 1600w"></a>
-    <a class="avatar-picture" (click)="sendChangeAvatar('Blue-Avatar.png')"><img id="avatar3" class="" src="../assets/Blue-Avatar.png" srcset="../assets/Blue-Avatar.png 1600w"></a>
-    <a class="avatar-picture" (click)="sendChangeAvatar('Red-Avatar.png')"><img id="avatar4" class="" src="../assets/Red-Avatar.png" srcset="../assets/Red-Avatar.png 1600w"></a>
-    <a class="avatar-picture" (click)="sendChangeAvatar('Cat-Robot-Avatar.png')"><img id="avatar5" class="" src="../assets/Cat-Robot-Avatar.png" srcset="../assets/Cat-Robot-Avatar.png 1600w"></a>
-    <a class="avatar-picture" (click)="sendChangeAvatar('Pink-Avatar.png')"><img id="avatar6" class="" src="../assets/Pink-Avatar.png" srcset="../assets/Pink-Avatar.png 1600w"></a>
+    <a class="avatar-picture" (click)="selectAvatar('Yellow-Avatar.png')"href="avatar"><img id="avatar1" class="" src="../assets/Yellow-Avatar.png" srcset="../assets/Yellow-Avatar.png 1600w"></a>
+    <a class="avatar-picture" (click)="selectAvatar('Green-Avatar.png')"href="avatar"><img id="avatar2" class="" src="../assets/Green-Avatar.png" srcset="../assets/Green-Avatar.png 1600w"></a>
+    <a class="avatar-picture" (click)="selectAvatar('Blue-Avatar.png')"href="avatar"><img id="avatar3" class="" src="../assets/Blue-Avatar.png" srcset="../assets/Blue-Avatar.png 1600w"></a>
+    <a class="avatar-picture" (click)="selectAvatar('Red-Avatar.png')"href="avatar"><img id="avatar4" class="" src="../assets/Red-Avatar.png" srcset="../assets/Red-Avatar.png 1600w"></a>
+    <a class="avatar-picture" (click)="selectAvatar('Cat-Robot-Avatar.png')"href="avatar"><img id="avatar5" class="" src="../assets/Cat-Robot-Avatar.png" srcset="../assets/Cat-Robot-Avatar.png 1600w"></a>
+    <a class="avatar-picture" (click)="selectAvatar('Pink-Avatar.png')"href="avatar"><img id="avatar6" class="" src="../assets/Pink-Avatar.png" srcset="../assets/Pink-Avatar.png 1600w"></a>
   </div>
   <br>
   <br>
   <div id="option-avatar-button">
     <a class="btn btn-primary btn-large btn-block" id="button-back" href="options">Back</a>
-    <a class="btn btn-primary btn-large btn-block" id="button-save">Save</a>
+    <a class="btn btn-primary btn-large btn-block" (click)="sendChangeAvatar()" id="button-save">Save</a>
   </div>
 
 </div>

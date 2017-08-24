@@ -11,8 +11,16 @@
   box-shadow: none;
   transition: 0.25s;
   display: block;
-  width: 250px;
-  margin: 0 auto;
+  width: 40%;
+  margin: 10px auto;
+}
+
+@media (orientation: landscape) {
+  .btn
+  {
+    padding: 5px;
+    margin: 0 auto;
+  }
 }
 
 .btn:hover {
