@@ -29,6 +29,10 @@ export class QuizComponent implements OnInit {
     }
     this.frage = this.survivalQuiz.getQuestion();
   }
+
+  logout() {
+    sessionStorage.clear();
+  }
 }
 interface Frage {
   Verbalization: string;

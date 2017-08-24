@@ -82,6 +82,10 @@ export class StatisticsComponent implements OnInit {
       return String(this.stats[index].userId);
     }
   }
+
+  logout() {
+    sessionStorage.clear();
+  }
 }
 
 interface Statistic {

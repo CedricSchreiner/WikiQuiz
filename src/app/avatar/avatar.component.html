@@ -1,0 +1,80 @@
+<!-- <startLogin>Felder zum einfügen der login Informationen -->
+<app-background></app-background>
+
+<!-- <app-signup></app-signup> -->
+
+<!--Navbar-->
+<nav class="navbar navbar-default">
+
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+
+      <button id="burger" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Menue navigation</span>
+        <span id="firstBar" class="icon-bar"></span>
+        <span id="secondBar" class="icon-bar"></span>
+        <span id="thirdBar" class="icon-bar"></span>
+      </button>
+
+      <ul>
+        <a href="menu"> <img id="logoPicture" class="navbar-brand" src="../assets/logo.png"> </a>
+      </ul>
+
+      <ul>
+        <a href="options"> <img id="choosen-avatarPicture" class="navbar-brand" src={{avatarLinkString}}></a>
+      </ul>
+
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+      <ul id="menu-changeavatar" class="nav navbar-nav navbar-left">
+        <li id="menu-item.1"><a href="info">Info</a></li>
+      </ul>
+
+      <ul id="menu-logout" class="nav navbar-nav navbar-right">
+        <li id="menu-item.2" (click)="logout()"><a href="">Log Out</a></li>
+      </ul>
+
+    </div> <!--/.navbar-collapse -->
+
+  </div><!-- /.container-fluid -->
+
+</nav>
+
+<!--End-Navbar-->
+
+<div class="changeavatar" id="change-avatar-frame">
+
+  <div class="app-title">
+    <h1>Change Avatar</h1>
+  </div>
+
+  <br>
+  <br>
+  <div class="avatar-frame" id="avatar-collection">
+    <a class="avatar-picture" (click)="sendChangeAvatar('Yellow-Avatar.png')"><img id="avatar1" class="" src="../assets/Yellow-Avatar.png" srcset="../assets/Yellow-Avatar.png 1600w"></a>
+    <a class="avatar-picture" (click)="sendChangeAvatar('Green-Avatar.png')"><img id="avatar2" class="" src="../assets/Green-Avatar.png" srcset="../assets/Green-Avatar.png 1600w"></a>
+    <a class="avatar-picture" (click)="sendChangeAvatar('Blue-Avatar.png')"><img id="avatar3" class="" src="../assets/Blue-Avatar.png" srcset="../assets/Blue-Avatar.png 1600w"></a>
+    <a class="avatar-picture" (click)="sendChangeAvatar('Red-Avatar.png')"><img id="avatar4" class="" src="../assets/Red-Avatar.png" srcset="../assets/Red-Avatar.png 1600w"></a>
+    <a class="avatar-picture" (click)="sendChangeAvatar('Cat-Robot-Avatar.png')"><img id="avatar5" class="" src="../assets/Cat-Robot-Avatar.png" srcset="../assets/Cat-Robot-Avatar.png 1600w"></a>
+    <a class="avatar-picture" (click)="sendChangeAvatar('Pink-Avatar.png')"><img id="avatar6" class="" src="../assets/Pink-Avatar.png" srcset="../assets/Pink-Avatar.png 1600w"></a>
+  </div>
+  <br>
+  <br>
+  <div id="option-avatar-button">
+    <a class="btn btn-primary btn-large btn-block" id="button-back" href="options">Back</a>
+    <a class="btn btn-primary btn-large btn-block" id="button-save">Save</a>
+  </div>
+
+</div>
+
+<!-- Timebar -->
+<div class="anchor-frame" id="status-frame">
+  <div class="message-box" *ngIf="text != null">
+    Status: {{text}}
+  </div>
+</div>
+<!-- End Timebar -->

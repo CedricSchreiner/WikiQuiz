@@ -81,3 +81,9 @@
   right: 6%;
 }
 /** End Navbar CSS*/
+ #mainMenu2{
+   visibility: hidden;
+ }
+ #mainMenu3{
+   visibility: hidden;
+ }

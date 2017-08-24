@@ -33,7 +33,7 @@
       </ul>
 
       <ul id="menu-logout" class="nav navbar-nav navbar-right">
-        <li id="menu-item.2"><a href="">Log Out</a></li>
+        <li id="menu-item.2" (click)="logout()"><a href="">Log Out</a></li>
       </ul>
 
     </div> <!--/.navbar-collapse -->
@@ -43,12 +43,34 @@
 
 
 <!--Main Menu-->
+<div id="mainMenu">
 <br>
-<a class="btn btn-primary btn-large btn-block" href="game">Singleplayer</a>
+<a class="btn btn-primary btn-large btn-block" (click)="GameModeMenu()">Singleplayer <!--href="game">Singleplayer--></a>
 <br>
 <a class="btn btn-primary btn-large btn-block" href="stats">Statistic</a>
 <br>
 <a class="btn btn-primary btn-large btn-block" href="options">Options</a>
+</div>
+
+
+<!--Main Menu 2 SinglePlayerSelection-->
+<div id="mainMenu2">
+  <br>
+  <a class="btn btn-primary btn-large btn-block" (click)="XQuizSelection()">XQuiz</a>
+  <br>
+  <a class="btn btn-primary btn-large btn-block" (click)="SurvivalSelection()">Survival</a>
+</div>
+
+<!--Main Menu 3 XQuiz Selection-->
+<div id="mainMenu3">
+  <br>
+  <a class="btn btn-primary btn-large btn-block" >10 Fragen</a>
+  <br>
+  <a class="btn btn-primary btn-large btn-block" >30 Fragen</a>
+  <br>
+  <a class="btn btn-primary btn-large btn-block" >50 Fragen</a>
+</div>
+
 
 <!-- Timebar -->
 <div class="anchor-frame" id="status-frame">
