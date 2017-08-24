@@ -2,9 +2,9 @@
   border: 2px solid transparent;
   background: #3498DB;
   color: #ffffff;
-  font-size: 16px;
+  font-size: 25px;
   line-height: 25px;
-  padding: 10px 0;
+  padding: 12px auto;
   text-decoration: none;
   text-shadow: none;
   border-radius: 3px;
@@ -12,14 +12,23 @@
   transition: 0.25s;
   display: block;
   width: 40%;
+  height: 55px;
   margin: 10px auto;
 }
 
-@media (orientation: landscape) {
+@media (max-width: 960px) {
   .btn
   {
-    padding: 5px;
-    margin: 0 auto;
+    font-size: 16px;
+  }
+
+  @media (orientation: landscape) {
+    .btn
+    {
+      height: 40px;
+      padding: 5px;
+      margin: 0 auto;
+    }
   }
 }
 
