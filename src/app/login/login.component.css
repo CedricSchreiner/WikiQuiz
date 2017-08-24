@@ -163,4 +163,25 @@ input:focus {
   left: 25px;
 }
 
+
+#logoPicture
+{
+  width: 45px;
+  height: 45px;
+  position: absolute;
+  top: 2px;
+  padding: 3px;
+  left: 25px;
+}
+
+@media (max-width:960px) {
+  #logoPicture {
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    padding: 3px;
+    left: 5px;
+  }
+}
+
 /** End Timebar */
