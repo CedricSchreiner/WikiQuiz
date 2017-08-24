@@ -157,8 +157,7 @@ input:focus {
 
 .change-option-button-div
 {
-  top: 50%;
-  positition: relativ;
+  top: 50%
 }
 
 #choosen-avatarPicture
@@ -171,4 +170,3 @@ input:focus {
   top: 2px;
   right: 6%;
 }
-
