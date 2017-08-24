@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SurvivalQuizService } from './survivalQuiz';
+import { SurvivalQuizService } from './survivalquiz';
+import { XQuizService } from './xquiz';
 
 @Component({
   selector: 'app-quiz',
@@ -13,28 +14,24 @@ export class QuizComponent implements OnInit {
   richtigeAntworten: number;
   /**
    * 1 = Survival Quiz
-   * 2 = xQuiz
+   * 2 = xQuiz 10/30/50 Fragen
    */
-  gameArray = ['1', '2'];
 
-  constructor(private survivalQuiz: SurvivalQuizService) {
+  constructor(private survivalQuiz: SurvivalQuizService, private xquiz: XQuizService) {
   }
 
   async ngOnInit() {
     if (sessionStorage.length > 0) {
+      this.test = true;
+      this.richtigeAntworten = 0;
       switch (sessionStorage.getItem('gamemode')) {
-        case '1': this.test = true;
-                  this.richtigeAntworten = 0;
-                  await this.survivalQuiz.startQuiz();
+        case '1': await this.survivalQuiz.startQuiz();
                   this.frage = this.survivalQuiz.getQuestion();
                   break;
+        case '2': await this.xquiz.startQuiz(Number(sessionStorage.getItem('anzahlFragen')));
+                  this.frage = this.xquiz.getQuestion();
+                  break;
       }
-    }
-  }
-
-  start(game: number) {
-    switch (game) {
-      case 1: console.log('');
     }
   }
 
@@ -42,13 +39,27 @@ export class QuizComponent implements OnInit {
     if (buttonNumber === Number(this.frage.SolutionNumber)) {
       this.richtigeAntworten++;
     }else {
-      this.survivalQuiz.reduceLives();
-      if (this.survivalQuiz.isFinished()) {
-        sessionStorage.removeItem('gamemode');
-        window.location.href = 'menu';
+      switch (sessionStorage.getItem('gamemode')) {
+        case '1': this.survivalQuiz.reduceLives();
+                  if (this.survivalQuiz.isFinished()) {
+                    sessionStorage.removeItem('gamemode');
+                    window.location.href = 'menu';
+                  }
+                  break;
+        case '2': if (this.xquiz.isFinished()) {
+                    sessionStorage.removeItem('gamemode');
+                    sessionStorage.removeItem('anzahlFragen');
+                    window.location.href = 'menu';
+                  }
+                  break;
       }
     }
-    this.frage = this.survivalQuiz.getQuestion();
+    switch (sessionStorage.getItem('gamemode')) {
+      case '1': this.frage = this.survivalQuiz.getQuestion();
+                break;
+      case '2': this.frage = this.xquiz.getQuestion();
+                break;
+    }
   }
 
   logout() {

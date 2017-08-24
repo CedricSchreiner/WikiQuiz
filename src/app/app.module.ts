@@ -14,9 +14,9 @@ import { OptionsComponent } from './options/options.component';
 import { InfoComponent } from './info/info.component';
 import { AvatarComponent } from './avatar/avatar.component';
 import { PasswordComponent } from './password/password.component';
-import { SurvivalQuizService } from './quiz/survivalQuiz';
+import { SurvivalQuizService } from './quiz/survivalquiz';
 import { QuizComponent } from './quiz/quiz.component';
-
+import { XQuizService } from './quiz/xquiz';
 
 const appRoutes: Routes = [
   {path: '', component: LoginComponent},
@@ -50,7 +50,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     HttpModule
   ],
-  providers: [RestService, SurvivalQuizService],
+  providers: [RestService, SurvivalQuizService, XQuizService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

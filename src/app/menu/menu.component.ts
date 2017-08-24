@@ -7,13 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
   email: string;
-  name: string; ///a
-  password: string; ///a
   status: number;
-  id: number; ///a
   text: string;
   test: boolean; ///a
-  link: string; ///a
   avatarLinkString: string;
   mainMenudiv: HTMLDivElement;
   mainMenudiv2: HTMLDivElement;
@@ -26,11 +22,6 @@ export class MenuComponent implements OnInit {
     sessionStorage.getItem('username');
     if (sessionStorage.length > 0) {
       this.test = true;
-      this.email = sessionStorage.getItem('email');
-      this.id = Number.parseInt(sessionStorage.getItem('id'));
-      this.password = sessionStorage.getItem('password');
-      this.name = sessionStorage.getItem('username');
-      this.link = sessionStorage.getItem('link');
     }
   }
 
@@ -50,8 +41,11 @@ export class MenuComponent implements OnInit {
     this.mainMenudiv4.style.visibility = 'visible';
   }
 
-  start(gamemode: string) {
+  start(gamemode: string, anzahlFragen: string) {
     sessionStorage.setItem('gamemode', gamemode);
+    if (gamemode !== '1') {
+      sessionStorage.setItem('anzahlFragen', anzahlFragen);
+    }
     window.location.href = 'game';
   }
 

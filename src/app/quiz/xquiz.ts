@@ -2,28 +2,30 @@ import { Injectable } from '@angular/core';
 import { RestService } from '../service/rest.service';
 
 @Injectable()
-export class SurvivalQuizService {
+export class XQuizService {
   fragenArrayInUse: Frage[];
-  fragenArrayT1: Frage[];
+  fragenArrayLadeFragen: Frage[];
   fragenPointer: number;
-  t1: boolean;
+  tableFilled: boolean;
   tableLoadFailure: boolean;
-  lives: number;
+  anzahlFragen: number;
+  beantworteteFragen: number;
 
   constructor(public restService: RestService) {
   }
 
-  async startQuiz() {
+  async startQuiz(anzahlFragen: number) {
+    this.beantworteteFragen = 0;
+    this.anzahlFragen = anzahlFragen;
     let tableInitialStart = false;
-    this.lives = 3;
-    while (!this.t1) {
+    while (!this.tableFilled) {
       if (!tableInitialStart || (tableInitialStart && this.tableLoadFailure))  {
         this.loadQuestionTable1();
         tableInitialStart = true;
       }
       await this.delay(100);
     }
-    this.fragenArrayInUse = this.fragenArrayT1;
+    this.fragenArrayInUse = this.fragenArrayLadeFragen;
     console.log(this.fragenArrayInUse);
     this.fragenPointer = -1;
     this.updateTable();
@@ -35,8 +37,8 @@ export class SurvivalQuizService {
 
   async updateTable() {
     let tableInitialStart = false;
-    this.t1 = false;
-    while (!this.t1) {
+    this.tableFilled = false;
+    while (!this.tableFilled) {
       if (!tableInitialStart || (tableInitialStart && this.tableLoadFailure))  {
         this.loadQuestionTable1();
         tableInitialStart = true;
@@ -45,24 +47,21 @@ export class SurvivalQuizService {
     }
   }
 
-  reduceLives() {
-    this.lives--;
-  }
-
   isFinished () {
-    return (this.lives === 0);
+    return (this.beantworteteFragen === this.anzahlFragen);
   }
 
   getQuestion() {
-    if (this.fragenPointer < 9) {
+    this.beantworteteFragen++;
+    if (this.fragenPointer < 4) {
       this.fragenPointer++;
       return this.fragenArrayInUse[this.fragenPointer];
     } else {
       console.log('Alte Fragen leer neue laden');
       this.fragenPointer = 0;
-      this.fragenArrayInUse = this.fragenArrayT1;
+      this.fragenArrayInUse = this.fragenArrayLadeFragen;
       this.updateTable();
-      this.t1 = false;
+      this.tableFilled = false;
       console.log(this.fragenArrayInUse);
       console.log('Neue Fragen werden angezeigt');
       return this.fragenArrayInUse[this.fragenPointer];
@@ -72,9 +71,9 @@ export class SurvivalQuizService {
   loadQuestionTable1() {
     console.log('Tabelle 1 wird geladen');
     this.tableLoadFailure = false;
-    this.restService.getQuestions(10, 1).subscribe((fragen) => {
-      this.fragenArrayT1 = fragen;
-      this.t1 = true;
+    this.restService.getQuestions(5, 1).subscribe((fragen) => {
+      this.fragenArrayLadeFragen = fragen;
+      this.tableFilled = true;
       console.log('Tabelle 1 geladen');
     }, () => {
       console.log('Fehler beim laden der Tabelle');
