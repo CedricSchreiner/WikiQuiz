@@ -14,11 +14,11 @@ export class MenuComponent implements OnInit {
   text: string;
   test: boolean; ///a
   link: string; ///a
+  avatarLinkString: string;
 
   ngOnInit() {
-    console.log('Menu initialisiert');
+    this.avatarLinkString = './assets/' + sessionStorage.getItem('link');
     sessionStorage.getItem('username');
-    console.log(sessionStorage.length);
     if (sessionStorage.length > 0) {
       this.test = true;
       this.email = sessionStorage.getItem('email');

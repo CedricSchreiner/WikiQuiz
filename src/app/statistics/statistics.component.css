@@ -146,5 +146,16 @@ input:focus {
   left: 25px;
 }
 
+#avatarPicture
+{
+  cursor: pointer;
+  width: 45px;
+  height: 45px;
+  position: fixed;
+  padding: 3px;
+  top: 2px;
+  right: 6%;
+}
+
 /** End Timebar */
 

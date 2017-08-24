@@ -8,11 +8,13 @@ import { RestService } from '../service/rest.service';
 })
 export class StatisticsComponent implements OnInit {
   stats: Statistic[];
+  avatarLinkString: string;
 
   constructor(private restService: RestService) {
   }
 
   ngOnInit() {
+    this.avatarLinkString = './assets/' + sessionStorage.getItem('link');
     this.createTopTenPlayer();
     this.createTopTenOverallTable();
   }
