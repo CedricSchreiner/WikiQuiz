@@ -13,9 +13,8 @@ import { MenuComponent } from './menu/menu.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { OptionsComponent } from './options/options.component';
 import { InfoComponent} from './info/info.component';
-
-
-
+import {AvatarComponent} from './avatar/avatar.component';
+import {PasswordComponent} from './password/password.component';
 
 const appRoutes: Routes = [
   {path: '', component: LoginComponent},
@@ -25,7 +24,8 @@ const appRoutes: Routes = [
   {path: 'options', component: OptionsComponent},
   {path: 'stats', component: StatisticsComponent},
   {path: 'info', component: InfoComponent},
-  {path: 'stats', component: StatisticsComponent},
+  {path: 'avatar', component: AvatarComponent},
+  {path: 'password', component: PasswordComponent}
 ];
 
 @NgModule({
@@ -39,7 +39,9 @@ const appRoutes: Routes = [
     OptionsComponent,
     InfoComponent,
     MenuComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    AvatarComponent,
+    PasswordComponent
   ],
   imports: [
     BrowserModule,

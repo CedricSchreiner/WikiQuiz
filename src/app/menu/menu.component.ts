@@ -49,5 +49,9 @@ export class MenuComponent implements OnInit {
     this.mainMenudiv4 = (<HTMLDivElement>document.getElementById('mainMenu3'));
     this.mainMenudiv4.style.visibility = 'visible';
   }
-  
+
+
+  logout() {
+    sessionStorage.clear();
+  }
 }

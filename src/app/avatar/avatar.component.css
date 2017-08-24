@@ -39,27 +39,12 @@ body {
   background-color: #3498DB;
   padding: 50px;
 }
-.login {
-  position: relative;
-  bottom: 10px;
-  margin: 20px auto;
-  width: 300px;
-}
-.login-screen {
-  background-color: #FFF;
-  padding: 20px;
-  border-radius: 5px
-}
 
 .app-title {
-  position: relative;
-  left: 80%;
+  text-align: center;
   color: #777;
 }
 
-.login-form {
-  text-align: center;
-}
 .control-group {
   margin-bottom: 10px;
 }
@@ -102,13 +87,9 @@ input:focus {
   background-color: #2980B9;
 }
 
-.login-link {
-  font-size: 12px;
-  color: #444;
-  display: block;
-  margin-top: 12px;
-}
+/** Login End*/
 
+/** Timebar */
 .anchor-frame
 {
   border: 1px solid #ffffff;
@@ -124,12 +105,14 @@ input:focus {
   text-align: center;
 }
 
-.Timer
+.message-box
 {
   color: #ffffff;
   text-align: center;
   font-size: 100%;
 }
+
+/** End Timebar */
 
 @media (max-width:960px)
 {
@@ -155,9 +138,24 @@ input:focus {
   left: 25px;
 }
 
-.change-option-button-div
+#avatar-collection {
+  text-align: center;
+}
+
+.avatar-picture
 {
-  top: 50%
+  position: relative;
+  width: 100%;
+}
+
+.avatar-picture :hover
+{
+  cursor: pointer;
+  -webkit-transform:scale(1.25); /* Safari and Chrome */
+  -moz-transform:scale(1.25); /* Firefox */
+  -ms-transform:scale(1.25); /* IE 9 */
+  -o-transform:scale(1.25); /* Opera */
+  transform:scale(1.25);
 }
 
 #choosen-avatarPicture
@@ -169,4 +167,15 @@ input:focus {
   padding: 3px;
   top: 2px;
   right: 6%;
+}
+
+#button-back, #button-save
+{
+  float: left;
+  margin: 5px;
+}
+
+#option-avatar-button
+{
+  text-align: center;
 }
