@@ -47,29 +47,31 @@
   position: absolute;
 }
 
-@media (min-width:1366px)
-{
-  .prof {
-    visibility: hidden;
+@media (orientation: landscape){
+  @media (min-width:1366px)
+  {
+    .prof {
+      visibility: hidden;
+    }
+
+    .students {
+      visibility: hidden;
+    }
+
+    .beteiligte {
+      left: 5%;
+      position: absolute;
+      visibility: visible;
+    }
+
+    .danke {
+      right: 15%;
+      position: absolute;
+      width: 150px;
+    }
+
+
   }
-
-  .students {
-    visibility: hidden;
-  }
-
-  .beteiligte {
-    left: 5%;
-    position: absolute;
-    visibility: visible;
-  }
-
-  .danke {
-    right: 15%;
-    position: absolute;
-    width: 150px;
-  }
-
-
 }
 
 
