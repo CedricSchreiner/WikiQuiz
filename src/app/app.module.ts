@@ -13,8 +13,7 @@ import { MenuComponent } from './menu/menu.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { OptionsComponent } from './options/options.component';
 import { InfoComponent} from './info/info.component';
-
-
+import { SurvivalQuizService } from './quiz/survivalQuiz';
 
 
 const appRoutes: Routes = [
@@ -46,7 +45,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     HttpModule
   ],
-  providers: [RestService],
+  providers: [RestService, SurvivalQuizService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

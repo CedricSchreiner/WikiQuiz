@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { RestService } from '../service/rest.service';
 import { SurvivalQuizService } from './survivalQuiz';
 
 @Component({
@@ -9,34 +8,26 @@ import { SurvivalQuizService } from './survivalQuiz';
 })
 export class QuizComponent implements OnInit {
   test: boolean;
-  fragenArray: Frage[];
-  fragenPointer: number;
   frage: Frage;
   richtigeAntworten: number;
 
-  constructor(private restService: RestService, private survivalQuiz: SurvivalQuizService) {
+  constructor(private survivalQuiz: SurvivalQuizService) {
   }
-  ngOnInit() {
+  async ngOnInit() {
     if (sessionStorage.length > 0) {
       this.test = true;
       this.richtigeAntworten = 0;
-      this.fragenPointer = 0;
-      this.restService.getQuestions(4, 1).subscribe((fragen) => {
-        this.fragenArray = fragen;
-        console.log(fragen);
-        this.frage = this.fragenArray[this.fragenPointer];
-      });
+      await this.survivalQuiz.startQuiz();
+      this.frage = this.survivalQuiz.getQuestion();
+      console.log(this.frage);
     }
   }
 
   nextQuestion(buttonNumber: number): any {
-    console.log(this.frage.SolutionNumber);
-    console.log(buttonNumber);
     if (buttonNumber === Number(this.frage.SolutionNumber)) {
       this.richtigeAntworten++;
     }
-    this.fragenPointer++;
-    this.frage = this.fragenArray[this.fragenPointer];
+    this.frage = this.survivalQuiz.getQuestion();
   }
 }
 interface Frage {
