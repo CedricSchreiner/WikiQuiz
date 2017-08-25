@@ -19,10 +19,6 @@
   background-color: white;
 }
 
-.menuePoint
-{
-  font-size: 14px;
-}
 /** End Navbar CSS*/
 
 /** aussenframe */
@@ -47,6 +43,33 @@
   position: absolute;
 }
 
+#logoPicture
+{
+  width: 45px;
+  height: 45px;
+  position: absolute;
+  top: 2px;
+  padding: 3px;
+  left: 15px;
+}
+
+#logoPicture:hover
+{
+  cursor: pointer;
+}
+
+@media(max-width: 960px)
+{
+  #logoPicture
+  {
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    padding: 3px;
+    left: 5px;
+  }
+
+}
 @media (orientation: landscape){
   @media (min-width:1366px)
   {
@@ -86,6 +109,8 @@
     visibility: hidden;
   }
 }
+
+
 
 @media (max-height:420px)
 {
@@ -130,22 +155,5 @@
   background: #0d87cf;
   z-index: 2;
   text-align: center;
-}
-
-.Timer
-{
-  color: #ffffff;
-  text-align: center;
-  font-size: 100%;
-}
-
-#logoPicture
-{
-  width: 45px;
-  height: 45px;
-  position: absolute;
-  top: 2px;
-  padding: 3px;
-  left: 25px;
 }
 /** End Timebar */

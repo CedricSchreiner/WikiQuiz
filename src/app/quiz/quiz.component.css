@@ -44,21 +44,8 @@
 	font-style: initial;
 }
 
-#score
-{
-	font-size: 14px;
-	position: absolute;
-	left: 5%;
-	color: #ffffff;
-}
-
-
 @media (orientation: portrait)
 {
-	.answer-button
-	{
-		min-height: 51px;
-	}
 
 	#rahmenderFrage
 	{
@@ -100,8 +87,58 @@
 	}
 }
 
-@media (min-width:960px)
+#choosen-avatarPicture
 {
+  cursor: no-drop;
+  width: 45px;
+  height: 45px;
+  position: absolute;
+  padding: 3px;
+  top: 2px;
+  right: 25px;
+}
+
+#logoPicture
+{
+  width: 45px;
+  height: 45px;
+  position: absolute;
+  top: 2px;
+  padding: 3px;
+  left: 15px;
+}
+
+#logoPicture:hover
+{
+  cursor: pointer;
+}
+
+@media (max-width:960px)
+{
+#logoPicture
+{
+  width: 45px;
+  height: 45px;
+  position: absolute;
+  padding: 3px;
+  left: 5px;
+}
+  #choosen-avatarPicture
+  {
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    padding: 3px;
+    top: 2px;
+    right: 65px;
+  }
+}
+
+/**@media (min-width:960px)
+{
+
+
+
 	.answer-button
 	{
 		min-height: 51px;
@@ -119,7 +156,7 @@
 		  top: 365px;
     }
 }
-
+*/
 /** Navbar CSS*/
 /**Navbar Css */
 .navbar {
@@ -140,10 +177,6 @@
 .navbar button span{
 
   background-color: white;
-}
-
-.menuePoint {
-  font-size: 14px;
 }
 
 /** End Navbar CSS*/

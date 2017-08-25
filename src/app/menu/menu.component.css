@@ -22,6 +22,7 @@
     font-size: 16px;
   }
 
+
   @media (orientation: landscape) {
     .btn
     {
@@ -51,56 +52,15 @@
   text-align: center;
 }
 
-/**Navbar Css */
-.navbar {
-  background-color: #0d87cf;
-}
-
-.navbar a
-{
-  color: white;
-  opacity: 0.85;
-}
-
-.navbar button:focus, .navbar button:active {
-  background-color: #0d87cf;
-  opacity: 0.85;
-}
-
-.navbar button span{
-
-  background-color: white;
-}
-
-.menuePoint
-{
-  font-size: 14px;
-}
-
-#logoPicture
-{
-  width: 45px;
-  height: 45px;
-  position: absolute;
-  top: 2px;
-  padding: 3px;
-  left: 25px;
-}
-
-#avatarPicture
-{
-  cursor: pointer;
-  width: 45px;
-  height: 45px;
-  position: fixed;
-  padding: 3px;
-  top: 2px;
-  right: 6%;
-}
-/** End Navbar CSS*/
  #mainMenu2{
    visibility: hidden;
  }
  #mainMenu3{
    visibility: hidden;
  }
+
+ #menu-topmenu, #menu-logout:hover
+ {
+   cursor: pointer;
+ }
+

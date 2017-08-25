@@ -1,5 +1,4 @@
 import {Component, OnInit } from '@angular/core';
-import {RestService} from '../service/rest.service';
 
 @Component({
   selector: 'app-options',
@@ -9,17 +8,15 @@ import {RestService} from '../service/rest.service';
 
 export class OptionsComponent implements OnInit {
   status: number;
-  avatarLinkString: string;
   text: string;
 
-  constructor(private restService: RestService) {
+  constructor() {
   }
 
   ngOnInit() {
-    this.avatarLinkString = './assets/' + sessionStorage.getItem('link');
   }
 
-  logout() {
-    sessionStorage.clear();
+  link(linkToGo: string) {
+    window.location.href = linkToGo;
   }
 }

@@ -60,4 +60,7 @@ export class LoginComponent implements OnInit {
       this.text = 'Falsche Email';
     }
   }
+  link(linkToGo: string) {
+    window.location.href = linkToGo;
+  }
 }

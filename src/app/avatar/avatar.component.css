@@ -1,26 +1,3 @@
-/**Navbar Css */
-.navbar {
-  background-color: #0d87cf;
-}
-
-.navbar a
-{
-  color: white;
-  opacity: 0.85;
-}
-
-.navbar button:focus, .navbar button:active {
-  background-color: #0d87cf;
-  opacity: 0.85;
-}
-
-.navbar button span{
-
-  background-color: white;
-}
-
-/** End Navbar CSS*/
-
 /** Login*/
 
 * {
@@ -110,6 +87,7 @@ input:focus {
 
 /** End Timebar */
 
+
 @media (max-width:960px)
 {
   #option-avatar-button
@@ -118,28 +96,8 @@ input:focus {
     left: 20%;
     width: 80%;
   }
-
-  #choosen-avatarPicture
-  {
-    cursor: pointer;
-    width: 45px;
-    height: 45px;
-    position: absolute;
-    padding: 3px;
-    top: 2px;
-    right: 5%;
-  }
 }
 
-#logoPicture
-{
-  width: 45px;
-  height: 45px;
-  position: absolute;
-  top: 2px;
-  padding: 3px;
-  left: 25px;
-}
 
 #avatar-collection {
   text-align: center;
@@ -149,6 +107,7 @@ input:focus {
 {
   position: relative;
   width: 100%;
+  padding: 8px;
 }
 
 .avatar-picture :hover
@@ -159,16 +118,6 @@ input:focus {
   -ms-transform:scale(1.25); /* IE 9 */
   -o-transform:scale(1.25); /* Opera */
   transform:scale(1.25);
-}
-
-#choosen-avatarPicture {
-  cursor: pointer;
-  width: 45px;
-  height: 45px;
-  position: fixed;
-  padding: 3px;
-  top: 2px;
-  right: 6%;
 }
 
 #button-back, #button-save
