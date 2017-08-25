@@ -15,16 +15,16 @@
 
       </button>
 
-        <a href="menu"> <img id="logoPicture" class="navbar-brand" src="../assets/logo.png"> </a>
+        <a (click)="link('menu')"> <img id="logoPicture" class="navbar-brand" src="../../assets/logo.png"> </a>
 
-        <a href="options"> <img id="avatarPicture" class="navbar-brand" src={{avatarLinkString}}></a>
+        <a (click)="link('options')"> <img id="avatarPicture" class="navbar-brand" src={{avatarLinkString}}></a>
 
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
       <ul id="menu-topmenu" class="nav navbar-nav navbar-left">
-        <li id="menu-item-1"><a href="info">Info</a></li>
+        <li id="menu-item-1"><a (click)="link('info')">Info</a></li>
       </ul>
 
       <ul id="menu-logout" class="nav navbar-nav navbar-right">
