@@ -9,8 +9,6 @@ import {RestService} from '../service/rest.service';
 
 export class AvatarComponent implements OnInit {
   status: number;
-  changeavatarframe: HTMLDivElement;
-  changebuttondiv: HTMLDivElement;
   avatarLink: string;
   avatarLinkString: string;
   text: string;
@@ -21,9 +19,10 @@ export class AvatarComponent implements OnInit {
   ngOnInit() {
     this.avatarLinkString = './assets/' + sessionStorage.getItem('link');
   }
-  selectAvatar(avatarLink: string) {
+  selectAvatar(avatarLink: string, linkToGo: string) {
     this.avatarLink = avatarLink;
     sessionStorage.setItem('link', avatarLink);
+    this.link(linkToGo);
   }
 
   sendChangeAvatar() {
@@ -44,5 +43,9 @@ export class AvatarComponent implements OnInit {
 
   logout() {
     sessionStorage.clear();
+  }
+
+  link(linkToGo: string) {
+    window.location.href = linkToGo;
   }
 }

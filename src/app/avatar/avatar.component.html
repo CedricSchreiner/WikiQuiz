@@ -17,10 +17,9 @@
         <span id="thirdBar" class="icon-bar"></span>
       </button>
 
-        <a href="menu"> <img id="logoPicture" class="navbar-brand" src="../assets/logo.png"> </a>
+        <a (click)="link('menu')"> <img id="logoPicture" class="navbar-brand" src="../../assets/logo.png"> </a>
 
-        <a href="options"> <img id="choosen-avatarPicture" class="navbar-brand" src={{avatarLinkString}}></a>
-
+        <a (click)="link('options')"> <img id="choosen-avatarPicture" class="navbar-brand" src={{avatarLinkString}}></a>
 
     </div>
 
@@ -28,7 +27,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
       <ul id="menu-changeavatar" class="nav navbar-nav navbar-left">
-        <li id="menu-item.1"><a href="info">Info</a></li>
+        <li id="menu-item.1"><a (click)="link('info')">Info</a></li>
       </ul>
 
       <ul id="menu-logout" class="nav navbar-nav navbar-right">
@@ -52,17 +51,17 @@
   <br>
   <br>
   <div class="avatar-frame" id="avatar-collection">
-    <a class="avatar-picture" (click)="selectAvatar('Yellow-Avatar.png')"href="avatar"><img id="avatar1" class="" src="../assets/Yellow-Avatar.png" srcset="../assets/Yellow-Avatar.png 1600w"></a>
-    <a class="avatar-picture" (click)="selectAvatar('Green-Avatar.png')"href="avatar"><img id="avatar2" class="" src="../assets/Green-Avatar.png" srcset="../assets/Green-Avatar.png 1600w"></a>
-    <a class="avatar-picture" (click)="selectAvatar('Blue-Avatar.png')"href="avatar"><img id="avatar3" class="" src="../assets/Blue-Avatar.png" srcset="../assets/Blue-Avatar.png 1600w"></a>
-    <a class="avatar-picture" (click)="selectAvatar('Red-Avatar.png')"href="avatar"><img id="avatar4" class="" src="../assets/Red-Avatar.png" srcset="../assets/Red-Avatar.png 1600w"></a>
-    <a class="avatar-picture" (click)="selectAvatar('Cat-Robot-Avatar.png')"href="avatar"><img id="avatar5" class="" src="../assets/Cat-Robot-Avatar.png" srcset="../assets/Cat-Robot-Avatar.png 1600w"></a>
-    <a class="avatar-picture" (click)="selectAvatar('Pink-Avatar.png')"href="avatar"><img id="avatar6" class="" src="../assets/Pink-Avatar.png" srcset="../assets/Pink-Avatar.png 1600w"></a>
+    <a class="avatar-picture" (click)="selectAvatar('Yellow-Avatar.png', 'avatar')"><img id="avatar1" class="" src="../../assets/Yellow-Avatar.png" srcset="../../assets/Yellow-Avatar.png 1600w"></a>
+    <a class="avatar-picture" (click)="selectAvatar('Green-Avatar.png', 'avatar')"><img id="avatar2" class="" src="../../assets/Green-Avatar.png" srcset="../../assets/Green-Avatar.png 1600w"></a>
+    <a class="avatar-picture" (click)="selectAvatar('Blue-Avatar.png', 'avatar')"><img id="avatar3" class="" src="../../assets/Blue-Avatar.png" srcset="../../assets/Blue-Avatar.png 1600w"></a>
+    <a class="avatar-picture" (click)="selectAvatar('Red-Avatar.png', 'avatar')"><img id="avatar4" class="" src="../../assets/Red-Avatar.png" srcset="../../assets/Red-Avatar.png 1600w"></a>
+    <a class="avatar-picture" (click)="selectAvatar('Cat-Robot-Avatar.png', 'avatar')"><img id="avatar5" class="" src="../../assets/Cat-Robot-Avatar.png" srcset="../../assets/Cat-Robot-Avatar.png 1600w"></a>
+    <a class="avatar-picture" (click)="selectAvatar('Pink-Avatar.png', 'avatar')"><img id="avatar6" class="" src="../../assets/Pink-Avatar.png" srcset="../../assets/Pink-Avatar.png 1600w"></a>
   </div>
   <br>
   <br>
   <div id="option-avatar-button">
-    <a class="btn btn-primary btn-large btn-block" id="button-back" href="options">Back</a>
+    <a class="btn btn-primary btn-large btn-block" id="button-back" (click)="link('options')">Back</a>
     <a class="btn btn-primary btn-large btn-block" (click)="sendChangeAvatar()" id="button-save">Save</a>
   </div>
 
@@ -70,7 +69,7 @@
 
 <!-- Timebar -->
 <div class="anchor-frame" id="status-frame">
-  <div class="message-box" *ngIf="text != null">
+  <div class="message-box" *ngIf="text != ''">
     Status: {{text}}
   </div>
 </div>
