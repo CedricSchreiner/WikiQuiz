@@ -44,20 +44,16 @@
 	font-style: initial;
 }
 
-#score
+/**#score
 {
 	font-size: 14px;
 	position: absolute;
 	left: 5%;
 	color: #ffffff;
-}
+}*/
 
 @media (orientation: portrait)
 {
-	.answer-button
-	{
-		min-height: 51px;
-	}
 
 	#rahmenderFrage
 	{
@@ -184,10 +180,6 @@
 .navbar button span{
 
   background-color: white;
-}
-
-.menuePoint {
-  font-size: 14px;
 }
 
 /** End Navbar CSS*/

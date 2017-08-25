@@ -19,10 +19,6 @@
   background-color: white;
 }
 
-.menuePoint
-{
-  font-size: 14px;
-}
 /** End Navbar CSS*/
 
 /** Login*/
@@ -172,9 +168,4 @@ input:focus {
     top: 2px;
     right: 65px;
   }
-}
-
-.change-option-button-div
-{
-  top: 50%
 }
