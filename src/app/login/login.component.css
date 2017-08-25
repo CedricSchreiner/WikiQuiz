@@ -186,7 +186,7 @@ input:focus {
 }
 
 /** End Timebar */
-#menu-topmenu:hover
+#menu-topmenu, .login-link:hover
 {
   cursor: pointer;
 }

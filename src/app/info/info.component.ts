@@ -11,5 +11,7 @@ export class InfoComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  link(linkToGo: string) {
+    window.location.href = linkToGo;
+  }
 }
