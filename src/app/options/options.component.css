@@ -219,3 +219,11 @@ input:focus {
   cursor: pointer;
 }
 
+@media (min-width: 961px) {
+  #menu-item-1
+  {
+    position: relative;
+    left: 40px;
+  }
+}
+
