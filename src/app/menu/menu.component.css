@@ -124,3 +124,8 @@
  #mainMenu3{
    visibility: hidden;
  }
+
+ #menu-topmenu, #menu-logout:hover
+ {
+   cursor: pointer;
+ }

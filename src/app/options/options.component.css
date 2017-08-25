@@ -214,3 +214,8 @@ input:focus {
   }
 }
 
+#menu-topmenu, #menu-logout:hover
+{
+  cursor: pointer;
+}
+
