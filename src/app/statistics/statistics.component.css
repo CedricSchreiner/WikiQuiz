@@ -1,25 +1,3 @@
-/**Navbar Css */
-.navbar {
-  background-color: #0d87cf;
-}
-
-.navbar a
-{
-  color: white;
-  opacity: 0.85;
-}
-
-.navbar button:focus, .navbar button:active {
-  background-color: #0d87cf;
-  opacity: 0.85;
-}
-
-.navbar button span{
-
-  background-color: white;
-}
-
-/** End Navbar CSS*/
 
 /** Login*/
 
@@ -131,67 +109,7 @@ input:focus {
   text-align: center;
   font-size: 100%;
 }
-#logoPicture
-{
-  width: 45px;
-  height: 45px;
-  position: absolute;
-  top: 2px;
-  padding: 3px;
-  left: 15px;
-}
 
-#logoPicture:hover
-{
-  cursor: pointer;
-}
-
-#avatarPicture
-{
-  cursor: pointer;
-  width: 45px;
-  height: 45px;
-  position: absolute;
-  padding: 3px;
-  top: 2px;
-  right: 95px;
-}
-
-@media (max-width: 960px)
-{
-  #logoPicture
-  {
-    width: 45px;
-    height: 45px;
-    position: absolute;
-    padding: 3px;
-    left: 5px;
-  }
-
-  #avatarPicture
-  {
-    width: 45px;
-    height: 45px;
-    position: absolute;
-    padding: 3px;
-    top: 2px;
-    right: 65px;
-  }
-
-}
-
-#menu-topmenu, #menu-logout:hover
-{
-  cursor: pointer;
-}
-
-@media (min-width: 961px) {
-  #menu-item-1
-  {
-    position: relative;
-    left: 40px;
-  }
-}
 /** End Timebar */
 
 .cellClass {

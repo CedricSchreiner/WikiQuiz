@@ -10,14 +10,12 @@ import {RestService} from '../service/rest.service';
 export class AvatarComponent implements OnInit {
   status: number;
   avatarLink: string;
-  avatarLinkString: string;
   text: string;
 
   constructor(private restService: RestService) {
   }
 
   ngOnInit() {
-    this.avatarLinkString = './assets/' + sessionStorage.getItem('link');
   }
   selectAvatar(avatarLink: string, linkToGo: string) {
     this.avatarLink = avatarLink;
@@ -40,10 +38,6 @@ export class AvatarComponent implements OnInit {
         this.text = 'Ups, da ist etwas schief gelaufen';
       }
     });
-  }
-
-  logout() {
-    sessionStorage.clear();
   }
 
   link(linkToGo: string) {

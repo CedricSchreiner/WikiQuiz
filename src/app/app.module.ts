@@ -8,6 +8,8 @@ import { LoginComponent } from './login/login.component';
 import { RouterModule, Routes } from '@angular/router';
 import { RestService } from './service/rest.service';
 import { SignupComponent } from './signup/signup.component';
+import { NavbarloginComponent } from './navbar-login-view/navbarlogin.component';
+import { NavbarmenuComponent } from './navbar-menu-view/navbarmenu.component';
 import { MenuComponent } from './menu/menu.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { OptionsComponent } from './options/options.component';
@@ -37,6 +39,8 @@ const appRoutes: Routes = [
     TimerbarComponent,
     BackgroundComponent,
     LoginComponent,
+    NavbarloginComponent,
+    NavbarmenuComponent,
     SignupComponent,
     OptionsComponent,
     QuizComponent,
