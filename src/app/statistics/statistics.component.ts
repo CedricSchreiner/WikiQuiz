@@ -97,10 +97,6 @@ export class StatisticsComponent implements OnInit {
     }
   }
 
-  logout() {
-    sessionStorage.clear();
-  }
-
   link(linkToGo: string) {
     window.location.href = linkToGo;
   }
