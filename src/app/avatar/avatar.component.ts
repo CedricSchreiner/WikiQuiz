@@ -21,6 +21,7 @@ export class AvatarComponent implements OnInit {
   }
   selectAvatar(avatarLink: string, linkToGo: string) {
     this.avatarLink = avatarLink;
+    sessionStorage.setItem('old_link', sessionStorage.getItem('link'));
     sessionStorage.setItem('link', avatarLink);
     this.link(linkToGo);
   }
