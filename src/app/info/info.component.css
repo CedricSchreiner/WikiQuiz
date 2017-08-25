@@ -157,3 +157,7 @@
   text-align: center;
 }
 /** End Timebar */
+#menu-logout:hover
+{
+  cursor: pointer;
+}

@@ -218,3 +218,8 @@ input:focus {
     bottom: 50px;
   }
 }
+
+#menu-changeavatar, #menu-logout:hover
+{
+  cursor: pointer;
+}

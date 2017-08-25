@@ -186,3 +186,7 @@ input:focus {
 }
 
 /** End Timebar */
+#menu-topmenu:hover
+{
+  cursor: pointer;
+}
