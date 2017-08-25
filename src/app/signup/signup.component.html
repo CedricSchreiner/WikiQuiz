@@ -23,9 +23,7 @@
          <span id="thirdBar" class="icon-bar"></span>
 
        </button>
-       <ul>
-         <a href="menu"> <img id="logoPicture" class="navbar-brand" src="../assets/logo.png"> </a>
-       </ul>
+         <a href="menu"> <img id="logoPicture" class="navbar-brand" src="../../assets/logo.png"> </a>
      </div>
      <!-- Collect the nav links, forms, and other content for toggling -->
      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -54,12 +52,12 @@
     <div class="login-form">
 
       <div class="control-group">
-        <input type="text" class="name-field" value="" placeholder="name" id="inName">
+        <input class="name-field" value="" placeholder="name" id="inName">
         <label class="login-field-icon fui-user" for="inName"></label>
       </div>
 
       <div class="control-group">
-        <input type="text" class="login-field" value="" placeholder="e-mail" id="inEmail">
+        <input class="login-field" value="" placeholder="e-mail" id="inEmail">
         <label class="login-field-icon fui-user" for="inEmail"></label>
       </div>
 
@@ -77,7 +75,7 @@
 <!-- Timebar -->
 <div class="anchor-frame">
 
-  <div class="Timer" *ngIf="errMsg != null">
+  <div class="Timer" *ngIf="errMsg != ''">
     Status: {{errMsg}}
   </div>
 

@@ -1,5 +1,4 @@
 import {Component, OnInit } from '@angular/core';
-import {RestService} from '../service/rest.service';
 
 @Component({
   selector: 'app-options',
@@ -12,7 +11,7 @@ export class OptionsComponent implements OnInit {
   avatarLinkString: string;
   text: string;
 
-  constructor(private restService: RestService) {
+  constructor() {
   }
 
   ngOnInit() {

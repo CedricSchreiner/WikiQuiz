@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SurvivalQuizService } from './survivalquiz';
 import { XQuizService } from './xquiz';
-import {RestService} from '../service/rest.service';
 
 @Component({
   selector: 'app-quiz',
