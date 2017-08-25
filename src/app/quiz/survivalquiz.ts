@@ -15,7 +15,7 @@ export class SurvivalQuizService {
 
   async startQuiz() {
     let tableInitialStart = false;
-    this.lives = 3;
+    this.lives = 100;
     while (!this.tableFilled) {
       if (!tableInitialStart || (tableInitialStart && this.tableLoadFailure))  {
         this.loadQuestionTable1();

@@ -184,3 +184,7 @@ input:focus {
 
 /** End Timebar */
 
+.cellClass {
+  background-color: red;
+  height: 300px;
+}
