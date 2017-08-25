@@ -42,19 +42,19 @@
   <div class="answer-frame" id="rahmenderAntwort">
 
     <button class="btn btn-default btn-lg" id="answerA" (click)="nextQuestion(0)">
-      <a *ngIf="frage != null" class="answer-string" id="answer-stringA"> {{frage.Option0}} </a>
+      <a *ngIf="frage != undefined" class="answer-string" id="answer-stringA"> {{frage.Option0}} </a>
     </button>
 
     <button class="btn btn-default btn-lg" id="answerB" (click)="nextQuestion(1)">
-      <a *ngIf="frage != null" class="answer-string" id="answer-stringB"> {{frage.Option1}} </a>
+      <a *ngIf="frage != undefined" class="answer-string" id="answer-stringB"> {{frage.Option1}} </a>
     </button>
 
    <button class="btn btn-default btn-lg" id="answerC" (click)="nextQuestion(2)">
-     <a *ngIf="frage != null" class="answer-string" id="answer-stringC"> {{frage.Option2}} </a>
+     <a *ngIf="frage != undefined" class="answer-string" id="answer-stringC"> {{frage.Option2}} </a>
     </button>
 
     <button class="btn btn-default btn-lg" id="answerD" (click)="nextQuestion(3)">
-      <a *ngIf="frage != null" class="answer-string" id="answer-stringD"> {{frage.Option3}} </a>
+      <a *ngIf="frage != undefined" class="answer-string" id="answer-stringD"> {{frage.Option3}} </a>
     </button>
 
   </div>
