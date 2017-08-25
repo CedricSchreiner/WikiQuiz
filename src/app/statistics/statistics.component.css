@@ -131,6 +131,20 @@ input:focus {
   text-align: center;
   font-size: 100%;
 }
+#logoPicture
+{
+  width: 45px;
+  height: 45px;
+  position: absolute;
+  top: 2px;
+  padding: 3px;
+  left: 15px;
+}
+
+#logoPicture:hover
+{
+  cursor: pointer;
+}
 
 #avatarPicture
 {
@@ -142,22 +156,6 @@ input:focus {
   top: 2px;
   right: 95px;
 }
-
-#logoPicture
-{
-  width: 45px;
-  height: 45px;
-  position: absolute;
-  top: 2px;
-  padding: 3px;
-  left: 25px;
-}
-
-#logoPicture:hover
-{
-  cursor: pointer;
-}
-
 
 @media (max-width: 960px)
 {
@@ -182,6 +180,18 @@ input:focus {
 
 }
 
+#menu-topmenu, #menu-logout:hover
+{
+  cursor: pointer;
+}
+
+@media (min-width: 961px) {
+  #menu-item-1
+  {
+    position: relative;
+    left: 40px;
+  }
+}
 /** End Timebar */
 
 .cellClass {

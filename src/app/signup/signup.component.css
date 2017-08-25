@@ -140,7 +140,7 @@ input:focus {
   position: absolute;
   top: 2px;
   padding: 3px;
-  left: 25px;
+  left: 15px;
 }
 
 #logoPicture:hover
@@ -158,5 +158,12 @@ input:focus {
   }
 }
 
+@media (min-width: 961px) {
+  #menu-item-1
+  {
+    position: relative;
+    left: 40px;
+  }
+}
 /** End Timebar */
 

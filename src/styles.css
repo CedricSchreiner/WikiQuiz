@@ -3,7 +3,7 @@
 body
 {
   margin: 0;
-  overflow: hidden;
+  /*overflow: hidden;*/
   height: 100vh;
 }
 
@@ -12,3 +12,4 @@ body ::selection
   background: transparent;
   color: inherit;
 }
+
