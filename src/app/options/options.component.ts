@@ -21,4 +21,8 @@ export class OptionsComponent implements OnInit {
   logout() {
     sessionStorage.clear();
   }
+
+  link(linkToGo: string) {
+    window.location.href = linkToGo;
+  }
 }
