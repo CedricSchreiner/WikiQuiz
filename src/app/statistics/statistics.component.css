@@ -132,25 +132,23 @@ input:focus {
   font-size: 100%;
 }
 
-#avatarPicture
-{
-  cursor: pointer;
-  width: 45px;
-  height: 45px;
-  position: absolute;
-  padding: 3px;
-  top: 2px;
-  right: 95px;
-}
-
 #logoPicture
 {
   width: 45px;
   height: 45px;
   position: absolute;
-  top: 2px;
   padding: 3px;
-  left: 25px;
+  left: 5px;
+}
+
+#avatarPicture
+{
+  width: 45px;
+  height: 45px;
+  position: absolute;
+  padding: 3px;
+  top: 2px;
+  right: 65px;
 }
 
 #logoPicture:hover
@@ -169,6 +167,7 @@ input:focus {
     padding: 3px;
     left: 5px;
   }
+
 
   #avatarPicture
   {
