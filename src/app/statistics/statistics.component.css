@@ -131,24 +131,14 @@ input:focus {
   text-align: center;
   font-size: 100%;
 }
-
 #logoPicture
 {
   width: 45px;
   height: 45px;
   position: absolute;
+  top: 2px;
   padding: 3px;
   left: 15px;
-}
-
-#avatarPicture
-{
-  width: 45px;
-  height: 45px;
-  position: absolute;
-  padding: 3px;
-  top: 2px;
-  right: 65px;
 }
 
 #logoPicture:hover
@@ -156,6 +146,16 @@ input:focus {
   cursor: pointer;
 }
 
+#avatarPicture
+{
+  cursor: pointer;
+  width: 45px;
+  height: 45px;
+  position: absolute;
+  padding: 3px;
+  top: 2px;
+  right: 95px;
+}
 
 @media (max-width: 960px)
 {
