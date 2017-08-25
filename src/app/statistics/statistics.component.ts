@@ -32,7 +32,7 @@ export class StatisticsComponent implements OnInit {
         row = header.insertRow(i);
         cell = row.insertCell(0);
         cell.innerHTML = '<b>' + String(i + 1) + '.</b>';
-        for (let j = 1; j < 7; j++) {
+        for (let j = 1; j < 6; j++) {
           cell = row.insertCell(j);
           cell.width = '100px';
           if (this.stats.length > i) {
@@ -51,6 +51,7 @@ export class StatisticsComponent implements OnInit {
     this.restService.getTopTenStatisticsOverall().subscribe((stats => {
       header = table.createTHead();
       row = header.insertRow(0);
+      row.bgColor = '#4286f4';
       cell = row.insertCell(0);
       cell.innerHTML = 'Platz';
       cell = row.insertCell(1);
@@ -69,11 +70,16 @@ export class StatisticsComponent implements OnInit {
         row = header.insertRow(i + 1);
         cell = row.insertCell(0);
         cell.innerHTML = '<b>' + String(i + 1) + '.</b>';
-        for (let j = 1; j < 7; j++) {
+        for (let j = 1; j < 6; j++) {
           cell = row.insertCell(j);
           cell.width = '100px';
           if (this.stats.length >= i) {
             cell.innerHTML = this.get(i, j);
+          }
+          if ((i % 2) === 0) {
+            row.bgColor = '#f9fafc';
+          }else {
+            row.bgColor = '#eaf0f9';
           }
         }
       }
@@ -89,10 +95,8 @@ export class StatisticsComponent implements OnInit {
     } else if (indexAttribute === 3) {
       return String(this.stats[index].anzahlSpiele);
     } else if (indexAttribute === 4) {
-      return this.stats[index].gameMode;
-    } else if (indexAttribute === 5) {
       return String(this.stats[index].punktZahl);
-    } else if (indexAttribute === 6) {
+    } else if (indexAttribute === 5) {
       return String(this.stats[index].userId);
     }
   }
