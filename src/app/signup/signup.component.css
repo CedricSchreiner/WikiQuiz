@@ -42,6 +42,28 @@ body {
   margin: 20px auto;
   width: 300px;
 }
+/* Start definition of properties on small devices in landscape mode*/
+@media (orientation: landscape){
+  @media (max-width: 700px) {
+    .nav {
+      /*position: fixed;*/
+    }
+    button#burger {
+      alignment: right;
+    }
+
+    .signup {
+      margin: 1px auto;
+      bottom: 60px;
+    }
+    #signup-screen {
+      overflow-y: visible;
+      height: 50%;
+      max-widh: 100%;
+      }
+  }
+}
+/* End of definition of properties on small devices in landscape mode*/
 .login-screen {
   background-color: #FFF;
   padding: 20px;
@@ -116,7 +138,7 @@ input:focus {
   padding-top:10px;
   padding-bottom: 10px;
   line-height: 20px;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   height: 55px;
