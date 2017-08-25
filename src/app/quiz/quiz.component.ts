@@ -39,32 +39,6 @@ export class QuizComponent implements OnInit {
   }
 
   nextQuestion(buttonNumber: number): any {
-    /*
-    if (buttonNumber === Number(this.frage.SolutionNumber)) {
-      this.richtigeAntworten++;
-    }else {
-      switch (sessionStorage.getItem('gamemode')) {
-        case '1': this.survivalQuiz.reduceLives();
-                  if (this.survivalQuiz.isFinished()) {
-                    sessionStorage.removeItem('gamemode');
-                    window.location.href = 'menu';
-                  }
-                  break;
-        case '2': if (this.xquiz.isFinished()) {
-                    sessionStorage.removeItem('gamemode');
-                    sessionStorage.removeItem('anzahlFragen');
-                    window.location.href = 'menu';
-                  }
-                  break;
-      }
-    }
-    switch (sessionStorage.getItem('gamemode')) {
-      case '1': this.frage = this.survivalQuiz.getQuestion();
-        break;
-      case '2': this.frage = this.xquiz.getQuestion();
-        break;
-    }
-    */
     if (buttonNumber === Number(this.frage.SolutionNumber)) {
       this.richtigeAntworten++;
     }
