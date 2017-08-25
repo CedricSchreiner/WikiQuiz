@@ -120,6 +120,11 @@ input:focus {
   left: 15px;
 }
 
+#logoPicture:hover
+{
+  cursor: pointer;
+}
+
 #choosen-avatarPicture
 {
   cursor: pointer;

@@ -170,6 +170,11 @@ input:focus {
   left: 15px;
 }
 
+#logoPicture:hover
+{
+  cursor: pointer;
+}
+
 @media (max-width:960px) {
   #logoPicture {
     width: 45px;
