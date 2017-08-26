@@ -110,7 +110,7 @@
 
 #logoPicture:hover
 {
-  cursor: pointer;
+  cursor: no-drop;
 }
 
 @media (max-width:960px)
