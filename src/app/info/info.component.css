@@ -71,7 +71,7 @@
 
 }
 @media (orientation: landscape){
-  @media (min-width:1366px)
+  @media (min-width: 1366px)
   {
     .prof {
       visibility: hidden;
@@ -97,7 +97,7 @@
 
 
 
-@media (max-width:1024px)
+@media (max-width: 1024px)
 {
 	.prof, .danke, .students {
 		position: relative;
@@ -112,7 +112,7 @@
 
 
 
-@media (max-height:420px)
+@media (max-height:560px) /**420*/
 {
     .prof {
         font-size: 85%;
