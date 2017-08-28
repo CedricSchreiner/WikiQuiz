@@ -93,7 +93,7 @@ export class StatisticsComponent implements OnInit {
     } else if (indexAttribute === 4) {
       return String(this.stats[index].punktZahl);
     } else if (indexAttribute === 5) {
-      return String(this.stats[index].userId);
+      return String(this.stats[index].userName);
     }
   }
 
@@ -108,5 +108,5 @@ interface Statistic {
   fragenRichtig: number;
   gameMode: string;
   punktZahl: number;
-  userId: number;
+  userName: string;
 }
