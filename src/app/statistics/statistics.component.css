@@ -85,11 +85,6 @@ input:focus {
 /*Login End*/
 
 /* Statistik Table Content*/
-.cellClass {
-  background-color: red;
-  height: 300px;
-}
-
 .tab-content
 {
   text-align: center;
