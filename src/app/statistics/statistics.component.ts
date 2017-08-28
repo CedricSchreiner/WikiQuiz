@@ -25,11 +25,13 @@ export class StatisticsComponent implements OnInit {
     let row: HTMLTableRowElement;
     const table = (<HTMLTableElement>document.getElementById('statsTableProfile'));
     this.restService.getTopTenStatisticsPlayer().subscribe((stats => {
+      row = (<HTMLTableRowElement>document.getElementById('statsTableProfileHeader'));
+      row.bgColor = '#4286f4';
       console.log(stats);
       this.stats = stats;
       for (let i = 0; i < 10; i++) {
         header = table.createTHead();
-        row = header.insertRow(i);
+        row = header.insertRow(i + 1);
         cell = row.insertCell(0);
         cell.innerHTML = '<b>' + String(i + 1) + '.</b>';
         for (let j = 1; j < 6; j++) {
@@ -37,6 +39,11 @@ export class StatisticsComponent implements OnInit {
           cell.width = '100px';
           if (this.stats.length > i) {
             cell.innerHTML = this.get(i, j);
+          }
+          if ((i % 2) === 0) {
+            row.bgColor = '#f9fafc';
+          }else {
+            row.bgColor = '#eaf0f9';
           }
         }
       }
