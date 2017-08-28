@@ -1,5 +1,6 @@
 import {Component, OnInit } from '@angular/core';
 import {RestService} from '../service/rest.service';
+import {Context} from "vm";
 
 @Component({
   selector: 'app-options',
@@ -32,9 +33,10 @@ export class AvatarComponent implements OnInit {
       this.status = err.status;
       if (err.status === 0) {
         this.text = 'keine Verbindung zum Server';
-      } else if (err.status === 201) {
+      } else if (err.status === 200) {
         this.text = 'Passwort erfolgreich geändert';
       } else {
+        console.log(err.status);
         this.text = 'Ups, da ist etwas schief gelaufen';
       }
     });

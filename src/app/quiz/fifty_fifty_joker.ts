@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class FiftyFiftyJokerService {
+  jokersLeft: number;
+
   deleteAnswers(solutionNumber: number) {
     console.log(solutionNumber);
     let deleteAnswer1 = null;
@@ -15,5 +17,13 @@ export class FiftyFiftyJokerService {
       console.log(deleteAnswer1 === solutionNumber);
       deleteAnswer2 = Math.floor(Math.random() * 4) + 1;
     }while (deleteAnswer2 === Number(solutionNumber) || deleteAnswer2 === deleteAnswer1);
+  }
+
+  setJokerCount(jokerCount: number) {
+    this.jokersLeft = jokerCount;
+  }
+
+  isJokerLeft() {
+    return (this.jokersLeft !== 0);
   }
 }
