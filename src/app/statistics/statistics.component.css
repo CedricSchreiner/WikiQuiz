@@ -84,33 +84,6 @@ input:focus {
 
 /** Login End*/
 
-/** Timebar */
-
-
-.anchor-frame
-{
-  border: 1px solid #ffffff;
-  padding-top:10px;
-  padding-bottom: 10px;
-  line-height: 20px;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 55px;
-  background: #0d87cf;
-  z-index: 2;
-  text-align: center;
-}
-
-
-.Timer
-{
-  color: #ffffff;
-  text-align: center;
-  font-size: 100%;
-}
-
-/** End Timebar */
 
 .cellClass {
   background-color: red;
