@@ -36,7 +36,7 @@ export class StatisticsComponent implements OnInit {
         row = header.insertRow(i + 1);
         cell = row.insertCell(0);
         cell.innerHTML = '<b>' + String(i + 1) + '.</b>';
-        for (let j = 1; j < 6; j++) {
+        for (let j = 1; j < 4; j++) {
           cell = row.insertCell(j);
           cell.width = '100px';
           if (this.stats.length > i) {
@@ -69,7 +69,7 @@ export class StatisticsComponent implements OnInit {
         row = header.insertRow(i + 1);
         cell = row.insertCell(0);
         cell.innerHTML = '<b>' + String(i + 1) + '.</b>';
-        for (let j = 1; j < 6; j++) {
+        for (let j = 1; j < 4; j++) {
           cell = row.insertCell(j);
           cell.width = '100px';
           if (this.stats.length > i) {

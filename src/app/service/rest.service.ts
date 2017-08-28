@@ -17,7 +17,7 @@ export class RestService {
   signup(name: string, e_mail: string, passwort: string) {
     const myHeader = new Headers();
     myHeader.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:8080/quiz/webapi/profile',
+    return this.http.put('http://localhost:8080/quiz/webapi/profile',
       JSON.stringify({name: name, e_mail: e_mail, passwort: passwort}), {headers: myHeader})
       .map(res => res.json());
   }
@@ -51,7 +51,7 @@ export class RestService {
     myHeader.append('Authorization', 'Basic ' + btoa(sessionStorage.getItem('email') +
       ':' + sessionStorage.getItem('password')));
     myHeader.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:8080/quiz/webapi/profile/auth/chPas',
+    return this.http.put('http://localhost:8080/quiz/webapi/profile/auth/chPas',
       JSON.stringify({name: sessionStorage.getItem('username'), e_mail: sessionStorage.getItem('email'), passwort: password}),
       {headers: myHeader})
                         .map(res => res.json());
