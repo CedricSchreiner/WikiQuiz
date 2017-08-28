@@ -91,6 +91,7 @@ export class StatisticsComponent implements OnInit {
     this.restService.getTopTenStatisticsOverall('xquiz').subscribe((stats => {
       row = (<HTMLTableRowElement>document.getElementById('stats-table-world-xquiz-header'));
       row.bgColor = '#4286f4';
+      console.log(stats);
       this.stats = stats;
       for (let i = 0; i < 10; i++) {
         ///======================================================

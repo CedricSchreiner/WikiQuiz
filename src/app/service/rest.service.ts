@@ -31,7 +31,6 @@ export class RestService {
   }
 
   getTopTenStatisticsOverall(gamemode: string) {
-    console.log('test');
     const myHeader = new Headers();
     myHeader.append('Authorization', 'Basic ' + btoa(sessionStorage.getItem('email') +
       ':' + sessionStorage.getItem('password')));
