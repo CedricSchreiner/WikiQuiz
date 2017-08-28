@@ -171,12 +171,12 @@ export class StatisticsComponent implements OnInit {
       if (this.stats[index].anzahlFragen === 0) {
         return String('-');
       }
-      return String(this.stats[index].anzahlSpiele);
+      return String(this.stats[index].punktZahl);
     } else if (indexAttribute === 4) {
       if (this.stats[index].anzahlFragen === 0) {
         return String('-');
       }
-      return String(this.stats[index].punktZahl);
+      return String(this.stats[index].anzahlFragen);
     } else if (indexAttribute === 5) {
       if (this.stats[index].anzahlFragen === 0) {
         return String('-');
