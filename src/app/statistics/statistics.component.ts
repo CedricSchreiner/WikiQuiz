@@ -150,14 +150,29 @@ export class StatisticsComponent implements OnInit {
 
   get(index: number, indexAttribute) {
     if (indexAttribute === 1) {
+      if (this.stats[index].anzahlFragen === 0) {
+        return String('-');
+      }
       return String(this.stats[index].anzahlFragen);
     } else if (indexAttribute === 2) {
+      if (this.stats[index].anzahlFragen === 0) {
+        return String('-');
+      }
       return String(this.stats[index].fragenRichtig);
     } else if (indexAttribute === 3) {
+      if (this.stats[index].anzahlFragen === 0) {
+        return String('-');
+      }
       return String(this.stats[index].anzahlSpiele);
     } else if (indexAttribute === 4) {
+      if (this.stats[index].anzahlFragen === 0) {
+        return String('-');
+      }
       return String(this.stats[index].punktZahl);
     } else if (indexAttribute === 5) {
+      if (this.stats[index].anzahlFragen === 0) {
+        return String('-');
+      }
       return String(this.stats[index].userName);
     }
   }
