@@ -1,5 +1,5 @@
 
-/** Login*/
+/*Login*/
 
 * {
   box-sizing: border-box;
@@ -82,9 +82,9 @@ input:focus {
   margin-top: 12px;
 }
 
-/** Login End*/
+/*Login End*/
 
-
+/* Statistik Table Content*/
 .cellClass {
   background-color: red;
   height: 300px;
@@ -94,3 +94,4 @@ input:focus {
 {
   text-align: center;
 }
+/* Statistik Table Content End
