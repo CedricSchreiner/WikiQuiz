@@ -15,19 +15,19 @@ export class StatisticsComponent implements OnInit {
 
   ngOnInit() {
     this.avatarLinkString = './assets/' + sessionStorage.getItem('link');
-    this.createTopTenPlayer();
-    this.createTopTenOverallTable();
+    this.createTopTenPlayerXquiz();
+    this.createTopTenOverallTableXquiz();
     this.createTopTenPlayerSurvival();
     this.createTopTenOverallSurvival();
   }
 
-  createTopTenPlayer() {
+  createTopTenPlayerXquiz() {
     let cell: HTMLTableCellElement;
     let header: HTMLTableSectionElement;
     let row: HTMLTableRowElement;
-    const table = (<HTMLTableElement>document.getElementById('statsTableProfile'));
+    const table = (<HTMLTableElement>document.getElementById('stats-table-persoanl-xquiz'));
     this.restService.getTopTenStatisticsPlayer('xquiz').subscribe((stats => {
-      row = (<HTMLTableRowElement>document.getElementById('statsTableProfileHeader'));
+      row = (<HTMLTableRowElement>document.getElementById('stats-table-personal-xquiz-header'));
       row.bgColor = '#4286f4';
       console.log(stats);
       this.stats = stats;
@@ -83,13 +83,13 @@ export class StatisticsComponent implements OnInit {
     }));
   }
 
-  createTopTenOverallTable() {
+  createTopTenOverallTableXquiz() {
     let cell: HTMLTableCellElement;
     let header: HTMLTableSectionElement;
     let row: HTMLTableRowElement;
-    const table = (<HTMLTableElement>document.getElementById('statsTableOverall'));
+    const table = (<HTMLTableElement>document.getElementById('stats-table-world-xquiz'));
     this.restService.getTopTenStatisticsOverall('xquiz').subscribe((stats => {
-      row = (<HTMLTableRowElement>document.getElementById('statsTableOverwallHeader'));
+      row = (<HTMLTableRowElement>document.getElementById('stats-table-world-xquiz-header'));
       row.bgColor = '#4286f4';
       this.stats = stats;
       for (let i = 0; i < 10; i++) {
@@ -122,7 +122,7 @@ export class StatisticsComponent implements OnInit {
     let row: HTMLTableRowElement;
     const table = (<HTMLTableElement>document.getElementById('stats-table-world-survival'));
     this.restService.getTopTenStatisticsOverall('survival').subscribe((stats => {
-      row = (<HTMLTableRowElement>document.getElementById('stats-table-personal-world-header'));
+      row = (<HTMLTableRowElement>document.getElementById('stats-table-world-survival-header'));
       row.bgColor = '#4286f4';
       console.log(stats);
       this.stats = stats;
