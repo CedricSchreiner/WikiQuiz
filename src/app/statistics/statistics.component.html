@@ -1,52 +1,73 @@
 <app-background></app-background>
 <app-navbarmenu></app-navbarmenu>
+<app-timerbar></app-timerbar>
 
 <div>
-  <br>
   <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#top10p">Top10 Personal</a></li>
-    <li><a data-toggle="tab" href="#top10w">Top10 WorldWide</a></li>
-    <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
+    <li class="active"><a data-toggle="tab" href="#top-ten-personal-xquiz">Top10 Personal XQuiz</a></li>
+    <li><a data-toggle="tab" href="#top-ten-personal-survival">Top10 Personal Survival</a></li>
+    <li><a data-toggle="tab" href="#top-ten-world-xquiz">Top10 WorldWide XQuiz</a></li>
+    <li><a data-toggle="tab" href="#top-ten-world-survival">Top10 WorldWide Survival</a></li>
   </ul>
-
+  <br>
   <div class="tab-content">
-    <div id="top10p" class="tab-pane fade in active">
-      <h3>HOME</h3>
-      <table border="1px" id="statsTableProfile">
+
+    <div id="top-ten-personal-xquiz" class="tab-pane fade in active">
+      <table border="1px" id="stats-table-persoanl-xquiz">
         <thead>
-        <tr id="statsTableProfileHeader">
-          <td>Platz</td>
-          <td>Fragenanzahl</td>
+        <tr id="stats-table-personal-xquiz-header">
+          <td>Top</td>
+          <td>Beantwortete Fragen</td>
           <td>Richtige Antworten</td>
-          <td>Gespielte Spiele</td>
-          <td>Punkte</td>
-          <td>ID</td>
+          <td>Höchste Punkte</td>
         </tr>
         </thead>
       </table>
-      <p>Some content.</p>
     </div>
-    <div id="top10w" class="tab-pane fade">
-      <h3>Menu 1</h3>
-      <table border="1px" id="statsTableOverall">
+
+    <div id="top-ten-personal-survival" class="tab-pane fade">
+      <table border="1px" id="stats-table-personal-survival">
         <thead>
-        <tr id="statsTableOverwallHeader">
-          <td>Platz</td>
-          <td>Fragenanzahl</td>
+        <tr id="stats-table-personal-survival-header">
+          <td>Top</td>
+          <td>Beantwortete Fragen</td>
           <td>Richtige Antworten</td>
-          <td>Gespielte Spiele</td>
-          <td>Punkte</td>
-          <td>ID</td>
+          <td>Höchste Punkte</td>
         </tr>
         </thead>
       </table>
-      <p>Some content in menu 1.</p>
     </div>
-    <div id="menu2" class="tab-pane fade">
-      <h3>Menu 2</h3>
-      <p>Some content in menu 2.</p>
+
+    <div id="top-ten-world-xquiz" class="tab-pane fade">
+      <table border="1px" id="stats-table-world-xquiz">
+        <thead>
+        <tr id="stats-table-world-xquiz-header">
+          <td>Platz</td>
+          <td>Beantwortete Fragen</td>
+          <td>Richtige Antworten</td>
+          <td>Höchste Punkte</td>
+          <td>Gespielte Spiele</td>
+          <td>Spieler Name</td>
+        </tr>
+        </thead>
+      </table>
+    </div>
+
+    <div id="top-ten-world-survival" class="tab-pane fade">
+      <table border="1px" id="stats-table-world-survival">
+        <thead>
+        <tr id="stats-table-world-survival-header">
+          <td>Platz</td>
+          <td>Beantwortete Fragen</td>
+          <td>Richtige Antworten</td>
+          <td>Höchste Punkte</td>
+          <td>Gespielte Spiele</td>
+          <td>Spieler Name</td>
+        </tr>
+        </thead>
+      </table>
     </div>
   </div>
 </div>
-<div class="anchor-frame">
-</div>
+
+<div class="anchor-frame"></div>

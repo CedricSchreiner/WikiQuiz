@@ -31,6 +31,7 @@ export class AvatarComponent implements OnInit {
       console.log(post);
     }, (err: any) => {
       this.status = err.status;
+      console.log(err.toString());
       if (err.status === 0) {
         this.text = 'keine Verbindung zum Server';
       } else if (err.status === 200) {

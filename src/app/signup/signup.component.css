@@ -32,11 +32,12 @@ body {
       margin: 1px auto;
       bottom: 60px;
     }
-    #signup-screen {
+
+    /*#signup-screen {
       overflow-y: visible;
       height: 50%;
-      max-widh: 100%;
-      }
+      max-width: 100%;
+      }*/
   }
 }
 /* End of definition of properties on small devices in landscape mode*/
