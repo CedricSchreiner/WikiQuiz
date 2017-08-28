@@ -26,7 +26,7 @@ export class StatisticsComponent implements OnInit {
     let header: HTMLTableSectionElement;
     let row: HTMLTableRowElement;
     const table = (<HTMLTableElement>document.getElementById('statsTableProfile'));
-    this.restService.getTopTenStatisticsPlayer().subscribe((stats => {
+    this.restService.getTopTenStatisticsPlayer('xquiz').subscribe((stats => {
       row = (<HTMLTableRowElement>document.getElementById('statsTableProfileHeader'));
       row.bgColor = '#4286f4';
       console.log(stats);
@@ -57,7 +57,7 @@ export class StatisticsComponent implements OnInit {
     let header: HTMLTableSectionElement;
     let row: HTMLTableRowElement;
     const table = (<HTMLTableElement>document.getElementById('stats-table-personal-survival'));
-    this.restService.getTopTenStatisticsPlayer('xquiz').subscribe((stats => {
+    this.restService.getTopTenStatisticsPlayer('survival').subscribe((stats => {
       row = (<HTMLTableRowElement>document.getElementById('stats-table-personal-survival-header'));
       row.bgColor = '#4286f4';
       console.log(stats);
@@ -121,7 +121,7 @@ export class StatisticsComponent implements OnInit {
     let header: HTMLTableSectionElement;
     let row: HTMLTableRowElement;
     const table = (<HTMLTableElement>document.getElementById('stats-table-world-survival'));
-    this.restService.getTopTenStatisticsPlayer().subscribe((stats => {
+    this.restService.getTopTenStatisticsOverall('survival').subscribe((stats => {
       row = (<HTMLTableRowElement>document.getElementById('stats-table-personal-world-header'));
       row.bgColor = '#4286f4';
       console.log(stats);
