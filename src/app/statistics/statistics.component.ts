@@ -41,6 +41,8 @@ export class StatisticsComponent implements OnInit {
           cell.width = '100px';
           if (this.stats.length > i) {
             cell.innerHTML = this.get(i, j);
+          } else {
+            cell.innerHTML = '-';
           }
           if ((i % 2) === 0) {
             row.bgColor = '#f9fafc';
@@ -72,6 +74,8 @@ export class StatisticsComponent implements OnInit {
           cell.width = '100px';
           if (this.stats.length > i) {
             cell.innerHTML = this.get(i, j);
+          } else {
+            cell.innerHTML = '-';
           }
           if ((i % 2) === 0) {
             row.bgColor = '#f9fafc';
@@ -104,6 +108,8 @@ export class StatisticsComponent implements OnInit {
           cell.width = '100px';
           if (this.stats.length >= i) {
             cell.innerHTML = this.get(i, j);
+          } else {
+            cell.innerHTML = '-';
           }
           if ((i % 2) === 0) {
             row.bgColor = '#f9fafc';
@@ -137,6 +143,8 @@ export class StatisticsComponent implements OnInit {
           cell.width = '100px';
           if (this.stats.length > i) {
             cell.innerHTML = this.get(i, j);
+          } else {
+            cell.innerHTML = '-';
           }
           if ((i % 2) === 0) {
             row.bgColor = '#f9fafc';
