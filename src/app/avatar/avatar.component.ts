@@ -25,7 +25,7 @@ export class AvatarComponent implements OnInit {
   }
 
   sendChangeAvatar() {
-    this.restService.changeAvatar(sessionStorage.getItem('link')).subscribe((post) => {
+    this.restService.changeAvatar(sessionStorage.getItem('actual_link')).subscribe((post) => {
       this.text = 'Avatar successfully changed';
       console.log(post);
     }, (err: any) => {
