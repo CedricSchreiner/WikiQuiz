@@ -25,17 +25,16 @@ body {
   @media (max-width: 700px) {
     #login-main-div {
       margin: 1px auto;
-    }
-    .login {
-      bottom: 60px;
-    }
-   @media (max-width: 600px) {
-     .login {
-       bottom: 90px;
      }
+    #login-main-div {
+      overflow-y: auto;
+      overflow-x: hidden;
+      overflow-scrolling: initial;
+
+    }
+
    }
   }
-}
 
 .login-screen {
   background-color: #FFF;
