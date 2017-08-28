@@ -3,7 +3,7 @@
 body
 {
   margin: 0;
-  /*overflow: hidden;*/
+  overflow: visible;
   height: 100vh;
 }
 
