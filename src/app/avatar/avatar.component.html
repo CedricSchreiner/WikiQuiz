@@ -3,7 +3,44 @@
 
 <!-- <app-signup></app-signup> -->
 
-<app-navbarmenu></app-navbarmenu>
+<!--Navbar-->
+<nav class="navbar navbar-default">
+
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+
+      <button id="burger" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+
+        <span class="sr-only">Menue navigation</span>
+        <span id="firstBar" class="icon-bar"></span>
+        <span id="secondBar" class="icon-bar"></span>
+        <span id="thirdBar" class="icon-bar"></span>
+
+      </button>
+      <a (click)="link('menu')"> <img id="logoPicture" class="navbar-brand" src="../../assets/logo.png"> </a>
+      <a (click)="link('options')"> <img id="choosen-avatarPicture" class="navbar-brand" src={{avatarLinkString}}></a>
+
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+      <ul id="menu-topmenu" class="nav navbar-nav navbar-left">
+        <li id="menu-item-1"><a (click)="link('info')">Info</a></li>
+      </ul>
+
+      <ul id="menu-logout" class="nav navbar-nav navbar-right">
+        <li id="menu-item-2" (click)="logout()"><a href="">Log Out</a></li>
+      </ul>
+
+    </div> <!--/.navbar-collapse -->
+
+  </div><!-- /.container-fluid -->
+
+</nav>
+
+<!--End-Navbar-->
+
 
 
 <div class="changeavatar" id="change-avatar-frame">

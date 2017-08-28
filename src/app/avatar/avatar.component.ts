@@ -17,7 +17,6 @@ export class AvatarComponent implements OnInit {
 
   ngOnInit() {
     this.avatarLinkString = '../../assets/' + sessionStorage.getItem('actual_link');
-    console.log(this.avatarLinkString);
   }
 
   selectAvatar(avatarLink: string, linkToGo: string) {
