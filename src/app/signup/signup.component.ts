@@ -53,4 +53,7 @@ export class SignupComponent implements OnInit {
       this.errMsg = 'Der Username muss mindestens 2 Zeichen lang sein';
     }
   }
+  link(linkToGo: string) {
+    window.location.href = linkToGo;
+  }
 }

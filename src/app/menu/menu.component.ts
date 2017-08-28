@@ -48,10 +48,6 @@ export class MenuComponent implements OnInit {
     window.location.href = 'game';
   }
 
-  logout() {
-    sessionStorage.clear();
-  }
-
   link(linkToGo: string) {
     window.location.href = linkToGo;
   }

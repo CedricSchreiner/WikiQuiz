@@ -16,51 +16,12 @@
   margin: 10px auto;
 }
 
-#avatarPicture
-{
-  cursor: pointer;
-  width: 45px;
-  height: 45px;
-  position: absolute;
-  padding: 3px;
-  top: 2px;
-  right: 95px;
-}
-
-#logoPicture
-{
-  width: 45px;
-  height: 45px;
-  position: absolute;
-  top: 2px;
-  padding: 3px;
-  left: 25px;
-}
-
 @media (max-width: 960px) {
   .btn
   {
     font-size: 16px;
   }
 
-  #logoPicture
-  {
-    width: 45px;
-    height: 45px;
-    position: absolute;
-    padding: 3px;
-    left: 5px;
-  }
-
-  #avatarPicture
-  {
-    width: 45px;
-    height: 45px;
-    position: absolute;
-    padding: 3px;
-    top: 2px;
-    right: 65px;
-  }
 
   @media (orientation: landscape) {
     .btn
@@ -91,31 +52,15 @@
   text-align: center;
 }
 
-/**Navbar Css */
-.navbar {
-  background-color: #0d87cf;
-}
-
-.navbar a
-{
-  color: white;
-  opacity: 0.85;
-}
-
-.navbar button:focus, .navbar button:active {
-  background-color: #0d87cf;
-  opacity: 0.85;
-}
-
-.navbar button span{
-
-  background-color: white;
-}
-
-/** End Navbar CSS*/
  #mainMenu2{
    visibility: hidden;
  }
  #mainMenu3{
    visibility: hidden;
  }
+
+ #menu-topmenu, #menu-logout:hover
+ {
+   cursor: pointer;
+ }
+

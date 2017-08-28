@@ -16,9 +16,14 @@ export class OptionsComponent implements OnInit {
 
   ngOnInit() {
     this.avatarLinkString = './assets/' + sessionStorage.getItem('link');
+    sessionStorage.setItem('actual_link', sessionStorage.getItem('link'));
   }
 
   logout() {
     sessionStorage.clear();
+  }
+
+  link(linkToGo: string) {
+    window.location.href = linkToGo;
   }
 }

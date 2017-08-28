@@ -8,6 +8,8 @@ import { LoginComponent } from './login/login.component';
 import { RouterModule, Routes } from '@angular/router';
 import { RestService } from './service/rest.service';
 import { SignupComponent } from './signup/signup.component';
+import { NavbarloginComponent } from './navbar-login-view/navbarlogin.component';
+import { NavbarmenuComponent } from './navbar-menu-view/navbarmenu.component';
 import { MenuComponent } from './menu/menu.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { OptionsComponent } from './options/options.component';
@@ -17,6 +19,7 @@ import { PasswordComponent } from './password/password.component';
 import { SurvivalQuizService } from './quiz/survivalquiz';
 import { QuizComponent } from './quiz/quiz.component';
 import { XQuizService } from './quiz/xquiz';
+import { FiftyFiftyJokerService } from './quiz/fifty_fifty_joker';
 
 const appRoutes: Routes = [
   {path: '', component: LoginComponent},
@@ -36,6 +39,8 @@ const appRoutes: Routes = [
     TimerbarComponent,
     BackgroundComponent,
     LoginComponent,
+    NavbarloginComponent,
+    NavbarmenuComponent,
     SignupComponent,
     OptionsComponent,
     QuizComponent,
@@ -50,7 +55,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     HttpModule
   ],
-  providers: [RestService, SurvivalQuizService, XQuizService],
+  providers: [RestService, SurvivalQuizService, XQuizService, FiftyFiftyJokerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

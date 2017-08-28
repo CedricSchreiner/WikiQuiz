@@ -9,7 +9,6 @@ import {RestService} from '../service/rest.service';
 
 export class AvatarComponent implements OnInit {
   status: number;
-  avatarLink: string;
   avatarLinkString: string;
   text: string;
 
@@ -17,16 +16,16 @@ export class AvatarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.avatarLinkString = './assets/' + sessionStorage.getItem('link');
+    this.avatarLinkString = '../../assets/' + sessionStorage.getItem('actual_link');
   }
+
   selectAvatar(avatarLink: string, linkToGo: string) {
-    this.avatarLink = avatarLink;
-    sessionStorage.setItem('link', avatarLink);
+    sessionStorage.setItem('actual_link', avatarLink);
     this.link(linkToGo);
   }
 
   sendChangeAvatar() {
-    this.restService.changeAvatar(sessionStorage.getItem('link')).subscribe((post) => {
+    this.restService.changeAvatar(sessionStorage.getItem('actual_link')).subscribe((post) => {
       this.text = 'Avatar successfully changed';
       console.log(post);
     }, (err: any) => {
@@ -39,6 +38,7 @@ export class AvatarComponent implements OnInit {
         this.text = 'Ups, da ist etwas schief gelaufen';
       }
     });
+    sessionStorage.setItem('link', sessionStorage.getItem('actual_link'));
   }
 
   logout() {
