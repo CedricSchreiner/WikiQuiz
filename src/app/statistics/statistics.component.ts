@@ -57,7 +57,7 @@ export class StatisticsComponent implements OnInit {
     let header: HTMLTableSectionElement;
     let row: HTMLTableRowElement;
     const table = (<HTMLTableElement>document.getElementById('stats-table-personal-survival'));
-    this.restService.getTopTenStatisticsPlayer().subscribe((stats => {
+    this.restService.getTopTenStatisticsPlayer('xquiz').subscribe((stats => {
       row = (<HTMLTableRowElement>document.getElementById('stats-table-personal-survival-header'));
       row.bgColor = '#4286f4';
       console.log(stats);
