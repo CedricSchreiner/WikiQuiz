@@ -30,12 +30,12 @@ export class RestService {
                          {headers: myHeader}).map(res => res.json());
   }
 
-  getTopTenStatisticsOverall() {
+  getTopTenStatisticsOverall(gamemode: string) {
     console.log('test');
     const myHeader = new Headers();
     myHeader.append('Authorization', 'Basic ' + btoa(sessionStorage.getItem('email') +
       ':' + sessionStorage.getItem('password')));
-    return this.http.get('http://localhost:8080/quiz/webapi/stats/auth/topTenOverall', {headers: myHeader})
+    return this.http.get('http://localhost:8080/quiz/webapi/stats/auth/topTenOverall/' + gamemode, {headers: myHeader})
                          .map (res => res.json());
   }
 

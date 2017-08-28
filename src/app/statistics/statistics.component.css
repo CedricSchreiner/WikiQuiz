@@ -89,3 +89,8 @@ input:focus {
   background-color: red;
   height: 300px;
 }
+
+.tab-content
+{
+  text-align: center;
+}

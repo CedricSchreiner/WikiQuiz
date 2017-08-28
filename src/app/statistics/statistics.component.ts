@@ -17,6 +17,8 @@ export class StatisticsComponent implements OnInit {
     this.avatarLinkString = './assets/' + sessionStorage.getItem('link');
     this.createTopTenPlayer();
     this.createTopTenOverallTable();
+    this.createTopTenPlayerSurvival();
+    this.createTopTenOverallSurvival();
   }
 
   createTopTenPlayer() {
@@ -50,12 +52,43 @@ export class StatisticsComponent implements OnInit {
     }));
   }
 
+  createTopTenPlayerSurvival() {
+    let cell: HTMLTableCellElement;
+    let header: HTMLTableSectionElement;
+    let row: HTMLTableRowElement;
+    const table = (<HTMLTableElement>document.getElementById('stats-table-personal-survival'));
+    this.restService.getTopTenStatisticsPlayer().subscribe((stats => {
+      row = (<HTMLTableRowElement>document.getElementById('stats-table-personal-survival-header'));
+      row.bgColor = '#4286f4';
+      console.log(stats);
+      this.stats = stats;
+      for (let i = 0; i < 10; i++) {
+        header = table.createTHead();
+        row = header.insertRow(i + 1);
+        cell = row.insertCell(0);
+        cell.innerHTML = '<b>' + String(i + 1) + '.</b>';
+        for (let j = 1; j < 6; j++) {
+          cell = row.insertCell(j);
+          cell.width = '100px';
+          if (this.stats.length > i) {
+            cell.innerHTML = this.get(i, j);
+          }
+          if ((i % 2) === 0) {
+            row.bgColor = '#f9fafc';
+          }else {
+            row.bgColor = '#eaf0f9';
+          }
+        }
+      }
+    }));
+  }
+
   createTopTenOverallTable() {
     let cell: HTMLTableCellElement;
     let header: HTMLTableSectionElement;
     let row: HTMLTableRowElement;
     const table = (<HTMLTableElement>document.getElementById('statsTableOverall'));
-    this.restService.getTopTenStatisticsOverall().subscribe((stats => {
+    this.restService.getTopTenStatisticsOverall('xquiz').subscribe((stats => {
       row = (<HTMLTableRowElement>document.getElementById('statsTableOverwallHeader'));
       row.bgColor = '#4286f4';
       this.stats = stats;
@@ -80,6 +113,37 @@ export class StatisticsComponent implements OnInit {
         ///=======================================================
       }
       console.log(table);
+    }));
+  }
+
+  createTopTenOverallSurvival() {
+    let cell: HTMLTableCellElement;
+    let header: HTMLTableSectionElement;
+    let row: HTMLTableRowElement;
+    const table = (<HTMLTableElement>document.getElementById('stats-table-world-survival'));
+    this.restService.getTopTenStatisticsPlayer().subscribe((stats => {
+      row = (<HTMLTableRowElement>document.getElementById('stats-table-personal-world-header'));
+      row.bgColor = '#4286f4';
+      console.log(stats);
+      this.stats = stats;
+      for (let i = 0; i < 10; i++) {
+        header = table.createTHead();
+        row = header.insertRow(i + 1);
+        cell = row.insertCell(0);
+        cell.innerHTML = '<b>' + String(i + 1) + '.</b>';
+        for (let j = 1; j < 6; j++) {
+          cell = row.insertCell(j);
+          cell.width = '100px';
+          if (this.stats.length > i) {
+            cell.innerHTML = this.get(i, j);
+          }
+          if ((i % 2) === 0) {
+            row.bgColor = '#f9fafc';
+          }else {
+            row.bgColor = '#eaf0f9';
+          }
+        }
+      }
     }));
   }
 
