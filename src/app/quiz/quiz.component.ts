@@ -15,12 +15,12 @@ export class QuizComponent implements OnInit {
   avatarLinkString: string;
   richtigeAntworten: number;
   statusFrage: string;
-  buttonA: HTMLDivElement;
-  buttonB: HTMLDivElement;
-  buttonC: HTMLDivElement;
-  buttonD: HTMLDivElement;
-  button: HTMLDivElement;
-  buttonRightSolution: HTMLDivElement;
+  buttonA: HTMLButtonElement;
+  buttonB: HTMLButtonElement;
+  buttonC: HTMLButtonElement;
+  buttonD: HTMLButtonElement;
+  button: HTMLButtonElement;
+  buttonRightSolution: HTMLButtonElement;
 
   /**
    * 1 = Survival Quiz
@@ -31,10 +31,10 @@ export class QuizComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.buttonA = (<HTMLDivElement>document.getElementById('answerA'));
-    this.buttonB = (<HTMLDivElement>document.getElementById('answerB'));
-    this.buttonC = (<HTMLDivElement>document.getElementById('answerC'));
-    this.buttonD = (<HTMLDivElement>document.getElementById('answerD'));
+    this.buttonA = (<HTMLButtonElement>document.getElementById('answerA'));
+    this.buttonB = (<HTMLButtonElement>document.getElementById('answerB'));
+    this.buttonC = (<HTMLButtonElement>document.getElementById('answerC'));
+    this.buttonD = (<HTMLButtonElement>document.getElementById('answerD'));
 
     if (sessionStorage.length > 0) {
       this.test = true;
@@ -60,7 +60,15 @@ export class QuizComponent implements OnInit {
        =============================================
        */
       this.button.style.backgroundColor = '#01DF01';
+      this.buttonA.disabled = true;
+      this.buttonB.disabled = true;
+      this.buttonC.disabled = true;
+      this.buttonD.disabled = true;
       await this.delay(2500); ///Uebergabe in Millisekunden
+      this.buttonA.disabled = false;
+      this.buttonB.disabled = false;
+      this.buttonC.disabled = false;
+      this.buttonD.disabled = false;
       this.button.style.backgroundColor = '#0d87cf';
       this.statusFrage = 'richtig';
       console.log(this.statusFrage);
@@ -71,6 +79,10 @@ export class QuizComponent implements OnInit {
       ==============================================
        */
       this.buttonRightSolution = this.getButton(Number(this.frage.SolutionNumber));
+      this.buttonA.disabled = true;
+      this.buttonB.disabled = true;
+      this.buttonC.disabled = true;
+      this.buttonD.disabled = true;
       this.button.style.backgroundColor = '#FF0000';
       this.buttonRightSolution.style.backgroundColor = '#01DF01';
       await this.delay(500);
@@ -84,6 +96,10 @@ export class QuizComponent implements OnInit {
       await this.delay(500);
       this.buttonRightSolution.style.backgroundColor = '#0d87cf';
       this.button.style.backgroundColor = '#0d87cf';
+      this.buttonA.disabled = false;
+      this.buttonB.disabled = false;
+      this.buttonC.disabled = false;
+      this.buttonD.disabled = false;
       this.statusFrage = 'falsch';
       console.log(this.statusFrage);
     }
