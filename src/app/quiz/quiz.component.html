@@ -20,7 +20,7 @@
 
           <a> <img id="logoPicture" class="navbar-brand" src="../../assets/logo.png"> </a>
 
-          <a> <img id="choosen-avatarPicture" class="navbar-brand" src={{avatarLinkString}}></a>
+          <a> <img id="choosen-avatarPicture" class="navbar-brand" src={{avatarLinkString}}> </a>
 
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
@@ -36,7 +36,7 @@
 
 
   <div class="question-frame" id="rahmenderFrage">
-    <p class="frage-string" id="question-string"> nichts </p>
+    <p class="frage-string" id="question-string">{{frage.Verbalization}}</p>
   </div>
 
   <div class="answer-frame" id="rahmenderAntwort">
@@ -61,15 +61,8 @@
   <!-- Timebar -->
 
   <div class="anchor-frame" id="status-frame">
-
-
-
     <div class="Timer">
-
-    {{richtigeAntworten}}
-
-
-
+      {{richtigeAntworten}}
     </div>
   </div>
 

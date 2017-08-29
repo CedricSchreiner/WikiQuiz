@@ -14,6 +14,8 @@ export class QuizComponent implements OnInit {
   frage: Frage;
   avatarLinkString: string;
   richtigeAntworten: number;
+  statusFrage: string;
+  test1: HTMLDivElement;
 
   /**
    * 1 = Survival Quiz
@@ -40,8 +42,24 @@ export class QuizComponent implements OnInit {
   }
 
   nextQuestion(buttonNumber: number): any {
+    this.test1 = (<HTMLDivElement>document.getElementById('rahmenderAntwort'));
     if (buttonNumber === Number(this.frage.SolutionNumber)) {
       this.richtigeAntworten++;
+      /*============================================
+          Frage richtig
+       =============================================
+       */
+      this.test1.style.backgroundColor = '#FFFFFF';
+      this.statusFrage = 'richtig';
+      console.log(this.statusFrage);
+    } else {
+      /*
+      ==============================================
+          Frage falsch
+      ==============================================
+       */
+      this.statusFrage = 'falsch';
+      console.log(this.statusFrage);
     }
     switch (sessionStorage.getItem('gamemode')) {
       case '1': if (buttonNumber !== Number(this.frage.SolutionNumber)) {
