@@ -4,6 +4,11 @@
   text-align: center;
 }
 
+.tab-content:hover
+{
+  cursor: default;
+}
+
 #stats-table-personal-xquiz-header, #stats-table-personal-survival-header, #stats-table-world-xquiz-header, #stats-table-world-survival-header {
   color: #FFFFFF;
 }
