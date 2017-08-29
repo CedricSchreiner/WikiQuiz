@@ -37,48 +37,31 @@
   background-color: #2980B9;
 }
 
-.anchor-frame
-{
-  border: 1px solid #ffffff;
-  padding-top:10px;
-  padding-bottom: 10px;
-  line-height: 20px;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 55px;
-  background: #0d87cf;
-  z-index: 2;
-  text-align: center;
-}
-
-#mainMenu2{
-  visibility: hidden;
-}
-#mainMenu3{
-  visibility: hidden;
-}
-
-#menu-topmenu, #menu-logout:hover
-{
-  cursor: pointer;
-}
+@media (orientation: portrait) {
 
 #resultMenu{
-  position: absolute;
-  width: 600px;
-  height: 400px;
+  position: relative;
+  width: 100%;
+  height: 60%;
+  margin: 20% -50%;
   z-index: 15;
-  top: 50%;
   left: 50%;
-  margin: -200px 0 0 -300px;
   background: white;
   border: double;
 }
+  .btn{
+    position: relative;
+    top: 55%;
+    margin: 5%;
+    float: left;
+  }
 
-.label1{
-  position: absolute;
-  top: 80%;
-  left: 50%;
-  margin: -100px -100px;
+  #starsImageDiv
+  {
+    text-align: center;
+    margin: auto;
+  }
+}
+
+@media (orientation: landscape) {
 }
