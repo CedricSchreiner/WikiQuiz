@@ -31,6 +31,11 @@ export class QuizComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.buttonA = (<HTMLDivElement>document.getElementById('answerA'));
+    this.buttonB = (<HTMLDivElement>document.getElementById('answerB'));
+    this.buttonC = (<HTMLDivElement>document.getElementById('answerC'));
+    this.buttonD = (<HTMLDivElement>document.getElementById('answerD'));
+
     if (sessionStorage.length > 0) {
       this.test = true;
       this.richtigeAntworten = 0;
@@ -65,7 +70,7 @@ export class QuizComponent implements OnInit {
           Frage falsch
       ==============================================
        */
-      this.buttonRightSolution = this.getButton(this.frage.SolutionNumber);
+      this.buttonRightSolution = this.getButton(Number(this.frage.SolutionNumber));
       this.button.style.backgroundColor = '#FF0000';
       this.buttonRightSolution.style.backgroundColor = '#01DF01';
       await this.delay(500);
@@ -78,6 +83,7 @@ export class QuizComponent implements OnInit {
       this.buttonRightSolution.style.backgroundColor = '#01DF01';
       await this.delay(500);
       this.buttonRightSolution.style.backgroundColor = '#0d87cf';
+      this.button.style.backgroundColor = '#0d87cf';
       this.statusFrage = 'falsch';
       console.log(this.statusFrage);
     }
@@ -113,10 +119,6 @@ export class QuizComponent implements OnInit {
   }
 
   getButton(buttonNumber: number) {
-    this.buttonA = (<HTMLDivElement>document.getElementById('answerA'));
-    this.buttonB = (<HTMLDivElement>document.getElementById('answerB'));
-    this.buttonC = (<HTMLDivElement>document.getElementById('answerC'));
-    this.buttonD = (<HTMLDivElement>document.getElementById('answerD'));
     if (buttonNumber === 0) {
       return this.buttonA;
     }
