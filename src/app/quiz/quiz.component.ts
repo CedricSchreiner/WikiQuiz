@@ -14,7 +14,6 @@ export class QuizComponent implements OnInit {
   frage: Frage;
   avatarLinkString: string;
   richtigeAntworten: number;
-  statusFrage: string;
   buttonA: HTMLButtonElement;
   buttonB: HTMLButtonElement;
   buttonC: HTMLButtonElement;
@@ -60,18 +59,10 @@ export class QuizComponent implements OnInit {
        =============================================
        */
       this.button.style.backgroundColor = '#01DF01';
-      this.buttonA.disabled = true;
-      this.buttonB.disabled = true;
-      this.buttonC.disabled = true;
-      this.buttonD.disabled = true;
+      this.changeDisableStatus(true);
       await this.delay(2500); ///Uebergabe in Millisekunden
-      this.buttonA.disabled = false;
-      this.buttonB.disabled = false;
-      this.buttonC.disabled = false;
-      this.buttonD.disabled = false;
+      this.changeDisableStatus(false);
       this.button.style.backgroundColor = '#0d87cf';
-      this.statusFrage = 'richtig';
-      console.log(this.statusFrage);
     } else {
       /*
       ==============================================
@@ -79,10 +70,7 @@ export class QuizComponent implements OnInit {
       ==============================================
        */
       this.buttonRightSolution = this.getButton(Number(this.frage.SolutionNumber));
-      this.buttonA.disabled = true;
-      this.buttonB.disabled = true;
-      this.buttonC.disabled = true;
-      this.buttonD.disabled = true;
+      this.changeDisableStatus(true);
       this.button.style.backgroundColor = '#FF0000';
       this.buttonRightSolution.style.backgroundColor = '#01DF01';
       await this.delay(500);
@@ -96,12 +84,7 @@ export class QuizComponent implements OnInit {
       await this.delay(500);
       this.buttonRightSolution.style.backgroundColor = '#0d87cf';
       this.button.style.backgroundColor = '#0d87cf';
-      this.buttonA.disabled = false;
-      this.buttonB.disabled = false;
-      this.buttonC.disabled = false;
-      this.buttonD.disabled = false;
-      this.statusFrage = 'falsch';
-      console.log(this.statusFrage);
+      this.changeDisableStatus(false);
     }
 
     switch (sessionStorage.getItem('gamemode')) {
@@ -147,6 +130,13 @@ export class QuizComponent implements OnInit {
     if (buttonNumber === 3) {
       return this.buttonD;
     }
+  }
+
+  changeDisableStatus(disabled: boolean) {
+    this.buttonA.disabled = disabled;
+    this.buttonB.disabled = disabled;
+    this.buttonC.disabled = disabled;
+    this.buttonD.disabled = disabled;
   }
 
   link(linkToGo: string) {
