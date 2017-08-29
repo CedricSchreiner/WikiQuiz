@@ -4,7 +4,7 @@
   color: #ffffff;
   font-size: 25px;
   line-height: 25px;
-  padding: 12px auto;
+ /* padding: 12px auto;*/
   text-decoration: none;
   text-shadow: none;
   border-radius: 3px;
@@ -13,7 +13,7 @@
   display: block;
   width: 40%;
   height: 55px;
-  margin: 10px auto;
+  /*margin: 10px auto;*/
 }
 
 @media (max-width: 960px) {
@@ -33,8 +33,72 @@
   }
 }
 
+
+.hit-the-floor {
+  color: #000000;
+  font-size: 2em;
+  font-weight: bold;
+  font-family: Helvetica;
+  text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, .1), 0 0 5px rgba(0, 0, 0, .1), 0 1px 3px rgba(0, 0, 0, .3), 0 3px 5px rgba(0, 0, 0, .2), 0 5px 10px rgba(0, 0, 0, .25), 0 10px 10px rgba(0, 0, 0, .2), 0 20px 20px rgba(0, 0, 0, .15);
+}
+
+#starsImageDiv
+{
+  position: relative;
+  width: 100%;
+  height: 20%;
+  text-align: center;
+  top: 5%;
+  margin: auto;
+}
+
 .btn:hover {
   background-color: #2980B9;
+}
+
+#verhaeltnis{
+  position: relative;
+  width: 100%;
+  height: 40%;
+  margin: 10% 0%;
+}
+#punkte{
+  position: relative;
+  width: 100%;
+  height: 40%;
+  margin: -5% 0%;
+}
+#buttons
+{
+  position: relative;
+  text-align: center;
+  width: 100%;
+  top: 60%;
+  height: 60px;
+}
+
+.btn
+{
+  position: relative;
+  width: 40%;
+  float: left;
+}
+
+#btnReady{
+  margin-right: 3%;
+  margin-left: 6%;
+}
+#btnRetry{
+  margin-right: 3%;
+  margin-left: 6%;
+}
+
+#resultMenu{
+  width: 90%;
+  height: 70%;
+  margin: auto;
+  background: white;
+  border:double;
 }
 
 @media (orientation: portrait) {
@@ -65,24 +129,6 @@
     height: 55px;
   }
 
-  #starsImageDiv
-  {
-    position: absolute;
-    width: 100%;
-    height: 20%;
-    text-align: center;
-    top: 12%;
-    margin: auto;
-  }
-
-  .hit-the-floor {
-    color: #000000;
-    font-size: 2em;
-    font-weight: bold;
-    font-family: Helvetica;
-    text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
-  }
-
   #verhaeltnis{
     position: relative;
     width: 100%;
@@ -103,4 +149,34 @@
 }
 
 @media (orientation: landscape) {
+
+  .btn{
+    position: relative;
+    bottom: 15%;
+    margin: 5%;
+    float: left;
+  }
+
+  #buttons
+  {
+    position: absolute;
+    left: 10%;
+    bottom: 15%;
+    width: 80%;
+    height: 55px;
+  }
+
+  #verhaeltnis{
+    position: relative;
+    width: 100%;
+    height: 40%;
+    margin: 10% 0%;
+  }
+  #punkte{
+    position: relative;
+    width: 100%;
+    height: 40%;
+    margin: -5% 0%;
+
+  }
 }
