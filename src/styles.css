@@ -3,11 +3,51 @@
 body
 {
   margin: 0;
-  /*overflow: visible; */
-  height: 125vh;
+  overflow: visible;
+  height: 100vh;
 }
 
-body ::selection
+/* ! definition of Screen on mobile devices w/ relatively low resolution IN LANDSCAPE MODE */
+
+@media (orientation: landscape) {
+  @media (max-width: 700px) {
+    body {
+      margin: 0;
+      overflow: visible;
+      height: 110vh;
+    }
+    #login-main-div {
+      margin: 1px auto;
+    }
+    #login-main-div {
+      overflow-y: auto;
+      overflow-x: hidden;
+      overflow-scrolling: initial;
+    }
+  }
+}
+@media (orientation: landscape) {
+  @media (max-width: 600px) {
+    body {
+      margin: 0;
+      overflow: visible;
+      height: 125vh;
+    }
+    #login-main-div {
+      margin: 1px auto;
+    }
+    #login-main-div {
+      overflow-y: auto;
+      overflow-x: hidden;
+      overflow-scrolling: initial;
+    }
+  }
+}
+
+
+/* End of definition*/
+
+    body ::selection
 {
   background: transparent;
   color: inherit;

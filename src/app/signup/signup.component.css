@@ -18,28 +18,7 @@ body {
   margin: 20px auto;
   width: 300px;
 }
-/* Start definition of properties on small devices in landscape mode*/
-@media (orientation: landscape){
-  @media (max-width: 700px) {
-    .nav {
-      /*position: fixed;*/
-    }
-    button#burger {
-      alignment: right;
-    }
 
-    .signup {
-      margin: 1px auto;
-      bottom: 60px;
-    }
-
-    /*#signup-screen {
-      overflow-y: visible;
-      height: 50%;
-      max-width: 100%;
-      }*/
-  }
-}
 /* End of definition of properties on small devices in landscape mode*/
 .login-screen {
   background-color: #FFF;
@@ -104,6 +83,11 @@ input:focus {
   margin-top: 12px;
 }
 
+.scolling-form {
+  overflow: scroll;
+  height: 700px;
+
+}
 /** Login End*/
 
 /** Timebar */
