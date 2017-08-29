@@ -63,7 +63,7 @@ export class RestService {
       ':' + sessionStorage.getItem('password')));
     myHeader.append('Content-Type', 'application/json');
 
-    return this.http.put('http://localhost:8080/quiz/webapi/profile/auth/chAvl',
+    return this.http.post('http://localhost:8080/quiz/webapi/profile/auth/chAvl',
         JSON.stringify({e_mail: sessionStorage.getItem('email'), avatar_link: avatarLink}),
         {headers: myHeader})
         .map(res => res.json());
