@@ -67,6 +67,7 @@ export class QuizComponent implements OnInit {
       console.log(this.statusFrage);
     }
     await this.delay(2000); ///Uebergabe in Millisekunden
+    this.button.style.backgroundColor = '#0d87cf'
     switch (sessionStorage.getItem('gamemode')) {
       case '1': if (buttonNumber !== Number(this.frage.SolutionNumber)) {
                   this.survivalQuiz.reduceLives();
