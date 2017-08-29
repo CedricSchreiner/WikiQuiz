@@ -55,8 +55,8 @@ export class QuizComponent implements OnInit {
        =============================================
        */
       this.button.style.backgroundColor = '#01DF01';
-      this.button.style.backgroundColor = '#0d87cf';
       await this.delay(2500); ///Uebergabe in Millisekunden
+      this.button.style.backgroundColor = '#0d87cf';
       this.statusFrage = 'richtig';
       console.log(this.statusFrage);
     } else {
