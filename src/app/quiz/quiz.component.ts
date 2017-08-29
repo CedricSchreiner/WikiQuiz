@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SurvivalQuizService } from './survivalquiz';
 import { XQuizService } from './xquiz';
 
+
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
@@ -13,6 +14,7 @@ export class QuizComponent implements OnInit {
   frage: Frage;
   avatarLinkString: string;
   richtigeAntworten: number;
+
   /**
    * 1 = Survival Quiz
    * 2 = xQuiz 10/30/50 Fragen
@@ -80,3 +82,4 @@ interface Frage {
   Solution: string;
   SolutionNumber: number;
 }
+
