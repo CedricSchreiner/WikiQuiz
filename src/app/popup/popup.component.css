@@ -1,0 +1,84 @@
+.btn {
+  border: 2px solid transparent;
+  background: #3498DB;
+  color: #ffffff;
+  font-size: 25px;
+  line-height: 25px;
+  padding: 12px auto;
+  text-decoration: none;
+  text-shadow: none;
+  border-radius: 3px;
+  box-shadow: none;
+  transition: 0.25s;
+  display: block;
+  width: 40%;
+  height: 55px;
+  margin: 10px auto;
+}
+
+@media (max-width: 960px) {
+  .btn
+  {
+    font-size: 16px;
+  }
+
+
+  @media (orientation: landscape) {
+    .btn
+    {
+      height: 40px;
+      padding: 5px;
+      margin: 0 auto;
+    }
+  }
+}
+
+.btn:hover {
+  background-color: #2980B9;
+}
+
+.anchor-frame
+{
+  border: 1px solid #ffffff;
+  padding-top:10px;
+  padding-bottom: 10px;
+  line-height: 20px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 55px;
+  background: #0d87cf;
+  z-index: 2;
+  text-align: center;
+}
+
+#mainMenu2{
+  visibility: hidden;
+}
+#mainMenu3{
+  visibility: hidden;
+}
+
+#menu-topmenu, #menu-logout:hover
+{
+  cursor: pointer;
+}
+
+#resultMenu{
+  position: absolute;
+  width: 600px;
+  height: 400px;
+  z-index: 15;
+  top: 50%;
+  left: 50%;
+  margin: -200px 0 0 -300px;
+  background: white;
+  border: double;
+}
+
+.label1{
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  margin: -100px -100px;
+}
