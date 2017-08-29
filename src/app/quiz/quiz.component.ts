@@ -20,6 +20,7 @@ export class QuizComponent implements OnInit {
   buttonC: HTMLDivElement;
   buttonD: HTMLDivElement;
   button: HTMLDivElement;
+  buttonRightSolution: HTMLDivElement;
 
   /**
    * 1 = Survival Quiz
@@ -54,6 +55,8 @@ export class QuizComponent implements OnInit {
        =============================================
        */
       this.button.style.backgroundColor = '#01DF01';
+      this.button.style.backgroundColor = '#0d87cf';
+      await this.delay(2500); ///Uebergabe in Millisekunden
       this.statusFrage = 'richtig';
       console.log(this.statusFrage);
     } else {
@@ -62,12 +65,23 @@ export class QuizComponent implements OnInit {
           Frage falsch
       ==============================================
        */
-      this.statusFrage = 'falsch';
+      this.buttonRightSolution = this.getButton(this.frage.SolutionNumber);
       this.button.style.backgroundColor = '#FF0000';
+      this.buttonRightSolution.style.backgroundColor = '#01DF01';
+      await this.delay(500);
+      this.buttonRightSolution.style.backgroundColor = '#0d87cf';
+      await this.delay(500);
+      this.buttonRightSolution.style.backgroundColor = '#01DF01';
+      await this.delay(500);
+      this.buttonRightSolution.style.backgroundColor = '#0d87cf';
+      await this.delay(500);
+      this.buttonRightSolution.style.backgroundColor = '#01DF01';
+      await this.delay(500);
+      this.buttonRightSolution.style.backgroundColor = '#0d87cf';
+      this.statusFrage = 'falsch';
       console.log(this.statusFrage);
     }
-    await this.delay(2000); ///Uebergabe in Millisekunden
-    this.button.style.backgroundColor = '#0d87cf'
+
     switch (sessionStorage.getItem('gamemode')) {
       case '1': if (buttonNumber !== Number(this.frage.SolutionNumber)) {
                   this.survivalQuiz.reduceLives();
