@@ -59,7 +59,6 @@
   },
   "styles": [
     "../node_modules/bootstrap/dist/css/boostrap.min.css",
-    "../node_modules/clarity-ui/clarity-ui.min.css",
     "styles.css"
   ]
 }
