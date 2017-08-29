@@ -45,7 +45,7 @@ export class QuizComponent implements OnInit {
     }
   }
 
-  nextQuestion(buttonNumber: number): any {
+  async nextQuestion(buttonNumber: number) {
     this.button = this.getButton(buttonNumber);
     if (buttonNumber === Number(this.frage.SolutionNumber)) {
       this.richtigeAntworten++;
@@ -66,6 +66,7 @@ export class QuizComponent implements OnInit {
       this.button.style.backgroundColor = '#FF0000';
       console.log(this.statusFrage);
     }
+    await this.delay(2000); ///Uebergabe in Millisekunden
     switch (sessionStorage.getItem('gamemode')) {
       case '1': if (buttonNumber !== Number(this.frage.SolutionNumber)) {
                   this.survivalQuiz.reduceLives();
@@ -90,6 +91,10 @@ export class QuizComponent implements OnInit {
                 this.frage = this.xquiz.getQuestion();
                 break;
     }
+  }
+
+  delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   getButton(buttonNumber: number) {
