@@ -20,7 +20,7 @@
 	/*z-index: -2; <= Verhindert das Drücken der Buttons*/
 }
 
-#question-string
+#question-string, #question-string-lade
 {
 	color: #ffffff;
 	text-align: center;

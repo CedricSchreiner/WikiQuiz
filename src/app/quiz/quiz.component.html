@@ -37,6 +37,7 @@
 
   <div class="question-frame" id="rahmenderFrage">
     <p class="frage-string" id="question-string" *ngIf="frage != undefined">{{frage.Verbalization}}</p>
+    <p class="frage-string" id="question-string-lade" *ngIf="frage == undefined">lade...</p>
   </div>
 
   <div class="answer-frame" id="rahmenderAntwort">
