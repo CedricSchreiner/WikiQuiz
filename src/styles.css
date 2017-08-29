@@ -3,8 +3,8 @@
 body
 {
   margin: 0;
-  overflow: visible;
-  height: 100vh;
+  /*overflow: visible; */
+  height: 125vh;
 }
 
 body ::selection
