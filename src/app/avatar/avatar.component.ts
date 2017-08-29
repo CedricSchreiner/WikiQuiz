@@ -40,6 +40,7 @@ export class AvatarComponent implements OnInit {
       }
     });
     sessionStorage.setItem('link', sessionStorage.getItem('actual_link'));
+    this.link('options');
   }
 
   logout() {

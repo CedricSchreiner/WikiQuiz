@@ -42,14 +42,14 @@ export class QuizComponent implements OnInit {
   }
 
   nextQuestion(buttonNumber: number): any {
-    this.test1 = (<HTMLDivElement>document.getElementById('rahmenderAntwort'));
+    this.test1 = (<HTMLDivElement>document.getElementById('answerA'));
     if (buttonNumber === Number(this.frage.SolutionNumber)) {
       this.richtigeAntworten++;
       /*============================================
           Frage richtig
        =============================================
        */
-      this.test1.style.backgroundColor = '#FFFFFF';
+      this.test1.style.backgroundColor = '#01DF01';
       this.statusFrage = 'richtig';
       console.log(this.statusFrage);
     } else {
@@ -59,6 +59,7 @@ export class QuizComponent implements OnInit {
       ==============================================
        */
       this.statusFrage = 'falsch';
+      this.test1.style.backgroundColor = '#FF0000';
       console.log(this.statusFrage);
     }
     switch (sessionStorage.getItem('gamemode')) {
