@@ -54,21 +54,12 @@ export class QuizComponent implements OnInit {
     this.button = this.getButton(buttonNumber);
     if (buttonNumber === Number(this.frage.SolutionNumber)) {
       this.richtigeAntworten++;
-      /*============================================
-          Frage richtig
-       =============================================
-       */
       this.button.style.backgroundColor = '#01DF01';
       this.changeDisableStatus(true);
-      await this.delay(2500); ///Uebergabe in Millisekunden
+      await this.delay(2500);
       this.changeDisableStatus(false);
       this.button.style.backgroundColor = '#0d87cf';
     } else {
-      /*
-      ==============================================
-          Frage falsch
-      ==============================================
-       */
       this.buttonRightSolution = this.getButton(Number(this.frage.SolutionNumber));
       this.changeDisableStatus(true);
       this.button.style.backgroundColor = '#FF0000';
