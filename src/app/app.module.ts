@@ -20,7 +20,6 @@ import { SurvivalQuizService } from './quiz/survivalquiz';
 import { QuizComponent } from './quiz/quiz.component';
 import { XQuizService } from './quiz/xquiz';
 import { FiftyFiftyJokerService } from './quiz/fifty_fifty_joker';
-import { ClarityModule } from 'clarity-angular';
 import {PopupComponent} from './popup/popup.component';
 
 const appRoutes: Routes = [
@@ -59,7 +58,6 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     HttpModule,
     BrowserModule,
-    ClarityModule.forRoot(),
   ],
   providers: [RestService, SurvivalQuizService, XQuizService, FiftyFiftyJokerService],
   bootstrap: [AppComponent]
