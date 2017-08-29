@@ -15,7 +15,11 @@ export class QuizComponent implements OnInit {
   avatarLinkString: string;
   richtigeAntworten: number;
   statusFrage: string;
-  test1: HTMLDivElement;
+  buttonA: HTMLDivElement;
+  buttonB: HTMLDivElement;
+  buttonC: HTMLDivElement;
+  buttonD: HTMLDivElement;
+  button: HTMLDivElement;
 
   /**
    * 1 = Survival Quiz
@@ -42,14 +46,14 @@ export class QuizComponent implements OnInit {
   }
 
   nextQuestion(buttonNumber: number): any {
-    this.test1 = (<HTMLDivElement>document.getElementById('answerA'));
+    this.button = this.getButton(buttonNumber);
     if (buttonNumber === Number(this.frage.SolutionNumber)) {
       this.richtigeAntworten++;
       /*============================================
           Frage richtig
        =============================================
        */
-      this.test1.style.backgroundColor = '#01DF01';
+      this.button.style.backgroundColor = '#01DF01';
       this.statusFrage = 'richtig';
       console.log(this.statusFrage);
     } else {
@@ -59,7 +63,7 @@ export class QuizComponent implements OnInit {
       ==============================================
        */
       this.statusFrage = 'falsch';
-      this.test1.style.backgroundColor = '#FF0000';
+      this.button.style.backgroundColor = '#FF0000';
       console.log(this.statusFrage);
     }
     switch (sessionStorage.getItem('gamemode')) {
@@ -85,6 +89,25 @@ export class QuizComponent implements OnInit {
                 }
                 this.frage = this.xquiz.getQuestion();
                 break;
+    }
+  }
+
+  getButton(buttonNumber: number) {
+    this.buttonA = (<HTMLDivElement>document.getElementById('answerA'));
+    this.buttonB = (<HTMLDivElement>document.getElementById('answerB'));
+    this.buttonC = (<HTMLDivElement>document.getElementById('answerC'));
+    this.buttonD = (<HTMLDivElement>document.getElementById('answerD'));
+    if (buttonNumber === 0) {
+      return this.buttonA;
+    }
+    if (buttonNumber === 1) {
+      return this.buttonB;
+    }
+    if (buttonNumber === 2) {
+      return this.buttonC;
+    }
+    if (buttonNumber === 3) {
+      return this.buttonD;
     }
   }
 
