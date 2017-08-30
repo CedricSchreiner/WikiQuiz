@@ -13,6 +13,8 @@ export class PasswordComponent implements OnInit {
   status: number;
   avatarLinkString: string;
   text: string;
+  button1: HTMLInputElement;
+  button2: HTMLInputElement;
 
   constructor(private restService: RestService) {
   }
@@ -22,6 +24,8 @@ export class PasswordComponent implements OnInit {
   }
 
   sendChangePassword() {
+    this.button1 = (<HTMLInputElement>document.getElementById('newpasswd1'));
+    this.button2 = (<HTMLInputElement>document.getElementById('newpasswd2'));
     this.password1 = (<HTMLInputElement>document.getElementById('newpasswd1')).value;
     this.password2 = (<HTMLInputElement>document.getElementById('newpasswd2')).value;
     const regexPasswordSpecialCharachter = new RegExp('.*[\\W].*');
@@ -52,6 +56,9 @@ export class PasswordComponent implements OnInit {
       this.status = 404;
       this.text = 'Passwörter nicht gleich';
     }
+    /* Lösche Inhalt aus den Passwort Text Feldern */
+    this.button1.value = '';
+    this.button2.value = '';
   }
 
   link(linkToGo: string) {
