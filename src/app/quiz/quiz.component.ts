@@ -20,6 +20,9 @@ export class QuizComponent implements OnInit {
   buttonD: HTMLButtonElement;
   button: HTMLButtonElement;
   buttonRightSolution: HTMLButtonElement;
+  numberOfQuestions: number;
+  resultSet: number;
+  howmany: number;
 
   /**
    * 1 = Survival Quiz
@@ -28,13 +31,12 @@ export class QuizComponent implements OnInit {
 
   constructor(private survivalQuiz: SurvivalQuizService, private xquiz: XQuizService) {
   }
-
   async ngOnInit() {
+    this.howmany = 0;
     this.buttonA = (<HTMLButtonElement>document.getElementById('answerA'));
     this.buttonB = (<HTMLButtonElement>document.getElementById('answerB'));
     this.buttonC = (<HTMLButtonElement>document.getElementById('answerC'));
     this.buttonD = (<HTMLButtonElement>document.getElementById('answerD'));
-
     if (sessionStorage.length > 0) {
       this.test = true;
       this.richtigeAntworten = 0;
@@ -49,7 +51,6 @@ export class QuizComponent implements OnInit {
       }
     }
   }
-
   async nextQuestion(buttonNumber: number) {
     this.button = this.getButton(buttonNumber);
     if (buttonNumber === Number(this.frage.SolutionNumber)) {
@@ -82,26 +83,42 @@ export class QuizComponent implements OnInit {
       case '1': if (buttonNumber !== Number(this.frage.SolutionNumber)) {
                   this.survivalQuiz.reduceLives();
                   if (this.survivalQuiz.isFinished()) {
-                    sessionStorage.removeItem('gamemode');
                     /*<===============================================>*/
                     /*Hier kann das Statistik Fenster aufgerufen werden*/
                     /*<===============================================>*/
-                    window.location.href = 'menu';
+                    /*window.location.href = 'menu';*/
+                    this.showResultSurvival();
                   }
                 }
                 this.frage = this.survivalQuiz.getQuestion();
                 break;
       case '2': if (this.xquiz.isFinished()) {
-                  sessionStorage.removeItem('gamemode');
-                  sessionStorage.removeItem('anzahlFragen');
                   /*<===============================================>*/
                   /*Hier kann das Statistik Fenster aufgerufen werden*/
                   /*<===============================================>*/
-                  window.location.href = 'menu';
+                  this.showResultXquiz();
+                  sessionStorage.removeItem('anzahlFragen');
                 }
                 this.frage = this.xquiz.getQuestion();
                 break;
     }
+    this.howmany ++;
+  }
+  showResultSurvival() {
+    sessionStorage.setItem('rightAnswers', this.richtigeAntworten.toString());
+    sessionStorage.setItem('numberOfQuestions', this.howmany.toString());
+    sessionStorage.setItem('points', this.calcPoints().toString());
+    window.location.href = 'result';
+  }
+  showResultXquiz() {
+    this.numberOfQuestions = this.xquiz.anzahlFragen;
+    sessionStorage.setItem('rightAnswers', this.richtigeAntworten.toString());
+    sessionStorage.setItem('numberOfQuestions', this.numberOfQuestions.toString());
+    sessionStorage.setItem('points', this.calcPoints().toString());
+    window.location.href = 'result';
+  }
+  calcPoints() {
+    return this.resultSet = (this.richtigeAntworten * 100 );
   }
 
   delay(ms: number) {
