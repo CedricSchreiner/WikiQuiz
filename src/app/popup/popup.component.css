@@ -103,7 +103,11 @@
 
 }
 
-@media (orientation: portrait) {
+@media only screen
+and (min-device-width: 320px)
+and (max-device-width: 568px)
+and (-webkit-min-device-pixel-ratio: 2)
+and (orientation: portrait) {
 
 #resultMenu{
   position: relative;
@@ -151,8 +155,22 @@
   }
 }
 
-@media (orientation: landscape) {
+@media only screen
+and (min-device-width: 320px)
+and (max-device-width: 568px)
+and (-webkit-min-device-pixel-ratio: 2)
+and (orientation: landscape) {
 
+  #resultMenu {
+    position: relative;
+    width: 100%;
+    height: 60%;
+    margin: 10% -50%;
+    z-index: 15;
+    left: 50%;
+    background: white;
+    border: double;
+  }
   .btn{
     position: relative;
     bottom: 15%;
@@ -183,3 +201,5 @@
 
   }
 }
+
+
