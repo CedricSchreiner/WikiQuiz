@@ -98,7 +98,9 @@
   height: 70%;
   margin: auto;
   background: white;
-  border:double;
+  border: ridge;
+  border-color: #0d87cf;
+
 }
 
 @media (orientation: portrait) {
@@ -111,7 +113,8 @@
   z-index: 15;
   left: 50%;
   background: white;
-  border: double;
+  border: ridge;
+  border-color: #0d87cf;
 }
   .btn{
     position: relative;
