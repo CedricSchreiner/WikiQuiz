@@ -17,15 +17,18 @@ ngOnInit() {
   this.punkte = sessionStorage.getItem('points');
   this.rightQuest = sessionStorage.getItem('rightAnswers');
   this.anzFragen = sessionStorage.getItem('numberOfQuestions');
+  sessionStorage.removeItem('points');
+  sessionStorage.removeItem('rightAnswers');
+  sessionStorage.removeItem('numberOfQuestions');
+  this.updateStatistics();
   }
+
   start(whichOne: string) {
     switch (whichOne) {
       case '1':
-        this.updateStatistics();
         window.location.href = '/menu';
         break;
       case '2':
-        this.updateStatistics();
         /*sessionStorage.setItem('anzahlFragen', this.anzFragen.toString());*/
         window.location.href = '/game';
         break;
@@ -35,9 +38,9 @@ ngOnInit() {
   this.restService.updateStatistic(
     sessionStorage.getItem('gamemode'),
     sessionStorage.getItem('id'),
-    sessionStorage.getItem('numberOfQuestions'),
-    sessionStorage.getItem('rightAnswers'),
-    sessionStorage.getItem('points')
+    this.anzFragen,
+    this.rightQuest,
+    this.punkte
     );
   }
 }
