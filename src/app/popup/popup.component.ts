@@ -41,6 +41,15 @@ ngOnInit() {
     this.anzFragen,
     this.rightQuest,
     this.punkte
-    );
+    ).subscribe((posts) => {
+    console.log(posts);
+  }, (err: any) => {
+    console.log(err.status);
+    if (err.status === 500) {
+      console.log('Vorhanden');
+    } else {
+      console.log('FEHLER!');
+    }
+  });
   }
 }

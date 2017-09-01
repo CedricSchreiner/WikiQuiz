@@ -73,8 +73,9 @@ export class RestService {
     myHeader.append('Authorization', 'Basic ' + btoa(sessionStorage.getItem('email') +
       ':' + sessionStorage.getItem('password')));
     myHeader.append('Content-Type', 'application/json');
-    return this.http.put('http://localhost:8080/quiz/webapi/auth',
-      JSON.stringify({gameMode, user_id, fragenBeantwortet, fragenRichtig, punkte}),
+    return this.http.put('http://localhost:8080/quiz/webapi/stats/auth',
+      JSON.stringify({gameMode: gameMode, user_id: user_id, fragenBeantwortet: fragenBeantwortet,
+        fragenRichtig: fragenRichtig, punkte: punkte}),
       {headers: myHeader})
       .map(res => res.json());
   }
