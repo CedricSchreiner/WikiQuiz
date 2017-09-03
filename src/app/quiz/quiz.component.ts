@@ -45,7 +45,7 @@ export class QuizComponent implements OnInit {
         case '1': await this.survivalQuiz.startQuiz();
                   this.frage = this.survivalQuiz.getQuestion();
                   break;
-        case '2': await this.xquiz.startQuiz(Number(sessionStorage.getItem('anzahlFragen')));
+        case 'xquiz': await this.xquiz.startQuiz(Number(sessionStorage.getItem('anzahlFragen')));
                   this.frage = this.xquiz.getQuestion();
                   break;
       }
@@ -92,7 +92,7 @@ export class QuizComponent implements OnInit {
                 }
                 this.frage = this.survivalQuiz.getQuestion();
                 break;
-      case '2': if (this.xquiz.isFinished()) {
+      case 'xquiz': if (this.xquiz.isFinished()) {
                   /*<===============================================>*/
                   /*Hier kann das Statistik Fenster aufgerufen werden*/
                   /*<===============================================>*/
