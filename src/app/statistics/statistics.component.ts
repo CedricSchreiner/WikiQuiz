@@ -124,6 +124,8 @@ export class StatisticsComponent implements OnInit {
           cell.innerHTML = '-';
         }
       }
+      cell = row.cells[0]
+      cell.innerHTML = 'Test'; /*Hier der aktuelle Platz einfügen*/
       cell = row.cells[5];
       cell.innerHTML = sessionStorage.getItem('username');
     }));
