@@ -25,7 +25,7 @@ export class StatisticsComponent implements OnInit {
     let cell: HTMLTableCellElement;
     let header: HTMLTableSectionElement;
     let row: HTMLTableRowElement;
-    const table = (<HTMLTableElement>document.getElementById('stats-table-persoanl-xquiz'));
+    const table = (<HTMLTableElement>document.getElementById('stats-table-personal-xquiz'));
     this.restService.getTopTenStatisticsPlayer('xquiz').subscribe((stats => {
       row = (<HTMLTableRowElement>document.getElementById('stats-table-personal-xquiz-header'));
       row.bgColor = '#4286f4';
@@ -36,9 +36,11 @@ export class StatisticsComponent implements OnInit {
         row = header.insertRow(i + 1);
         cell = row.insertCell(0);
         cell.innerHTML = '<b>' + String(i + 1) + '.</b>';
+        cell.width = '80';
         for (let j = 1; j < 4; j++) {
           cell = row.insertCell(j);
-          cell.width = '100px';
+          cell.width = '300';
+          cell.height = '50';
           if (this.stats.length > i) {
             cell.innerHTML = this.get(i, j);
           } else {
@@ -69,9 +71,11 @@ export class StatisticsComponent implements OnInit {
         row = header.insertRow(i + 1);
         cell = row.insertCell(0);
         cell.innerHTML = '<b>' + String(i + 1) + '.</b>';
+        cell.width = '80';
         for (let j = 1; j < 4; j++) {
           cell = row.insertCell(j);
-          cell.width = '100px';
+          cell.width = '300';
+          cell.height = '50';
           if (this.stats.length > i) {
             cell.innerHTML = this.get(i, j);
           } else {
@@ -103,9 +107,11 @@ export class StatisticsComponent implements OnInit {
         row = header.insertRow(i + 1);
         cell = row.insertCell(0);
         cell.innerHTML = '<b>' + String(i + 1) + '.</b>';
+        cell.width = '80';
         for (let j = 1; j < 6; j++) {
           cell = row.insertCell(j);
-          cell.width = '100px';
+          cell.width = '300';
+          cell.height = '50';
           if (this.stats.length >= i) {
             cell.innerHTML = this.get(i, j);
           } else {
@@ -138,9 +144,11 @@ export class StatisticsComponent implements OnInit {
         row = header.insertRow(i + 1);
         cell = row.insertCell(0);
         cell.innerHTML = '<b>' + String(i + 1) + '.</b>';
+        cell.width = '80';
         for (let j = 1; j < 6; j++) {
           cell = row.insertCell(j);
-          cell.width = '100px';
+          cell.width = '300';
+          cell.height = '50';
           if (this.stats.length > i) {
             cell.innerHTML = this.get(i, j);
           } else {
