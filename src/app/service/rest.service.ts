@@ -79,4 +79,13 @@ export class RestService {
       {headers: myHeader})
       .map(res => res.json());
   }
+
+  getStatisticsPlayer(gamemode: string) {
+    const myHeader = new Headers();
+    myHeader.append('Authorization', 'Basic ' + btoa(sessionStorage.getItem('email') +
+      ':' + sessionStorage.getItem('password')));
+
+    return this.http.get('http://localhost:8080/quiz/webapi/stats/auth/' + sessionStorage.getItem('user_id') + '?query=' + gamemode, {headers: myHeader})
+      .map(res => res.json());
+  }
 }
