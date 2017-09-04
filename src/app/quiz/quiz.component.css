@@ -27,9 +27,24 @@
 	font-size: 115%;
 }
 
-#answerA:hover, #answerB:hover, #answerC:hover, #answerD:hover
+#answerA:hover
 {
-  background-color: #2980B9;
+  background-color: #3498DB;
+}
+
+#answerB:hover
+{
+  background-color: #3498DB;
+}
+
+#answerC:hover
+{
+  background-color: #3498DB;
+}
+
+#answerD:hover
+{
+  background-color: #3498DB;
 }
 
 #answerA, #answerB, #answerC, #answerD
