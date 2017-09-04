@@ -245,6 +245,18 @@
   font-size: 100%;
 }
 
+#timer-status-bar
+{
+  width: 100%;
+  height: 50px;
+  transition: width 1s;
+  background: red;
+}
+
+#timer-status-bar:hover
+{
+  width: 100%;
+}
 /** End Timebar */
 
 /** popup*/
