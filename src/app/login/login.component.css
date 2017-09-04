@@ -117,5 +117,19 @@ input:focus {
   font-size: 100%;
 }
 
+@media (orientation: landscape)
+{
+  @media (max-width: 600px) {
+    #login-main-div {
+      margin: 1px auto;
+    }
+
+    #login-main-div {
+      overflow-y: auto;
+      overflow-x: hidden;
+      overflow-scrolling: initial;
+    }
+  }
+}
 /** End Timebar */
 

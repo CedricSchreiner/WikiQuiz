@@ -3,7 +3,7 @@
 body
 {
   margin: 0;
-  overflow: auto;
+  overflow: hidden;
   height: 100vh;
 }
 
@@ -13,7 +13,7 @@ body
   @media (max-width: 700px) {
     body {
       margin: 0;
-      overflow: visible;
+      /*overflow: visible;*/
       height: 110vh;
     }
     #login-main-div {
@@ -42,14 +42,7 @@ body
       overflow: visible;
       height: 125vh;
     }
-    #login-main-div {
-      margin: 1px auto;
-    }
-    #login-main-div {
-      overflow-y: auto;
-      overflow-x: hidden;
-      overflow-scrolling: initial;
-    }
+
     .anchor-frame {
       padding-top:10px;
       padding-bottom: 10px;
