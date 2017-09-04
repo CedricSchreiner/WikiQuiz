@@ -113,12 +113,9 @@ export class StatisticsComponent implements OnInit {
     }));
     this.restService.getStatisticsPlayer('survival').subscribe((stats => {
       console.log(stats);
-      this.stats = null;
       this.stats[0] = stats;
-      console.log(this.stats);
-      console.log(this.stats !== undefined);
       row = table.rows[11];
-      for (let i = 0; i < 6; i++) {
+      for (let i = 0; i < 5; i++) {
         cell = row.cells[i + 1];
         if (this.stats !== undefined) {
           console.log('gerufen');
@@ -127,6 +124,8 @@ export class StatisticsComponent implements OnInit {
           cell.innerHTML = '-';
         }
       }
+      cell = row.cells[5];
+      cell.innerHTML = sessionStorage.getItem('username');
     }));
   }
 
@@ -150,7 +149,7 @@ export class StatisticsComponent implements OnInit {
       if (this.stats[index].anzahlFragen === 0) {
         return String('-');
       }
-      return String(this.stats[index].anzahlFragen);
+      return String(this.stats[index].anzahlSpiele);
     } else if (indexAttribute === 5) {
       if (this.stats[index].anzahlFragen === 0) {
         return String('-');
