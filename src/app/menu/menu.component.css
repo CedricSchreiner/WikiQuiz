@@ -26,6 +26,8 @@
   @media (orientation: landscape) {
     .btn
     {
+      position: relative;
+      bottom: 30px;
       height: 40px;
       padding: 5px;
       margin: 0 auto;

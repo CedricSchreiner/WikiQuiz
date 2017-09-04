@@ -20,11 +20,31 @@
 	/*z-index: -2; <= Verhindert das Drücken der Buttons*/
 }
 
-#question-string
+#question-string, #question-string-lade
 {
 	color: #ffffff;
 	text-align: center;
 	font-size: 115%;
+}
+
+#answerA:hover
+{
+  background-color: #3498DB;
+}
+
+#answerB:hover
+{
+  background-color: #3498DB;
+}
+
+#answerC:hover
+{
+  background-color: #3498DB;
+}
+
+#answerD:hover
+{
+  background-color: #3498DB;
 }
 
 #answerA, #answerB, #answerC, #answerD
@@ -208,4 +228,6 @@
 }
 
 /** End Timebar */
+
+/** popup*/
 

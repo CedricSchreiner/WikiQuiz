@@ -68,4 +68,24 @@ export class RestService {
         {headers: myHeader})
         .map(res => res.json());
   }
+  updateStatistic(gameMode: string, user_id: string, fragenBeantwortet: string, fragenRichtig: string, punkte: string) {
+    const myHeader = new Headers();
+    myHeader.append('Authorization', 'Basic ' + btoa(sessionStorage.getItem('email') +
+      ':' + sessionStorage.getItem('password')));
+    myHeader.append('Content-Type', 'application/json');
+    return this.http.put('http://localhost:8080/quiz/webapi/stats/auth',
+      JSON.stringify({gameMode: gameMode, user_id: user_id, fragenBeantwortet: fragenBeantwortet,
+        fragenRichtig: fragenRichtig, punkte: punkte}),
+      {headers: myHeader})
+      .map(res => res.json());
+  }
+
+  getStatisticsPlayer(gamemode: string) {
+    const myHeader = new Headers();
+    myHeader.append('Authorization', 'Basic ' + btoa(sessionStorage.getItem('email') +
+      ':' + sessionStorage.getItem('password')));
+
+    return this.http.get('http://localhost:8080/quiz/webapi/stats/auth/' + sessionStorage.getItem('id') + '?gamemode=' + gamemode, {headers: myHeader})
+      .map(res => res.json());
+  }
 }

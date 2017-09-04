@@ -1,6 +1,5 @@
 import {Component, OnInit } from '@angular/core';
 import {RestService} from '../service/rest.service';
-/* import {Context} from "vm"; */
 
 @Component({
   selector: 'app-options',
@@ -31,7 +30,6 @@ export class AvatarComponent implements OnInit {
       console.log(post);
     }, (err: any) => {
       this.status = err.status;
-      console.log(err.toString());
       if (err.status === 0) {
         this.text = 'keine Verbindung zum Server';
       } else if (err.status === 200) {
@@ -42,6 +40,7 @@ export class AvatarComponent implements OnInit {
       }
     });
     sessionStorage.setItem('link', sessionStorage.getItem('actual_link'));
+    this.link('options');
   }
 
   logout() {

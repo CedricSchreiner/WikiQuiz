@@ -1,0 +1,226 @@
+.btn {
+  border: 2px solid transparent;
+  background: #3498DB;
+  color: #ffffff;
+  font-size: 25px;
+  line-height: 25px;
+ /* padding: 12px auto;*/
+  text-decoration: none;
+  text-shadow: none;
+  border-radius: 3px;
+  box-shadow: none;
+  transition: 0.25s;
+  display: block;
+  width: 40%;
+  height: 55px;
+  /*margin: 10px auto;*/
+}
+
+@media (max-width: 960px) {
+  .btn
+  {
+    font-size: 16px;
+  }
+
+
+  @media (orientation: landscape) {
+    .btn
+    {
+      height: 40px;
+      padding: 5px;
+      margin: 0 auto;
+    }
+  }
+}
+
+
+.hit-the-floor {
+  color: #000000;
+  font-size: 2em;
+  font-weight: bold;
+  font-family: Helvetica;
+  text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, .1), 0 0 5px rgba(0, 0, 0, .1), 0 1px 3px rgba(0, 0, 0, .3), 0 3px 5px rgba(0, 0, 0, .2), 0 5px 10px rgba(0, 0, 0, .25), 0 10px 10px rgba(0, 0, 0, .2), 0 20px 20px rgba(0, 0, 0, .15);
+}
+
+#starsImageDiv
+{
+  position: relative;
+  width: 100%;
+  height: 20%;
+  text-align: center;
+  top: 5%;
+  margin: auto;
+}
+
+.btn:hover {
+  background-color: #2980B9;
+}
+
+#verhaeltnis{
+  position: relative;
+  width: 100%;
+  height: 40%;
+  margin: 10% 0%;
+}
+#punkte{
+  position: relative;
+  width: 100%;
+  height: 40%;
+  margin: -5% 0%;
+}
+
+#buttons
+{
+  position: relative;
+  text-align: center;
+  width: 100%;
+  top: 60%;
+  height: 60px;
+}
+
+.btn
+{
+  position: relative;
+  width: 40%;
+  float: left;
+}
+
+#btnReady{
+  margin-right: 3%;
+  margin-left: 6%;
+}
+#btnRetry{
+  margin-right: 3%;
+  margin-left: 6%;
+}
+
+#resultMenu{
+  width: 90%;
+  height: 70%;
+  margin: auto;
+  background: white;
+  border: ridge;
+  border-color: #0d87cf;
+
+
+}
+
+@media only screen
+and (min-device-width: 320px)
+and (max-device-width: 450px)
+and (-webkit-min-device-pixel-ratio: 2)
+and (orientation: portrait) {
+
+#resultMenu{
+  position: relative;
+  width: 100%;
+  height: 60%;
+  margin: 20% -50%;
+  z-index: 15;
+  left: 50%;
+  background: white;
+  border: ridge;
+  border-color: #0d87cf;
+  background-image: url("../../assets/giphy (1).gif");
+  background-size: cover;
+}
+  .btn{
+    position: relative;
+    bottom: 15%;
+    margin: 5%;
+    float: left;
+  }
+
+  #buttons
+  {
+    position: absolute;
+    left: 10%;
+    bottom: 15%;
+    width: 80%;
+    height: 55px;
+  }
+
+  #verhaeltnis{
+    position: relative;
+    width: 100%;
+    height: 40%;
+    margin: 10% 0%;
+  }
+  #punkte{
+    position: relative;
+    width: 100%;
+    height: 40%;
+    margin: -5% 0%;
+
+  }
+
+  body {
+    background-color: #f1f1f1;
+  }
+}
+
+@media only screen
+and (min-device-width: 320px)
+and (max-device-width: 740px)
+and (-webkit-min-device-pixel-ratio: 2)
+and (orientation: landscape) {
+
+  #resultMenu {
+    position: relative;
+    width: 100%;
+    height: 65%;
+    margin: -2.5% -0%;
+    background: white;
+    border: groove;
+    border-color: #0d87cf;
+    opacity: 0.9;
+  }
+  .btn{
+    position: relative;
+    bottom: 10%;
+    margin: 5%;
+    float: left;
+  }
+
+  #starsImageDiv {
+  top: 3%;
+  }
+
+  #resultDiv{
+    position: relative;
+  }
+
+  #buttons
+  {
+    position: absolute;
+    left: 10%;
+    bottom: 10%;
+    width: 80%;
+    height: 55px;
+  }
+
+  #verhaeltnis{
+    position: relative;
+    width: 50%;
+    height: 40%;
+    margin: 4% 0%;
+  }
+  #punkte{
+    position: relative;
+    width: 50%;
+    height: 40%;
+    margin: 4% 0%;
+
+
+  }
+  .hit-the-floor {
+    color: #000000;
+    font-size: 1.5em;
+    font-weight: bold;
+    font-family: Helvetica;
+    float: right;
+    text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, .1), 0 0 5px rgba(0, 0, 0, .1), 0 1px 3px rgba(0, 0, 0, .3), 0 3px 5px rgba(0, 0, 0, .2), 0 5px 10px rgba(0, 0, 0, .25), 0 10px 10px rgba(0, 0, 0, .2), 0 20px 20px rgba(0, 0, 0, .15);
+  }
+}
+
+

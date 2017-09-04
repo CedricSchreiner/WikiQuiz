@@ -20,6 +20,7 @@ import { SurvivalQuizService } from './quiz/survivalquiz';
 import { QuizComponent } from './quiz/quiz.component';
 import { XQuizService } from './quiz/xquiz';
 import { FiftyFiftyJokerService } from './quiz/fifty_fifty_joker';
+import {PopupComponent} from './popup/popup.component';
 
 const appRoutes: Routes = [
   {path: '', component: LoginComponent},
@@ -30,7 +31,8 @@ const appRoutes: Routes = [
   {path: 'stats', component: StatisticsComponent},
   {path: 'info', component: InfoComponent},
   {path: 'avatar', component: AvatarComponent},
-  {path: 'password', component: PasswordComponent}
+  {path: 'password', component: PasswordComponent},
+  {path: 'result', component: PopupComponent}
 ];
 
 @NgModule({
@@ -48,12 +50,14 @@ const appRoutes: Routes = [
     MenuComponent,
     StatisticsComponent,
     AvatarComponent,
-    PasswordComponent
+    PasswordComponent,
+    PopupComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
-    HttpModule
+    HttpModule,
+    BrowserModule,
   ],
   providers: [RestService, SurvivalQuizService, XQuizService, FiftyFiftyJokerService],
   bootstrap: [AppComponent]
