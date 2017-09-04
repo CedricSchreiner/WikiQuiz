@@ -91,6 +91,7 @@ export class StatisticsComponent implements OnInit {
   }
 
   createTopTenOverallSurvival() {
+    let userInTopList: boolean;
     let row: HTMLTableRowElement;
     let cell: HTMLTableCellElement;
     const table = (<HTMLTableElement>document.getElementById('stats-table-world-survival'));
@@ -110,22 +111,30 @@ export class StatisticsComponent implements OnInit {
           }
         }
       }
-    }));
-    this.restService.getStatisticsPlayer('survival').subscribe((stats => {
-      console.log(stats);
-      this.stats[0] = stats;
-      row = table.rows[11];
-      for (let i = 0; i < 5; i++) {
-        cell = row.cells[i + 1];
-        if (this.stats !== undefined) {
-          console.log('gerufen');
-          cell.innerHTML = this.get(0, i + 1);
-        } else {
-          cell.innerHTML = '-';
+      for (let i = 0; i < 10; i++) {
+        row = table.rows[i];
+        cell = row.cells[5];
+        if (sessionStorage.getItem('username') === cell.innerHTML) {
+          userInTopList = true;
         }
       }
-      cell = row.cells[5];
-      cell.innerHTML = sessionStorage.getItem('username');
+      if (!userInTopList) {
+        this.restService.getStatisticsPlayer('survival').subscribe((stats => {
+          console.log(stats);
+          this.stats[0] = stats;
+          row = table.rows[11];
+          for (let i = 0; i < 5; i++) {
+            cell = row.cells[i + 1];
+            if (this.stats !== undefined) {
+              cell.innerHTML = this.get(0, i + 1);
+            } else {
+              cell.innerHTML = '-';
+            }
+          }
+          cell = row.cells[5];
+          cell.innerHTML = sessionStorage.getItem('username');
+        }));
+      }
     }));
   }
 
