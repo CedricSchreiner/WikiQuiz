@@ -15,7 +15,7 @@
 
 #stats-table-personal-xquiz-header, #stats-table-personal-survival-header, #stats-table-world-xquiz-header, #stats-table-world-survival-header
 {
-  color: #FFFFFF;
+  /*color: #FFFFFF;*/
   height: 50px;
 }
 /* Statistik Table Content End*/

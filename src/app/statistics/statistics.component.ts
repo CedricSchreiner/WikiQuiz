@@ -112,12 +112,17 @@ export class StatisticsComponent implements OnInit {
       }
     }));
     this.restService.getStatisticsPlayer('survival').subscribe((stats => {
-      this.stats = stats;
+      console.log(stats);
+      this.stats = null;
+      this.stats[0] = stats;
+      console.log(this.stats);
+      console.log(this.stats !== undefined);
       row = table.rows[11];
       for (let i = 0; i < 6; i++) {
-        cell = row.cells[i];
-        if (this.stats.length >= i) {
-          cell.innerHTML = this.get(0, i);
+        cell = row.cells[i + 1];
+        if (this.stats !== undefined) {
+          console.log('gerufen');
+          cell.innerHTML = this.get(0, i + 1);
         } else {
           cell.innerHTML = '-';
         }
