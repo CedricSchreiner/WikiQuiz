@@ -119,9 +119,8 @@ export class StatisticsComponent implements OnInit {
         }
       }
       if (!userInTopList) {
-        this.restService.getStatisticsPlayer('survival').subscribe((stats => {
-          console.log(stats);
-          this.stats[0] = stats;
+        this.restService.getStatisticsPlayer('survival').subscribe((statsTop => {
+          this.stats[0] = statsTop;
           row = table.rows[11];
           for (let i = 0; i < 5; i++) {
             cell = row.cells[i + 1];
