@@ -24,7 +24,7 @@ export class StatisticsComponent implements OnInit {
   createTopTenPlayerXquiz() {
     let row: HTMLTableRowElement;
     let cell: HTMLTableCellElement;
-    const table = (<HTMLTableElement>document.getElementById('stats-table-persoanl-xquiz'));
+    const table = (<HTMLTableElement>document.getElementById('stats-table-personal-xquiz'));
     this.restService.getTopTenStatisticsPlayer('xquiz').subscribe((stats => {
       this.stats = stats;
       row = table.rows[0];
@@ -112,76 +112,7 @@ export class StatisticsComponent implements OnInit {
       }
     }));
   }
-  /*
-  createTopTenOverallTableXquiz() {
-    let cell: HTMLTableCellElement;
-    let header: HTMLTableSectionElement;
-    let row: HTMLTableRowElement;
-    const table = (<HTMLTableElement>document.getElementById('stats-table-world-xquiz'));
-    this.restService.getTopTenStatisticsOverall('xquiz').subscribe((stats => {
-      row = (<HTMLTableRowElement>document.getElementById('stats-table-world-xquiz-header'));
-      row.bgColor = '#4286f4';
-      console.log(stats);
-      this.stats = stats;
-      for (let i = 0; i < 10; i++) {
-        ///======================================================
-        header = table.createTHead();
-        row = header.insertRow(i + 1);
-        cell = row.insertCell(0);
-        cell.innerHTML = '<b>' + String(i + 1) + '.</b>';
-        for (let j = 1; j < 6; j++) {
-          cell = row.insertCell(j);
-          cell.width = '100px';
-          if (this.stats.length >= i) {
-            cell.innerHTML = this.get(i, j);
-          } else {
-            cell.innerHTML = '-';
-          }
-          if ((i % 2) === 0) {
-            row.bgColor = '#f9fafc';
-          }else {
-            row.bgColor = '#eaf0f9';
-          }
-        }
-        ///=======================================================
-      }
-      console.log(table);
-    }));
-  }
 
-  createTopTenOverallSurvival() {
-    let cell: HTMLTableCellElement;
-    let header: HTMLTableSectionElement;
-    let row: HTMLTableRowElement;
-    const table = (<HTMLTableElement>document.getElementById('stats-table-world-survival'));
-    this.restService.getTopTenStatisticsOverall('survival').subscribe((stats => {
-      row = (<HTMLTableRowElement>document.getElementById('stats-table-world-survival-header'));
-      row.bgColor = '#4286f4';
-      console.log(stats);
-      this.stats = stats;
-      for (let i = 0; i < 10; i++) {
-        header = table.createTHead();
-        row = header.insertRow(i + 1);
-        cell = row.insertCell(0);
-        cell.innerHTML = '<b>' + String(i + 1) + '.</b>';
-        for (let j = 1; j < 6; j++) {
-          cell = row.insertCell(j);
-          cell.width = '100px';
-          if (this.stats.length > i) {
-            cell.innerHTML = this.get(i, j);
-          } else {
-            cell.innerHTML = '-';
-          }
-          if ((i % 2) === 0) {
-            row.bgColor = '#f9fafc';
-          }else {
-            row.bgColor = '#eaf0f9';
-          }
-        }
-      }
-    }));
-  }
-*/
   get(index: number, indexAttribute) {
     if (indexAttribute === 1) {
       if (this.stats[index].anzahlFragen === 0) {
