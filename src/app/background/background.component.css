@@ -1,7 +1,7 @@
 
 .background-body
 {
-	position: absolute;
+	position: fixed;
   bottom: 4%;
 	width: 100%;
 	z-index: -10;
