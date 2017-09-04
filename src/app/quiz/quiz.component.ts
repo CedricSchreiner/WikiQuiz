@@ -23,6 +23,8 @@ export class QuizComponent implements OnInit {
   numberOfQuestions: number;
   resultSet: number;
   howmany: number;
+  timeLeft: number;
+  spielLauft: boolean;
 
   /**
    * 1 = Survival Quiz
@@ -32,6 +34,8 @@ export class QuizComponent implements OnInit {
   constructor(private survivalQuiz: SurvivalQuizService, private xquiz: XQuizService) {
   }
   async ngOnInit() {
+    this.spielLauft = true;
+    this.timer();
     this.howmany = 0;
     this.buttonA = (<HTMLButtonElement>document.getElementById('answerA'));
     this.buttonB = (<HTMLButtonElement>document.getElementById('answerB'));
@@ -52,18 +56,36 @@ export class QuizComponent implements OnInit {
     }
   }
   async nextQuestion(buttonNumber: number) {
-    this.button = this.getButton(buttonNumber);
-    if (buttonNumber === Number(this.frage.SolutionNumber)) {
-      this.richtigeAntworten++;
-      this.button.style.backgroundColor = '#01DF01';
-      this.changeDisableStatus(true);
-      await this.delay(2500);
-      this.changeDisableStatus(false);
-      this.button.style.backgroundColor = '#0d87cf';
-    } else {
+    if (buttonNumber !== -1) {
+      this.button = this.getButton(buttonNumber);
+      if (buttonNumber === Number(this.frage.SolutionNumber)) {
+        this.richtigeAntworten++;
+        this.button.style.backgroundColor = '#01DF01';
+        this.changeDisableStatus(true);
+        await this.delay(2500);
+        this.changeDisableStatus(false);
+        this.button.style.backgroundColor = '#0d87cf';
+      } else {
+        this.buttonRightSolution = this.getButton(Number(this.frage.SolutionNumber));
+        this.changeDisableStatus(true);
+        this.button.style.backgroundColor = '#FF0000';
+        this.buttonRightSolution.style.backgroundColor = '#01DF01';
+        await this.delay(500);
+        this.buttonRightSolution.style.backgroundColor = '#0d87cf';
+        await this.delay(500);
+        this.buttonRightSolution.style.backgroundColor = '#01DF01';
+        await this.delay(500);
+        this.buttonRightSolution.style.backgroundColor = '#0d87cf';
+        await this.delay(500);
+        this.buttonRightSolution.style.backgroundColor = '#01DF01';
+        await this.delay(500);
+        this.buttonRightSolution.style.backgroundColor = '#0d87cf';
+        this.button.style.backgroundColor = '#0d87cf';
+        this.changeDisableStatus(false);
+      }
+    }else {
       this.buttonRightSolution = this.getButton(Number(this.frage.SolutionNumber));
       this.changeDisableStatus(true);
-      this.button.style.backgroundColor = '#FF0000';
       this.buttonRightSolution.style.backgroundColor = '#01DF01';
       await this.delay(500);
       this.buttonRightSolution.style.backgroundColor = '#0d87cf';
@@ -75,7 +97,6 @@ export class QuizComponent implements OnInit {
       this.buttonRightSolution.style.backgroundColor = '#01DF01';
       await this.delay(500);
       this.buttonRightSolution.style.backgroundColor = '#0d87cf';
-      this.button.style.backgroundColor = '#0d87cf';
       this.changeDisableStatus(false);
     }
 
@@ -90,6 +111,7 @@ export class QuizComponent implements OnInit {
                     this.showResultSurvival();
                   }
                 }
+                console.log('next');
                 this.frage = this.survivalQuiz.getQuestion();
                 break;
       case 'xquiz': if (this.xquiz.isFinished()) {
@@ -103,6 +125,7 @@ export class QuizComponent implements OnInit {
                 break;
     }
     this.howmany ++;
+    this.timeLeft = 16;
   }
   showResultSurvival() {
     sessionStorage.setItem('rightAnswers', this.richtigeAntworten.toString());
@@ -119,6 +142,21 @@ export class QuizComponent implements OnInit {
   }
   calcPoints() {
     return this.resultSet = (this.richtigeAntworten * 100 );
+  }
+
+  async timer() {
+    const timerDiv = (<HTMLDivElement> document.getElementById('timer-status-bar'));
+    this.timeLeft = 16;
+    while (this.spielLauft) {
+      await this.delay(1000);
+      timerDiv.style.width = String((this.timeLeft * 6.25)) + '%';
+      this.timeLeft--;
+      console.log(this.timeLeft);
+      if (this.timeLeft === -1) {
+        console.log('fertig');
+        this.nextQuestion(-1);
+      }
+    }
   }
 
   delay(ms: number) {

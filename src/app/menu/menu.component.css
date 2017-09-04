@@ -1,3 +1,8 @@
+body
+{
+  overflow: hidden;
+}
+
 .btn {
   border: 2px solid transparent;
   background: #3498DB;

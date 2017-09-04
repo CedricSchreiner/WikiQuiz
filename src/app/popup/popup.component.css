@@ -23,17 +23,6 @@
   }
 
 
-  @media (orientation: landscape) {
-    .btn
-    {
-      height: 40px;
-      padding: 5px;
-      margin: 0 auto;
-    }
-  }
-}
-
-
 .hit-the-floor {
   color: #000000;
   font-size: 2em;
@@ -105,11 +94,7 @@
 
 }
 
-@media only screen
-and (min-device-width: 320px)
-and (max-device-width: 450px)
-and (-webkit-min-device-pixel-ratio: 2)
-and (orientation: portrait) {
+@media (orientation: portrait) {
 
 #resultMenu{
   position: relative;
@@ -159,11 +144,15 @@ and (orientation: portrait) {
   }
 }
 
-@media only screen
-and (min-device-width: 320px)
-and (max-device-width: 740px)
-and (-webkit-min-device-pixel-ratio: 2)
-and (orientation: landscape) {
+@media (orientation: landscape) {
+
+}
+  .btn
+  {
+    height: 40px;
+    padding: 5px;
+    margin: 0 auto;
+  }
 
   #resultMenu {
     position: relative;
