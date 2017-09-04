@@ -142,14 +142,22 @@ input:focus {
 }
 
 @media (orientation: landscape) {
+
   #avatar-collection
   {
     position: relative;
-    bottom: 45px;
+    bottom: 65px;
   }
+
   #option-avatar-button
   {
-    bottom: 50px;
+    bottom: 85px;
+  }
+
+  .app-title
+  {
+    position: relative;
+    bottom: 20px;
   }
 }
 
