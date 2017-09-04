@@ -4,19 +4,13 @@
   cursor: default;
 }
 
-tr,td,th
-{
-  border: 1px solid black;
-}
-
 table
 {
   font-size: 20px;
   width: 70%;
   margin-left: 15%;
   margin-right: 15%;
-  border-collapse: separate;
-  empty-cells: hide;
+  margin-top: 1%;
 }
 
 td
@@ -32,7 +26,7 @@ tr
 
 tr:nth-child(even)
 {
-  background-color: #f2f2f2
+  background-color: #B0E2FF;
 }
 
 th
@@ -41,5 +35,26 @@ th
   color: #FFFFFF;
   background: #0d87cf;
   text-align: center;
+}
+
+th, td
+{
+  padding-left: 7px;
+  padding-right: 7px;
+}
+
+tr,td,th
+{
+  border: 2px solid black;
+}
+
+#last-row-xquiz
+{
+  visibility: hidden;
+}
+
+#last-row-survival
+{
+  visibility: hidden;
 }
 /* Statistik Table Content End*/

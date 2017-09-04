@@ -68,9 +68,11 @@ export class StatisticsComponent implements OnInit {
   }
 
   createTopTenOverallTableXquiz() {
+    let userInTopList: boolean;
     let row: HTMLTableRowElement;
     let cell: HTMLTableCellElement;
     const table = (<HTMLTableElement>document.getElementById('stats-table-world-xquiz'));
+    const lastRow = (<HTMLTableRowElement>document.getElementById('lastRow'));
     this.restService.getTopTenStatisticsOverall('xquiz').subscribe((stats => {
       this.stats = stats;
       row = table.rows[0];
@@ -87,6 +89,30 @@ export class StatisticsComponent implements OnInit {
           }
         }
       }
+      for (let i = 0; i < 10; i++) {
+        row = table.rows[i];
+        cell = row.cells[5];
+        if (sessionStorage.getItem('username') === cell.innerHTML) {
+          userInTopList = true;
+        }
+      }
+      if (!userInTopList) {
+        lastRow.style.visibility = 'visible';
+        this.restService.getStatisticsPlayer('survival').subscribe((statsTop => {
+          this.stats[0] = statsTop;
+          row = table.rows[11];
+          for (let i = 0; i < 5; i++) {
+            cell = row.cells[i + 1];
+            if (this.stats !== undefined) {
+              cell.innerHTML = this.get(0, i + 1);
+            } else {
+              cell.innerHTML = '-';
+            }
+          }
+          cell = row.cells[5];
+          cell.innerHTML = sessionStorage.getItem('username');
+        }));
+      }
     }));
   }
 
@@ -95,6 +121,7 @@ export class StatisticsComponent implements OnInit {
     let row: HTMLTableRowElement;
     let cell: HTMLTableCellElement;
     const table = (<HTMLTableElement>document.getElementById('stats-table-world-survival'));
+    const lastRow = (<HTMLTableRowElement>document.getElementById('lastRow'));
     this.restService.getTopTenStatisticsOverall('survival').subscribe((stats => {
       this.stats = stats;
       row = table.rows[0];
@@ -119,6 +146,7 @@ export class StatisticsComponent implements OnInit {
         }
       }
       if (!userInTopList) {
+        lastRow.style.visibility = 'visible';
         this.restService.getStatisticsPlayer('survival').subscribe((statsTop => {
           this.stats[0] = statsTop;
           row = table.rows[11];
