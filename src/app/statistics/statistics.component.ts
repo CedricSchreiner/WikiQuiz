@@ -111,6 +111,18 @@ export class StatisticsComponent implements OnInit {
         }
       }
     }));
+    this.restService.getStatisticsPlayer('survival').subscribe((stats => {
+      this.stats = stats;
+      row = table.rows[11];
+      for (let i = 0; i < 6; i++) {
+        cell = row.cells[i];
+        if (this.stats.length >= i) {
+          cell.innerHTML = this.get(0, i);
+        } else {
+          cell.innerHTML = '-';
+        }
+      }
+    }));
   }
 
   get(index: number, indexAttribute) {
