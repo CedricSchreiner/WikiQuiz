@@ -72,7 +72,7 @@ export class StatisticsComponent implements OnInit {
     let row: HTMLTableRowElement;
     let cell: HTMLTableCellElement;
     const table = (<HTMLTableElement>document.getElementById('stats-table-world-xquiz'));
-    const lastRow = (<HTMLTableRowElement>document.getElementById('lastRow'));
+    const lastRow = (<HTMLTableRowElement>document.getElementById('last-row-xquiz'));
     this.restService.getTopTenStatisticsOverall('xquiz').subscribe((stats => {
       this.stats = stats;
       row = table.rows[0];
@@ -98,7 +98,7 @@ export class StatisticsComponent implements OnInit {
       }
       if (!userInTopList) {
         lastRow.style.visibility = 'visible';
-        this.restService.getStatisticsPlayer('survival').subscribe((statsTop => {
+        this.restService.getStatisticsPlayer('xquiz').subscribe((statsTop => {
           this.stats[0] = statsTop;
           row = table.rows[11];
           for (let i = 0; i < 5; i++) {
@@ -121,7 +121,7 @@ export class StatisticsComponent implements OnInit {
     let row: HTMLTableRowElement;
     let cell: HTMLTableCellElement;
     const table = (<HTMLTableElement>document.getElementById('stats-table-world-survival'));
-    const lastRow = (<HTMLTableRowElement>document.getElementById('lastRow'));
+    const lastRow = (<HTMLTableRowElement>document.getElementById('last-row-survival'));
     this.restService.getTopTenStatisticsOverall('survival').subscribe((stats => {
       this.stats = stats;
       row = table.rows[0];
