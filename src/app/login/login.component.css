@@ -9,11 +9,14 @@
 *:focus {
   outline: none;
 }
+
 body {
   font-family: Arial, monospace;
   background-color: #3498DB;
   padding: 50px;
 }
+
+
 .login {
   position: relative;
   bottom: 10px;
