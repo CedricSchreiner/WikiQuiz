@@ -125,7 +125,7 @@ export class QuizComponent implements OnInit {
                 break;
     }
     this.howmany ++;
-    this.timeLeft = 16;
+    this.timeLeft = 1600;
   }
   showResultSurvival() {
     sessionStorage.setItem('rightAnswers', this.richtigeAntworten.toString());
@@ -146,10 +146,10 @@ export class QuizComponent implements OnInit {
 
   async timer() {
     const timerDiv = (<HTMLDivElement> document.getElementById('timer-status-bar'));
-    this.timeLeft = 16;
+    this.timeLeft = 1600;
     while (this.spielLauft) {
-      await this.delay(1000);
-      timerDiv.style.width = String((this.timeLeft * 6.25)) + '%';
+      await this.delay(10);
+      timerDiv.style.width = String((this.timeLeft * 0.0625)) + '%';
       this.timeLeft--;
       console.log(this.timeLeft);
       if (this.timeLeft === -1) {
