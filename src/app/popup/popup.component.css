@@ -27,7 +27,7 @@
   color: #000000;
   font-size: 2em;
   font-weight: bold;
-  font-family: Helvetica;
+  font-family: Helvetica, monospace;
   text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, .1), 0 0 5px rgba(0, 0, 0, .1), 0 1px 3px rgba(0, 0, 0, .3), 0 3px 5px rgba(0, 0, 0, .2), 0 5px 10px rgba(0, 0, 0, .25), 0 10px 10px rgba(0, 0, 0, .2), 0 20px 20px rgba(0, 0, 0, .15);
 }
 
@@ -49,13 +49,13 @@
   position: relative;
   width: 100%;
   height: 40%;
-  margin: 10% 0%;
+  margin: 10% 0;
 }
 #punkte{
   position: relative;
   width: 100%;
   height: 40%;
-  margin: -5% 0%;
+  margin: -5% 0;
 }
 
 #buttons
@@ -88,9 +88,7 @@
   height: 70%;
   margin: auto;
   background: white;
-  border: ridge;
-  border-color: #0d87cf;
-
+  border: ridge #0d87cf;
 
 }
 
@@ -103,10 +101,8 @@
   margin: 20% -50%;
   z-index: 15;
   left: 50%;
-  background: white;
-  border: ridge;
-  border-color: #0d87cf;
-  background-image: url("../../assets/giphy (1).gif");
+  border: ridge #0d87cf;
+  background: white url("../../assets/giphy (1).gif");
   background-size: cover;
 }
   .btn{
@@ -129,13 +125,13 @@
     position: relative;
     width: 100%;
     height: 40%;
-    margin: 10% 0%;
+    margin: 10% 0;
   }
   #punkte{
     position: relative;
     width: 100%;
     height: 40%;
-    margin: -5% 0%;
+    margin: -5% 0;
 
   }
 
@@ -160,8 +156,7 @@
     height: 65%;
     margin: -2.5% -0%;
     background: white;
-    border: groove;
-    border-color: #0d87cf;
+    border: groove #0d87cf;
     opacity: 0.9;
   }
   .btn{
@@ -192,13 +187,13 @@
     position: relative;
     width: 50%;
     height: 40%;
-    margin: 4% 0%;
+    margin: 4% 0;
   }
   #punkte{
     position: relative;
     width: 50%;
     height: 40%;
-    margin: 4% 0%;
+    margin: 4% 0;
 
 
   }
@@ -206,7 +201,7 @@
     color: #000000;
     font-size: 1.5em;
     font-weight: bold;
-    font-family: Helvetica;
+    font-family: Helvetica, monospace;
     float: right;
     text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, .1), 0 0 5px rgba(0, 0, 0, .1), 0 1px 3px rgba(0, 0, 0, .3), 0 3px 5px rgba(0, 0, 0, .2), 0 5px 10px rgba(0, 0, 0, .25), 0 10px 10px rgba(0, 0, 0, .2), 0 20px 20px rgba(0, 0, 0, .15);
   }
