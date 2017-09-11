@@ -35,6 +35,12 @@ export class XQuizService {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
+  calculatePoints(anzahlrichtigeAntworten: number, verbrauchteZeit: number) {
+    const fragenPunkte = 3250 / this.anzahlFragen * (this.anzahlFragen - anzahlrichtigeAntworten);
+    const zeitPunkte = 1750 / 1600 / this.anzahlFragen;
+    return Math.round(5000 - fragenPunkte - zeitPunkte * verbrauchteZeit);
+  }
+
   async updateTable() {
     let tableInitialStart = false;
     this.tableFilled = false;

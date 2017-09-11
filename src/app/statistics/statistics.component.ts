@@ -9,6 +9,7 @@ import { RestService } from '../service/rest.service';
 export class StatisticsComponent implements OnInit {
   stats: Statistic[];
   avatarLinkString: string;
+  userInTopList: boolean;
 
   constructor(private restService: RestService) {
   }
@@ -19,6 +20,7 @@ export class StatisticsComponent implements OnInit {
     this.createTopTenOverallTableXquiz();
     this.createTopTenPlayerSurvival();
     this.createTopTenOverallSurvival();
+    this.userInTopList = false;
   }
 
   createTopTenPlayerXquiz() {
@@ -90,7 +92,7 @@ export class StatisticsComponent implements OnInit {
         }
       }
       for (let i = 0; i < 10; i++) {
-        row = table.rows[i];
+        row = table.rows[i + 1];
         cell = row.cells[5];
         if (sessionStorage.getItem('username') === cell.innerHTML) {
           userInTopList = true;
@@ -119,7 +121,6 @@ export class StatisticsComponent implements OnInit {
   }
 
   createTopTenOverallSurvival() {
-    let userInTopList: boolean;
     let row: HTMLTableRowElement;
     let cell: HTMLTableCellElement;
     const table = (<HTMLTableElement>document.getElementById('stats-table-world-survival'));
@@ -140,15 +141,15 @@ export class StatisticsComponent implements OnInit {
           }
         }
       }
-      for (let i = 0; i < 10; i++) {
+      for (let i = 1; i < 11; i++) {
         row = table.rows[i];
         cell = row.cells[5];
         if (sessionStorage.getItem('username') === cell.innerHTML) {
-          userInTopList = true;
+          this.userInTopList = true;
         }
       }
-      if (!userInTopList) {
-        lastRow.style.visibility = 'visible';
+      if (!this.userInTopList) {
+        ///lastRow.style.visibility = 'visible';
         this.restService.getStatisticsPlayer('survival').subscribe((statsTop => {
           this.stats[0] = statsTop;
           row = table.rows[11];
