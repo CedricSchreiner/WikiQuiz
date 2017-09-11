@@ -10,7 +10,7 @@ export class PopupComponent implements OnInit {
 punkte: string;
 rightQuest: string;
 anzFragen: string;
-starAmount: string;
+starLogoLink: string;
 constructor(private restService: RestService) {
 }
 
@@ -27,17 +27,17 @@ ngOnInit() {
 
   selectStarAmount(points: number) {
     if (points < 200) {
-      this.starAmount = '../../assets/5_Star_Rating_System_0_stars_T.png';
+      this.starLogoLink = '../../assets/5_Star_Rating_System_0_stars_T.png';
     } else if (points < 1000) {
-      this.starAmount = '../../assets/5_Star_Rating_System_1_stars_T.png';
+      this.starLogoLink = '../../assets/5_Star_Rating_System_1_stars_T.png';
     } else if (points < 2000) {
-      this.starAmount = '../../assets/5_Star_Rating_System_2_stars_T.png';
+      this.starLogoLink = '../../assets/5_Star_Rating_System_2_stars_T.png';
     } else if (points < 3000) {
-      this.starAmount = '../../assets/5_Star_Rating_System_3_stars_T.png';
+      this.starLogoLink = '../../assets/5_Star_Rating_System_3_stars_T.png';
     } else if (points < 4000) {
-      this.starAmount = '../../assets/5_Star_Rating_System_4_stars_T.png';
+      this.starLogoLink = '../../assets/5_Star_Rating_System_4_stars_T.png';
     } else if (points <= 5000) {
-      this.starAmount = '../../assets/5_Star_Rating_System_5_stars_T.png';
+      this.starLogoLink = '../../assets/5_Star_Rating_System_5_stars_T.png';
     }
   }
 
@@ -52,22 +52,23 @@ ngOnInit() {
         break;
     }
   }
+
   updateStatistics() {
-  this.restService.updateStatistic(
-    sessionStorage.getItem('gamemode'),
-    sessionStorage.getItem('id'),
-    this.anzFragen,
-    this.rightQuest,
-    this.punkte
+    this.restService.updateStatistic(
+      sessionStorage.getItem('gamemode'),
+      sessionStorage.getItem('id'),
+      this.anzFragen,
+      this.rightQuest,
+      this.punkte
     ).subscribe((posts) => {
-    console.log(posts);
-  }, (err: any) => {
-    console.log(err.status);
-    if (err.status === 500) {
-      console.log('Vorhanden');
-    } else {
-      console.log('FEHLER!');
-    }
-  });
+      console.log(posts);
+    }, (err: any) => {
+      console.log(err.status);
+      if (err.status === 500) {
+        console.log('Vorhanden');
+      } else {
+        console.log('FEHLER!');
+      }
+    });
   }
 }
