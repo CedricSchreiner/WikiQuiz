@@ -69,6 +69,10 @@ export class SurvivalQuizService {
     }
   }
 
+  calculatePoints(anzahlFragen: number, zeit: number) {
+
+  }
+
   loadQuestionTable1() {
     console.log('Tabelle 1 wird geladen');
     this.tableLoadFailure = false;

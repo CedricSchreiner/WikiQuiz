@@ -21,10 +21,11 @@ export class QuizComponent implements OnInit {
   button: HTMLButtonElement;
   buttonRightSolution: HTMLButtonElement;
   numberOfQuestions: number;
-  resultSet: number;
   howmany: number;
   timeLeft: number;
   spielLauft: boolean;
+  sumTimeLeft: number;
+  verbrauchteGesamtZeit: number;
 
   /**
    * 1 = Survival Quiz
@@ -34,9 +35,9 @@ export class QuizComponent implements OnInit {
   constructor(private survivalQuiz: SurvivalQuizService, private xquiz: XQuizService) {
   }
   async ngOnInit() {
-    this.spielLauft = true;
-    this.timer();
+    this.sumTimeLeft = 0;
     this.howmany = 0;
+    this.verbrauchteGesamtZeit = 0;
     this.buttonA = (<HTMLButtonElement>document.getElementById('answerA'));
     this.buttonB = (<HTMLButtonElement>document.getElementById('answerB'));
     this.buttonC = (<HTMLButtonElement>document.getElementById('answerC'));
@@ -53,19 +54,25 @@ export class QuizComponent implements OnInit {
                   this.frage = this.xquiz.getQuestion();
                   break;
       }
+      this.spielLauft = true;
+      this.timer();
     }
   }
   async nextQuestion(buttonNumber: number) {
+    this.spielLauft = false;
     if (buttonNumber !== -1) {
       this.button = this.getButton(buttonNumber);
       if (buttonNumber === Number(this.frage.SolutionNumber)) {
+        this.verbrauchteGesamtZeit += 1600 - this.timeLeft;
         this.richtigeAntworten++;
         this.button.style.backgroundColor = '#01DF01';
         this.changeDisableStatus(true);
         await this.delay(2500);
         this.changeDisableStatus(false);
         this.button.style.backgroundColor = '#0d87cf';
+        this.sumTimeLeft += this.timeLeft;
       } else {
+        this.verbrauchteGesamtZeit += 1600;
         this.buttonRightSolution = this.getButton(Number(this.frage.SolutionNumber));
         this.changeDisableStatus(true);
         this.button.style.backgroundColor = '#FF0000';
@@ -84,6 +91,7 @@ export class QuizComponent implements OnInit {
         this.changeDisableStatus(false);
       }
     }else {
+      this.verbrauchteGesamtZeit += 1600;
       this.buttonRightSolution = this.getButton(Number(this.frage.SolutionNumber));
       this.changeDisableStatus(true);
       this.buttonRightSolution.style.backgroundColor = '#01DF01';
@@ -126,6 +134,8 @@ export class QuizComponent implements OnInit {
     }
     this.howmany ++;
     this.timeLeft = 1600;
+    this.spielLauft = true;
+    this.timer();
   }
   showResultSurvival() {
     sessionStorage.setItem('rightAnswers', this.richtigeAntworten.toString());
@@ -141,7 +151,9 @@ export class QuizComponent implements OnInit {
     window.location.href = 'result';
   }
   calcPoints() {
-    return this.resultSet = (this.richtigeAntworten * 100 );
+    switch (sessionStorage.getItem('gamemode')) {
+      case 'xquiz'   : return this.xquiz.calculatePoints(this.richtigeAntworten, this.verbrauchteGesamtZeit);
+    }
   }
 
   async timer() {
@@ -152,7 +164,7 @@ export class QuizComponent implements OnInit {
       timerDiv.style.width = String((this.timeLeft * 0.0625)) + '%';
       this.timeLeft--;
       console.log(this.timeLeft);
-      if (this.timeLeft === -1) {
+      if (this.timeLeft === 0) {
         console.log('fertig');
         this.nextQuestion(-1);
       }
