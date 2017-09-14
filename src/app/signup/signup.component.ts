@@ -35,23 +35,24 @@ export class SignupComponent implements OnInit {
           regexPasswordContainsNumber.test(this.password)) {
           this.restService.signup(this.name, this.e_mail, this.password).subscribe((posts) => {
             console.log(posts);
+            this.errMsg = 'Sign Up Succesfull!';
             this.link('');
           }, (err: any) => {
             console.log(err.status);
             if (err.status === 500) {
-              console.log('Vorhanden');
+              console.log('Already Exist');
             } else {
-              console.log('FEHLER!');
+              console.log('Error!');
             }
           });
         } else {
-          this.errMsg = 'Password: Länge 8-20, min 1 Großbuchstabe, min 1 Zahl, min 1 Sonderzeichen';
+          this.errMsg = 'Password: Length 8-20, min 1 Capital letter, min 1 Number, min 1 special character';
         }
       } else {
-        this.errMsg = 'Ungültige Email';
+        this.errMsg = 'invalid Email';
       }
     } else {
-      this.errMsg = 'Der Username muss mindestens 2 Zeichen lang sein';
+      this.errMsg = 'Username: min Length 2 Characters';
     }
   }
   checkEnter(event) {
