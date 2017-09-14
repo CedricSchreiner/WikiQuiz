@@ -35,6 +35,7 @@ export class SignupComponent implements OnInit {
           regexPasswordContainsNumber.test(this.password)) {
           this.restService.signup(this.name, this.e_mail, this.password).subscribe((posts) => {
             console.log(posts);
+            this.link('');
           }, (err: any) => {
             console.log(err.status);
             if (err.status === 500) {
@@ -51,6 +52,11 @@ export class SignupComponent implements OnInit {
       }
     } else {
       this.errMsg = 'Der Username muss mindestens 2 Zeichen lang sein';
+    }
+  }
+  checkEnter(event) {
+    if (event.keyCode === 13) {
+      this.sendSignUpData();
     }
   }
   link(linkToGo: string) {

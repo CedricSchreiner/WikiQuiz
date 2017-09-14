@@ -60,6 +60,13 @@ export class LoginComponent implements OnInit {
       this.text = 'Falsche Email';
     }
   }
+
+  checkEnter(event) {
+    if (event.keyCode === 13) {
+      this.sendLoginData();
+    }
+  }
+
   link(linkToGo: string) {
     window.location.href = linkToGo;
   }
