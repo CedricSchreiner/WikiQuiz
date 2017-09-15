@@ -43,18 +43,18 @@ export class PasswordComponent implements OnInit {
         }, (err: any) => {
           this.status = err.status;
           if (err.status === 0) {
-            this.text = 'Keine Verbindung zum Server';
+            this.text = 'No Connection to the Server';
           }else {
-            this.text = 'Ups, da ist etwas schief gelaufen';
+            this.text = 'Ups, there is something wrong';
           }
         });
       }else {
         this.status = 404;
-        this.text = 'Länge 8-20, min 1 Großbuchstabe, min 1 Zahl, min 1 Sonderzeichen';
+        this.text = 'Length 8-20, min 1 capital Letter, min 1 count, min 1 special character';
       }
     }else {
       this.status = 404;
-      this.text = 'Passwörter nicht gleich';
+      this.text = 'passwords are diffrent';
     }
     /* Lösche Inhalt aus den Passwort Text Feldern */
     this.button1.value = '';

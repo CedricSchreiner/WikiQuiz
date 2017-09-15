@@ -79,14 +79,14 @@ export class XQuizService {
   }
 
   loadQuestionTable1() {
-    console.log('Tabelle 1 wird geladen');
+    console.log('Table 1 is loading');
     this.tableLoadFailure = false;
     this.restService.getQuestions(5, 1).subscribe((fragen) => {
       this.fragenArrayLadeFragen = fragen;
       this.tableFilled = true;
-      console.log('Tabelle 1 geladen');
+      console.log('Table 1 loaded');
     }, () => {
-      console.log('Fehler beim laden der Tabelle');
+      console.log('load Table Error');
       this.tableLoadFailure = true;
     });
   }

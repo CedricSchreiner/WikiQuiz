@@ -112,7 +112,7 @@ export class StatisticsComponent implements OnInit {
             }
           }
           cell = row.cells[0];
-          cell.innerHTML = 'Eigene Platzierung';
+          cell.innerHTML = 'Your Rank';
           cell = row.cells[5];
           cell.innerHTML = sessionStorage.getItem('username');
         }));
@@ -162,7 +162,7 @@ export class StatisticsComponent implements OnInit {
             }
           }
           cell = row.cells[0];
-          cell.innerHTML = 'Eigene Platzierung';
+          cell.innerHTML = 'Your Rank';
           cell = row.cells[5];
           cell.innerHTML = sessionStorage.getItem('username');
         }));
