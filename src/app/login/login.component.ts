@@ -44,20 +44,20 @@ export class LoginComponent implements OnInit {
         }, (err: any) => {
           this.status = err.status;
           if (err.status === 404) {
-            this.text = 'Email or Password incorrect!';
+            this.text = 'Email or password incorrect!';
           }else if (err.status === 0) {
-            this.text = 'no Connection to the Server!';
+            this.text = 'no connection to the server!';
           }else {
-            this.text = 'Ups, there is something wrong';
+            this.text = 'Oops, something went wrong';
           }
         });
       }else {
         this.status = 404;
-        this.text = 'Length 8-20, min 1 Capital Letter, min 1 number, min 1 special Character';
+        this.text = 'Length 8-20, min 1 capital letter, min 1 number, min 1 special character';
       }
     } else {
       this.status = 404;
-      this.text = 'Wrong Email';
+      this.text = 'Invalid Email';
     }
   }
 

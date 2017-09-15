@@ -26,17 +26,17 @@ export class AvatarComponent implements OnInit {
 
   sendChangeAvatar() {
     this.restService.changeAvatar(sessionStorage.getItem('actual_link')).subscribe((post) => {
-      this.text = 'Avatar successfully changed';
+      this.text = 'Avatar changed successfully';
       console.log(post);
     }, (err: any) => {
       this.status = err.status;
       if (err.status === 0) {
-        this.text = 'keine Verbindung zum Server';
+        this.text = 'no connection to the server';
       } else if (err.status === 200) {
-        this.text = 'Passwort erfolgreich geändert';
+        this.text = 'password changed succesfully';
       } else {
         console.log(err.status);
-        this.text = 'Ups, da ist etwas schief gelaufen';
+        this.text = 'Oops, something went wrong';
       }
     });
     sessionStorage.setItem('link', sessionStorage.getItem('actual_link'));
