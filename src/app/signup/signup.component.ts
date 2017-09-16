@@ -1,6 +1,6 @@
 import {Component, OnInit } from '@angular/core';
 import { RestService } from '../service/rest.service';
-import {isUserloggedIn} from "../static-functions/static.function";
+import {isUserloggedIn} from '../static-functions/static.function';
 
 @Component({
   selector: 'app-signup',

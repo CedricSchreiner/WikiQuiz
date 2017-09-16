@@ -3,7 +3,7 @@ import { SurvivalQuizService } from './survivalquiz';
 import { XQuizService } from './xquiz';
 import { FiftyFiftyJokerService} from './fifty_fifty_joker';
 import { SpecialJokerService } from './spezial_joker';
-import {isUserloggedIn} from "../static-functions/static.function";
+import {isUserloggedIn} from '../static-functions/static.function';
 
 
 @Component({
