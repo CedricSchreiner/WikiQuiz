@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SurvivalQuizService } from './survivalquiz';
 import { XQuizService } from './xquiz';
 import { FiftyFiftyJokerService} from './fifty_fifty_joker';
+import { SpecialJokerService } from './spezial_joker';
 
 
 @Component({
@@ -11,7 +12,6 @@ import { FiftyFiftyJokerService} from './fifty_fifty_joker';
 })
 
 export class QuizComponent implements OnInit {
-  test: boolean;
   frage: Frage;
   avatarLinkString: string;
   richtigeAntworten: number;
@@ -34,21 +34,26 @@ export class QuizComponent implements OnInit {
    */
 
   constructor(private survivalQuiz: SurvivalQuizService, private xquiz: XQuizService,
-              private fiftyJoker: FiftyFiftyJokerService) {
+              private fiftyJoker: FiftyFiftyJokerService, private specialJoker: SpecialJokerService) {
   }
   async ngOnInit() {
-    ///Initial all Jokers and set the count how often they are available
+    ///Set the count how often the Jokers are available
     this.fiftyJoker.setJokerCount(1);
+    this.specialJoker.setJokerCount(100);
 
+    ///Set all needed parameters 0
     this.sumTimeLeft = 0;
     this.howmany = 0;
     this.verbrauchteGesamtZeit = 0;
+
+    ///Get all answer Buttons from html component
     this.buttonA = (<HTMLButtonElement>document.getElementById('answerA'));
     this.buttonB = (<HTMLButtonElement>document.getElementById('answerB'));
     this.buttonC = (<HTMLButtonElement>document.getElementById('answerC'));
     this.buttonD = (<HTMLButtonElement>document.getElementById('answerD'));
+
+    this.specialJoker.setButtons(this.buttonA, this.buttonB, this.buttonC, this.buttonD);
     if (sessionStorage.length > 0) {
-      this.test = true;
       this.richtigeAntworten = 0;
       this.avatarLinkString = './assets/' + sessionStorage.getItem('link'); // fuer den Avatar
       switch (sessionStorage.getItem('gamemode')) {
@@ -56,31 +61,52 @@ export class QuizComponent implements OnInit {
                   this.frage = this.survivalQuiz.getQuestion();
                   break;
         case 'xquiz': await this.xquiz.startQuiz(Number(sessionStorage.getItem('anzahlFragen')));
-                  this.frage = this.xquiz.getQuestion();
-                  break;
+                      ///sessionStorage.removeItem('anzahlFragen');
+                      this.frage = this.xquiz.getQuestion();
+                      break;
       }
+      this.specialJoker.setAnswer(this.frage.SolutionNumber);
       this.spielLauft = true;
       this.timer();
     }
   }
   async nextQuestion(buttonNumber: number) {
-    this.spielLauft = false;
-    if (buttonNumber !== -1) {
-      this.button = this.getButton(buttonNumber);
-      if (buttonNumber === Number(this.frage.SolutionNumber)) {
-        this.verbrauchteGesamtZeit += 1600 - this.timeLeft;
-        this.richtigeAntworten++;
-        this.button.style.backgroundColor = '#01DF01';
-        this.changeDisableStatus(true);
-        await this.delay(2500);
-        this.changeDisableStatus(false);
-        this.button.style.backgroundColor = '#0d87cf';
-        this.sumTimeLeft += this.timeLeft;
+    if (!this.specialJoker.isJokerActive()) {
+      this.spielLauft = false;
+      if (buttonNumber !== -1) {
+        this.button = this.getButton(buttonNumber);
+        if (buttonNumber === Number(this.frage.SolutionNumber)) {
+          this.verbrauchteGesamtZeit += 1600 - this.timeLeft;
+          this.richtigeAntworten++;
+          this.button.style.backgroundColor = '#01DF01';
+          this.changeDisableStatus(true);
+          await this.delay(2500);
+          this.changeDisableStatus(false);
+          this.button.style.backgroundColor = '#0d87cf';
+          this.sumTimeLeft += this.timeLeft;
+        } else {
+          this.verbrauchteGesamtZeit += 1600;
+          this.buttonRightSolution = this.getButton(Number(this.frage.SolutionNumber));
+          this.changeDisableStatus(true);
+          this.button.style.backgroundColor = '#FF0000';
+          this.buttonRightSolution.style.backgroundColor = '#01DF01';
+          await this.delay(500);
+          this.buttonRightSolution.style.backgroundColor = '#0d87cf';
+          await this.delay(500);
+          this.buttonRightSolution.style.backgroundColor = '#01DF01';
+          await this.delay(500);
+          this.buttonRightSolution.style.backgroundColor = '#0d87cf';
+          await this.delay(500);
+          this.buttonRightSolution.style.backgroundColor = '#01DF01';
+          await this.delay(500);
+          this.buttonRightSolution.style.backgroundColor = '#0d87cf';
+          this.button.style.backgroundColor = '#0d87cf';
+          this.changeDisableStatus(false);
+        }
       } else {
         this.verbrauchteGesamtZeit += 1600;
         this.buttonRightSolution = this.getButton(Number(this.frage.SolutionNumber));
         this.changeDisableStatus(true);
-        this.button.style.backgroundColor = '#FF0000';
         this.buttonRightSolution.style.backgroundColor = '#01DF01';
         await this.delay(500);
         this.buttonRightSolution.style.backgroundColor = '#0d87cf';
@@ -92,59 +118,52 @@ export class QuizComponent implements OnInit {
         this.buttonRightSolution.style.backgroundColor = '#01DF01';
         await this.delay(500);
         this.buttonRightSolution.style.backgroundColor = '#0d87cf';
-        this.button.style.backgroundColor = '#0d87cf';
         this.changeDisableStatus(false);
       }
-    }else {
-      this.verbrauchteGesamtZeit += 1600;
-      this.buttonRightSolution = this.getButton(Number(this.frage.SolutionNumber));
-      this.changeDisableStatus(true);
-      this.buttonRightSolution.style.backgroundColor = '#01DF01';
-      await this.delay(500);
-      this.buttonRightSolution.style.backgroundColor = '#0d87cf';
-      await this.delay(500);
-      this.buttonRightSolution.style.backgroundColor = '#01DF01';
-      await this.delay(500);
-      this.buttonRightSolution.style.backgroundColor = '#0d87cf';
-      await this.delay(500);
-      this.buttonRightSolution.style.backgroundColor = '#01DF01';
-      await this.delay(500);
-      this.buttonRightSolution.style.backgroundColor = '#0d87cf';
-      this.changeDisableStatus(false);
-    }
 
-    switch (sessionStorage.getItem('gamemode')) {
-      case '1': if (buttonNumber !== Number(this.frage.SolutionNumber)) {
-                  this.survivalQuiz.reduceLives();
-                  if (this.survivalQuiz.isFinished()) {
-                    /*<===============================================>*/
-                    /*Hier kann das Statistik Fenster aufgerufen werden*/
-                    /*<===============================================>*/
-                    /*window.location.href = 'menu';*/
-                    this.showResultSurvival();
-                  }
-                }
-                console.log('next');
-                this.frage = this.survivalQuiz.getQuestion();
-                break;
-      case 'xquiz': if (this.xquiz.isFinished()) {
-                  /*<===============================================>*/
-                  /*Hier kann das Statistik Fenster aufgerufen werden*/
-                  /*<===============================================>*/
-                  this.showResultXquiz();
-                  sessionStorage.removeItem('anzahlFragen');
-                }
-                this.frage = this.xquiz.getQuestion();
-                break;
+
+      switch (sessionStorage.getItem('gamemode')) {
+        case '1':
+          if (buttonNumber !== Number(this.frage.SolutionNumber)) {
+            this.survivalQuiz.reduceLives();
+            if (this.survivalQuiz.isFinished()) {
+              this.showResultSurvival();
+            }
+          }
+          this.frage = this.survivalQuiz.getQuestion();
+          break;
+        case 'xquiz':
+          if (this.xquiz.isFinished()) {
+            this.showResultXquiz();
+          }
+          this.frage = this.xquiz.getQuestion();
+          break;
+      }
+      this.specialJoker.setAnswer(this.frage.SolutionNumber);
+      this.howmany++;
+      this.timeLeft = 1600;
+      this.spielLauft = true;
+      this.timer();
+      this.buttonA.style.backgroundColor = '#0d87cf';
+      this.buttonB.style.backgroundColor = '#0d87cf';
+      this.buttonC.style.backgroundColor = '#0d87cf';
+      this.buttonD.style.backgroundColor = '#0d87cf';
+    } else {
+      if (!this.specialJoker.deleteAnswers(buttonNumber)) {
+        this.changeDisableStatus(true);
+        this.timeLeft = 1600;
+        this.spielLauft = true;
+        this.timer();
+        await this.delay(1000);
+        this.buttonA.style.backgroundColor = '#0d87cf';
+        this.buttonB.style.backgroundColor = '#0d87cf';
+        this.buttonC.style.backgroundColor = '#0d87cf';
+        this.buttonD.style.backgroundColor = '#0d87cf';
+        this.frage = this.xquiz.getQuestion();
+        this.specialJoker.setAnswer(this.frage.SolutionNumber);
+        this.changeDisableStatus(false);
+      }
     }
-    this.howmany ++;
-    this.timeLeft = 1600;
-    this.spielLauft = true;
-    this.timer();
-    this.buttonA.style.backgroundColor = '#0d87cf';
-    this.buttonB.style.backgroundColor = '#0d87cf';
-    this.buttonC.style.backgroundColor = '#0d87cf';
-    this.buttonD.style.backgroundColor = '#0d87cf';
   }
   showResultSurvival() {
     sessionStorage.setItem('rightAnswers', this.richtigeAntworten.toString());
@@ -168,32 +187,33 @@ export class QuizComponent implements OnInit {
    1: 50/50 Joker
    2: anderer Joker
    */
-  activateJoker(joker: string) {
+  activateJoker(joker: number) {
     let wrongAnswers: number[];
+    this.spielLauft = false;
     switch (joker) {
-      case '1' :  if (this.fiftyJoker.isJokerLeft()) {
-                    console.log('Antwort:' + this.frage.SolutionNumber);
-                    wrongAnswers = this.fiftyJoker.deleteAnswers(this.frage.SolutionNumber);
-                    console.log('1: ' + wrongAnswers[0]);
-                    console.log('2: ' + wrongAnswers[1]);
-                    if (wrongAnswers[0] === 0 || wrongAnswers[1] === 0) {
-                      this.buttonA.style.backgroundColor = '#c0c1c4';
-                      this.buttonA.disabled = true;
-                    }
-                    if (wrongAnswers[0] === 1 || wrongAnswers[1] === 1) {
-                      this.buttonB.style.backgroundColor = '#c0c1c4';
-                      this.buttonB.disabled = true;
-                    }
-                    if (wrongAnswers[0] === 2 || wrongAnswers[1] === 2) {
-                      this.buttonC.style.backgroundColor = '#c0c1c4';
-                      this.buttonC.disabled = true;
-                    }
-                    if (wrongAnswers[0] === 3 || wrongAnswers[1] === 3) {
-                      this.buttonD.style.backgroundColor = '#c0c1c4';
-                      this.buttonD.disabled = true;
-                    }
+      case 1 :  if (this.fiftyJoker.isJokerLeft()) {
+                  wrongAnswers = this.fiftyJoker.deleteAnswers(this.frage.SolutionNumber);
+                  if (wrongAnswers[0] === 0 || wrongAnswers[1] === 0) {
+                    this.buttonA.style.backgroundColor = '#c0c1c4';
+                    this.buttonA.disabled = true;
                   }
-                  break;
+                  if (wrongAnswers[0] === 1 || wrongAnswers[1] === 1) {
+                    this.buttonB.style.backgroundColor = '#c0c1c4';
+                    this.buttonB.disabled = true;
+                  }
+                  if (wrongAnswers[0] === 2 || wrongAnswers[1] === 2) {
+                    this.buttonC.style.backgroundColor = '#c0c1c4';
+                    this.buttonC.disabled = true;
+                  }
+                  if (wrongAnswers[0] === 3 || wrongAnswers[1] === 3) {
+                    this.buttonD.style.backgroundColor = '#c0c1c4';
+                    this.buttonD.disabled = true;
+                  }
+                }
+                break;
+      case 2 :  if (this.specialJoker.isJokerLeft()) {
+                  this.specialJoker.setStatus(true);
+                }
     }
   }
 

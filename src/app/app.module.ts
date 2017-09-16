@@ -21,6 +21,7 @@ import { QuizComponent } from './quiz/quiz.component';
 import { XQuizService } from './quiz/xquiz';
 import { FiftyFiftyJokerService } from './quiz/fifty_fifty_joker';
 import { PopupComponent } from './popup/popup.component';
+import { SpecialJokerService } from './quiz/spezial_joker';
 
 const appRoutes: Routes = [
   {path: '', component: LoginComponent},
@@ -59,7 +60,7 @@ const appRoutes: Routes = [
     HttpModule,
     BrowserModule,
   ],
-  providers: [RestService, SurvivalQuizService, XQuizService, FiftyFiftyJokerService],
+  providers: [RestService, SurvivalQuizService, XQuizService, FiftyFiftyJokerService, SpecialJokerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

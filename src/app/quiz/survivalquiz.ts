@@ -3,19 +3,19 @@ import { RestService } from '../service/rest.service';
 
 @Injectable()
 export class SurvivalQuizService {
-  fragenArrayInUse: Frage[];
-  fragenArrayLadeFragen: Frage[];
-  fragenPointer: number;
-  tableFilled: boolean;
-  tableLoadFailure: boolean;
-  lives: number;
+  private fragenArrayInUse: Frage[];
+  private fragenArrayLadeFragen: Frage[];
+  private fragenPointer: number;
+  private tableFilled: boolean;
+  private tableLoadFailure: boolean;
+  private lives: number;
 
   constructor(public restService: RestService) {
   }
 
   async startQuiz() {
     let tableInitialStart = false;
-    this.lives = 1;
+    this.lives = 3;
     while (!this.tableFilled) {
       if (!tableInitialStart || (tableInitialStart && this.tableLoadFailure))  {
         this.loadQuestionTable1();
