@@ -107,6 +107,11 @@
 	}
 }
 
+.navbar
+{
+  font-size: 1.5em;
+}
+
 #choosen-avatarPicture
 {
   cursor: no-drop;
@@ -135,6 +140,12 @@
 
 @media (max-width:960px)
 {
+
+.navbar
+{
+  font-size: 1em;
+}
+
 #logoPicture
 {
   width: 45px;
@@ -175,6 +186,19 @@
 .navbar button span{
 
   background-color: white;
+}
+
+@media (min-width: 961px) {
+  #menu-item-1, #menu-item-2
+  {
+    position: relative;
+    left: 40px;
+  }
+}
+
+#menu-fifty-fifty, #menu-spezial-joker:hover
+{
+  cursor: pointer;
 }
 
 /** End Navbar CSS*/
@@ -221,9 +245,6 @@
 
 /** popup*/
 
-/**50%Joker*/
-#5050Joker{
-  padding: 10px;
-  right: 10px;
-}
+
+
 
