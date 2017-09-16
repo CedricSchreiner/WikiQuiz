@@ -1,8 +1,10 @@
+import {isNullOrUndefined} from 'util';
+
 export function isUserloggedIn(): boolean {
-  return (this.sessionStorage.getItem('email').isUndefined() ||
-      this.sessionStorage.getItem('gamemode').isUndefined() ||
-      this.sessionStorage.getItem('id').isUndefined() ||
-      this.sessionStorage.getItem('link').isUndefined() ||
-      this.sessionStorage.getItem('password').isUndefined() ||
-      this.sessionStorage.getItem('username').isUndefined());
+  return (sessionStorage.getItem('email') !== null &&
+          sessionStorage.getItem('gamemode ') !== null &&
+          sessionStorage.getItem('id') !== null &&
+          sessionStorage.getItem('link') !== null &&
+          sessionStorage.getItem('password') !== null &&
+          sessionStorage.getItem('username') !== null);
 }
