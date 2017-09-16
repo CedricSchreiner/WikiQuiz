@@ -16,10 +16,11 @@ export class MenuComponent implements OnInit {
   mainMenudiv2: HTMLDivElement;
   mainMenudiv3: HTMLDivElement;
   mainMenudiv4: HTMLDivElement;
-  isUserLoggesIn: boolean;
+  isUserLoggesIn = true;
 
   ngOnInit() {
     if (!isUserloggedIn()) {
+      this.isUserLoggesIn = false;
       this.link('');
     }
     this.avatarLinkString = './assets/' + sessionStorage.getItem('link');

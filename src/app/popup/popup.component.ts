@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import {RestService} from '../service/rest.service';
+import { isUserloggedIn } from '../static-functions/static.function';
 
 @Component({
   selector: 'app-popup',
@@ -11,10 +12,15 @@ punkte: string;
 rightQuest: string;
 anzFragen: string;
 starLogoLink: string;
+isUserLoggesIn = true;
 constructor(private restService: RestService) {
 }
 
 ngOnInit() {
+  if (!isUserloggedIn()) {
+    this.isUserLoggesIn = false;
+    this.link('');
+  }
   this.punkte = sessionStorage.getItem('points');
   this.selectStarAmount(Number(this.punkte));
   this.rightQuest = sessionStorage.getItem('rightAnswers');
@@ -70,5 +76,9 @@ ngOnInit() {
         console.log('FEHLER!');
       }
     });
+  }
+
+  link(linkToGo: string) {
+    window.location.href = linkToGo;
   }
 }
