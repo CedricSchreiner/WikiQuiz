@@ -60,6 +60,7 @@ export class SignupComponent implements OnInit {
       this.sendSignUpData();
     }
   }
+
   link(linkToGo: string) {
     window.location.href = linkToGo;
   }

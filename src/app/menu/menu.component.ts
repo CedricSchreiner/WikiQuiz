@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { isUserloggedIn } from '../static-functions/static.function';
 
 @Component({
   selector: 'app-menu',
@@ -15,8 +16,10 @@ export class MenuComponent implements OnInit {
   mainMenudiv2: HTMLDivElement;
   mainMenudiv3: HTMLDivElement;
   mainMenudiv4: HTMLDivElement;
+  isUserLoggesIn: boolean;
 
   ngOnInit() {
+    this.isUserLoggesIn = isUserloggedIn();
     this.avatarLinkString = './assets/' + sessionStorage.getItem('link');
     sessionStorage.getItem('username');
     if (sessionStorage.length > 0) {
