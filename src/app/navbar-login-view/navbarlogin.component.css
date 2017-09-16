@@ -1,6 +1,7 @@
 /**Navbar Css */
 .navbar {
   background-color: #0d87cf;
+  font-size: 1.5em;
 }
 
 .navbar a
@@ -58,6 +59,11 @@
     position: absolute;
     padding: 3px;
     left: 5px;
+  }
+
+  .navbar
+  {
+    font-size: 1em;
   }
 }
 
