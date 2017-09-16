@@ -1,6 +1,5 @@
 import {Component, OnInit } from '@angular/core';
 import { RestService } from '../service/rest.service';
-import {isUserloggedIn} from '../static-functions/static.function';
 
 @Component({
   selector: 'app-signup',
@@ -12,17 +11,11 @@ export class SignupComponent implements OnInit {
   e_mail: string;
   password: string;
   errMsg: string;
-  isUserLoggesIn: boolean;
 
   constructor(private restService: RestService) {
   }
 
   ngOnInit() {
-    this.isUserLoggesIn = true;
-    if (!isUserloggedIn()) {
-      this.isUserLoggesIn = false;
-      this.link('');
-    }
   }
 
   sendSignUpData() {
