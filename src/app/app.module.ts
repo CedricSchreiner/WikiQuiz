@@ -33,7 +33,8 @@ const appRoutes: Routes = [
   {path: 'info', component: InfoComponent},
   {path: 'avatar', component: AvatarComponent},
   {path: 'password', component: PasswordComponent},
-  {path: 'result', component: PopupComponent}
+  {path: 'result', component: PopupComponent},
+  {path: '**', redirectTo: 'menu'}
 ];
 
 @NgModule({
