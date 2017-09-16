@@ -1,49 +1,51 @@
-<!-- <startLogin>Felder zum einfügen der login Informationen -->
-<app-background></app-background>
+<div *ngIf="!isUserLoggesIn">
+  <!-- <startLogin>Felder zum einfügen der login Informationen -->
+  <app-background></app-background>
 
-<app-navbarlogin></app-navbarlogin>
-<!-- <app-signup></app-signup> -->
-
-
-
-<div class="scrolling-form">
-<div class="signup">
-  <div class="signup-screen">
-    <div class="app-title">
-      <h1>Sign Up</h1>
-    </div>
+  <app-navbarlogin></app-navbarlogin>
+  <!-- <app-signup></app-signup> -->
 
 
-    <div class="login-form">
+  <div class="scrolling-form">
+    <div class="signup">
+      <div class="signup-screen">
+        <div class="app-title">
+          <h1>Sign Up</h1>
+        </div>
 
-      <div class="control-group">
-        <input class="name-field" value="" placeholder="name" id="inName">
-        <label class="login-field-icon fui-user" for="inName"></label>
+
+        <div class="login-form">
+
+          <div class="control-group">
+            <input class="name-field" value="" placeholder="name" id="inName">
+            <label class="login-field-icon fui-user" for="inName"></label>
+          </div>
+
+          <div class="control-group">
+            <input class="login-field" value="" placeholder="e-mail" id="inEmail">
+            <label class="login-field-icon fui-user" for="inEmail"></label>
+          </div>
+
+          <div class="control-group">
+            <input type="password" class="login-field" value="" placeholder="password" id="inPassword"
+                   (keypress)="checkEnter($event)">
+            <label class="login-field-icon fui-lock" for="inPassword"></label>
+          </div>
+
+          <a class="btn btn-primary btn-large btn-block" (click)="sendSignUpData()">Submit</a>
+
+        </div>
       </div>
-
-      <div class="control-group">
-        <input class="login-field" value="" placeholder="e-mail" id="inEmail">
-        <label class="login-field-icon fui-user" for="inEmail"></label>
-      </div>
-
-      <div class="control-group">
-        <input type="password" class="login-field" value="" placeholder="password" id="inPassword" (keypress)="checkEnter($event)">
-        <label class="login-field-icon fui-lock" for="inPassword"></label>
-      </div>
-
-     <a class="btn btn-primary btn-large btn-block" (click)="sendSignUpData()">Submit</a>
-
     </div>
   </div>
-</div>
-</div>
 
-<!-- Timebar -->
-<div class="anchor-frame">
+  <!-- Timebar -->
+  <div class="anchor-frame">
 
-  <div class="Timer" *ngIf="errMsg != undefined">
-    Status: {{errMsg}}
+    <div class="Timer" *ngIf="errMsg != undefined">
+      Status: {{errMsg}}
+    </div>
+
   </div>
-
+  <!-- End Timebar -->
 </div>
-<!-- End Timebar -->

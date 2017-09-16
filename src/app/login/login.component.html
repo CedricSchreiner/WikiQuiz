@@ -1,37 +1,40 @@
- <!-- <startLogin>Felder zum einfügen der login Informationen -->
- <app-background></app-background>
+<div *ngIf="!isUserLoggesIn">
+  <!-- <startLogin>Felder zum einfügen der login Informationen -->
+  <app-background></app-background>
 
- <app-navbarlogin></app-navbarlogin>
-<!-- Baustelle -->
- <div class="login" id="login-main-div">
-   <div class="login-screen">
-     <div class="app-title">
-       <h1>Login</h1>
-     </div>
+  <app-navbarlogin></app-navbarlogin>
+  <!-- Baustelle -->
+  <div class="login" id="login-main-div">
+    <div class="login-screen">
+      <div class="app-title">
+        <h1>Login</h1>
+      </div>
 
-     <div class="login-form">
-       <div class="control-group">
-         <input class="login-field" value="" placeholder="e-mail" id="inEmail">
-         <label class="login-field-icon fui-user" for="inEmail"></label>
-       </div>
+      <div class="login-form">
+        <div class="control-group">
+          <input class="login-field" value="" placeholder="e-mail" id="inEmail">
+          <label class="login-field-icon fui-user" for="inEmail"></label>
+        </div>
 
-       <div class="control-group">
-         <input type="password" class="login-field" value="" placeholder="password" id="inPassword" (keypress)="checkEnter($event)">
-         <label class="login-field-icon fui-lock" for="inPassword"></label>
-       </div>
+        <div class="control-group">
+          <input type="password" class="login-field" value="" placeholder="password" id="inPassword"
+                 (keypress)="checkEnter($event)">
+          <label class="login-field-icon fui-lock" for="inPassword"></label>
+        </div>
 
-       <a class="btn btn-primary btn-large btn-block" (click)="sendLoginData()">login</a>
-       <a class="login-link" (click)="link('signup')">Or Sign Up?</a>
-     </div>
-   </div>
- </div>
+        <a class="btn btn-primary btn-large btn-block" (click)="sendLoginData()">login</a>
+        <a class="login-link" (click)="link('signup')">Or Sign Up?</a>
+      </div>
+    </div>
+  </div>
 
- <!-- Timebar -->
- <div class="anchor-frame" id="status-frame">
+  <!-- Timebar -->
+  <div class="anchor-frame" id="status-frame">
 
-   <div class="Timer" *ngIf="text != undefined">
-     Status: {{text}}
-   </div>
+    <div class="Timer" *ngIf="text != undefined">
+      Status: {{text}}
+    </div>
 
- </div>
- <!-- End Timebar -->
+  </div>
+  <!-- End Timebar -->
+</div>

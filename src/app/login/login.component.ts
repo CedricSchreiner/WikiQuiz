@@ -1,6 +1,7 @@
 import {Component, OnInit } from '@angular/core';
 import { RestService } from '../service/rest.service';
 import { User } from '../user/user.component';
+import {isUserloggedIn} from '../static-functions/static.function';
 
 @Component({
   selector: 'app-login',
@@ -12,11 +13,17 @@ export class LoginComponent implements OnInit {
   password: string;
   status: number;
   text: string;
+  isUserLoggesIn: boolean;
 
   constructor(private restService: RestService) {
   }
 
   ngOnInit() {
+    this.isUserLoggesIn = false;
+    if (isUserloggedIn()) {
+      this.isUserLoggesIn = false;
+      this.link('menu');
+    }
   }
 
   sendLoginData() {
