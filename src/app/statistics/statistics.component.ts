@@ -1,5 +1,6 @@
 import {Component, OnInit } from '@angular/core';
 import { RestService } from '../service/rest.service';
+import {isUserloggedIn} from '../static-functions/static.function';
 
 @Component({
   selector: 'app-statistics',
@@ -10,11 +11,17 @@ export class StatisticsComponent implements OnInit {
   stats: Statistic[];
   avatarLinkString: string;
   userInTopList: boolean;
+  isUserLoggesIn: boolean;
 
   constructor(private restService: RestService) {
   }
 
   ngOnInit() {
+    this.isUserLoggesIn = true;
+    if (!isUserloggedIn()) {
+      this.isUserLoggesIn = false;
+      this.link('');
+    }
     this.avatarLinkString = './assets/' + sessionStorage.getItem('link');
     this.createTopTenPlayerXquiz();
     this.createTopTenOverallTableXquiz();
