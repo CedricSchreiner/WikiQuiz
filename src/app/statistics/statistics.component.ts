@@ -131,7 +131,6 @@ export class StatisticsComponent implements OnInit {
     let row: HTMLTableRowElement;
     let cell: HTMLTableCellElement;
     const table = (<HTMLTableElement>document.getElementById('stats-table-world-survival'));
-    const lastRow = (<HTMLTableRowElement>document.getElementById('last-row-survival'));
     this.restService.getTopTenStatisticsOverall('survival').subscribe((stats => {
       this.stats = stats;
       row = table.rows[0];

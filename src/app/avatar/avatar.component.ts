@@ -1,5 +1,6 @@
 import {Component, OnInit } from '@angular/core';
 import {RestService} from '../service/rest.service';
+import {isUserloggedIn} from '../static-functions/static.function';
 
 @Component({
   selector: 'app-options',
@@ -11,11 +12,17 @@ export class AvatarComponent implements OnInit {
   status: number;
   avatarLinkString: string;
   text: string;
+  isUserLoggesIn: boolean;
 
   constructor(private restService: RestService) {
   }
 
   ngOnInit() {
+    this.isUserLoggesIn = true;
+    if (!isUserloggedIn()) {
+      this.isUserLoggesIn = false;
+      this.link('');
+    }
     this.avatarLinkString = '../../assets/' + sessionStorage.getItem('actual_link');
   }
 

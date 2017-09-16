@@ -29,6 +29,7 @@ body {
 .app-title {
   text-align: center;
   color: #777;
+  cursor: default;
 }
 
 .login-form {

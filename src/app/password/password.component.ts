@@ -1,5 +1,6 @@
 import {Component, OnInit } from '@angular/core';
 import {RestService} from '../service/rest.service';
+import {isUserloggedIn} from '../static-functions/static.function';
 
 @Component({
   selector: 'app-options',
@@ -15,11 +16,17 @@ export class PasswordComponent implements OnInit {
   text: string;
   button1: HTMLInputElement;
   button2: HTMLInputElement;
+  isUserLoggesIn: boolean;
 
   constructor(private restService: RestService) {
   }
 
   ngOnInit() {
+    this.isUserLoggesIn = true;
+    if (!isUserloggedIn()) {
+      this.isUserLoggesIn = false;
+      this.link('');
+    }
     this.avatarLinkString = './assets/' + sessionStorage.getItem('link');
   }
 
