@@ -19,12 +19,14 @@ export class MenuComponent implements OnInit {
   isUserLoggesIn: boolean;
 
   ngOnInit() {
-    this.isUserLoggesIn = isUserloggedIn();
+    if (!isUserloggedIn()) {
+      this.link('');
+    }
     this.avatarLinkString = './assets/' + sessionStorage.getItem('link');
     sessionStorage.getItem('username');
     if (sessionStorage.length > 0) {
       this.test = true;
-    }
+    };
   }
 
   GameModeMenu() {
@@ -54,5 +56,6 @@ export class MenuComponent implements OnInit {
   link(linkToGo: string) {
     window.location.href = linkToGo;
   }
+
 }
 
