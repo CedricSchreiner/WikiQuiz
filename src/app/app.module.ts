@@ -20,7 +20,7 @@ import { SurvivalQuizService } from './quiz/survivalquiz';
 import { QuizComponent } from './quiz/quiz.component';
 import { XQuizService } from './quiz/xquiz';
 import { FiftyFiftyJokerService } from './quiz/fifty_fifty_joker';
-import {PopupComponent} from './popup/popup.component';
+import { PopupComponent } from './popup/popup.component';
 
 const appRoutes: Routes = [
   {path: '', component: LoginComponent},
