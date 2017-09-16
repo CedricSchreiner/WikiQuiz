@@ -3,6 +3,7 @@ import { SurvivalQuizService } from './survivalquiz';
 import { XQuizService } from './xquiz';
 import { FiftyFiftyJokerService} from './fifty_fifty_joker';
 import { SpecialJokerService } from './spezial_joker';
+import {isUserloggedIn} from "../static-functions/static.function";
 
 
 @Component({
@@ -27,6 +28,7 @@ export class QuizComponent implements OnInit {
   spielLauft: boolean;
   sumTimeLeft: number;
   verbrauchteGesamtZeit: number;
+  isUserLoggesIn: boolean;
 
   /**
    * 1 = Survival Quiz
@@ -37,6 +39,11 @@ export class QuizComponent implements OnInit {
               private fiftyJoker: FiftyFiftyJokerService, private specialJoker: SpecialJokerService) {
   }
   async ngOnInit() {
+    this.isUserLoggesIn = true;
+    if (!isUserloggedIn()) {
+      this.isUserLoggesIn = false;
+      this.link('');
+    }
     ///Set the count how often the Jokers are available
     this.fiftyJoker.setJokerCount(1);
     this.specialJoker.setJokerCount(100);
