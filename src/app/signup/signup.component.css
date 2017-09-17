@@ -88,6 +88,13 @@ input:focus {
   overflow: scroll;
   height: 100px;
 }
+
+@media (min-width: 961px) {
+  .signup-screen
+  {
+    margin-top: 5%
+  }
+}
 /** Login End*/
 
 /** Timebar */
