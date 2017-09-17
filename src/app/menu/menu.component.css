@@ -44,6 +44,12 @@ body
   background-color: #2980B9;
 }
 
+@media (min-width: 961px) {
+  #mainMenu, #mainMenu2, #mainMenu3
+  {
+    margin-top: 5%;
+  }
+}
 
  #mainMenu2{
    visibility: hidden;

@@ -93,6 +93,13 @@ input:focus {
 {
   cursor: pointer;
 }
+
+@media (min-width: 961px) {
+  .login-screen
+  {
+    margin-top: 20%
+  }
+}
 /** Login End*/
 
 /** Timebar */
