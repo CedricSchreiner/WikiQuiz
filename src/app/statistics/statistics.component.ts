@@ -1,19 +1,26 @@
-import {Component, OnInit } from '@angular/core';
+import {Component, OnInit, AfterViewInit } from '@angular/core';
 import { RestService } from '../service/rest.service';
-import {isUserloggedIn} from '../static-functions/static.function';
+import { isUserloggedIn } from '../static-functions/static.function';
 
 @Component({
   selector: 'app-statistics',
   templateUrl: './statistics.component.html',
   styleUrls: ['./statistics.component.css']
 })
-export class StatisticsComponent implements OnInit {
+export class StatisticsComponent implements OnInit, AfterViewInit {
   stats: Statistic[];
   avatarLinkString: string;
   userInTopList: boolean;
   isUserLoggesIn: boolean;
 
   constructor(private restService: RestService) {
+  }
+
+  ngAfterViewInit() {
+    this.createTopTenPlayerXquiz();
+    this.createTopTenOverallTableXquiz();
+    this.createTopTenPlayerSurvival();
+    this.createTopTenOverallSurvival();
   }
 
   ngOnInit() {
@@ -23,17 +30,16 @@ export class StatisticsComponent implements OnInit {
       this.link('');
     }
     this.avatarLinkString = './assets/' + sessionStorage.getItem('link');
-    this.createTopTenPlayerXquiz();
-    this.createTopTenOverallTableXquiz();
-    this.createTopTenPlayerSurvival();
-    this.createTopTenOverallSurvival();
     this.userInTopList = false;
+
   }
 
   createTopTenPlayerXquiz() {
     let row: HTMLTableRowElement;
     let cell: HTMLTableCellElement;
-    const table = (<HTMLTableElement>document.getElementById('stats-table-personal-xquiz'));
+    let table: HTMLTableElement;
+    table = (<HTMLTableElement>document.getElementById('a'));
+    console.log(table);
     this.restService.getTopTenStatisticsPlayer('xquiz').subscribe((stats => {
       this.stats = stats;
       row = table.rows[0];

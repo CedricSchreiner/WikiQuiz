@@ -13,14 +13,8 @@ export class SpecialJokerService {
 
   deleteAnswers(selectedAnswer: number): boolean {
     this.guessesLeft--;
-    console.log(this.guessesLeft);
-
-    console.log('Antwort: ' + this.solutionNumber);
-    console.log('Auswahl: ' + selectedAnswer);
     if (this.guessesLeft === 0) {
       this.jokersLeft--;
-      this.active = false;
-      this.guessesLeft = 2;
     }
     if (Number(selectedAnswer) !== Number(this.solutionNumber)) {
       switch (selectedAnswer) {
@@ -51,6 +45,10 @@ export class SpecialJokerService {
     }
   }
 
+  getGuessesLeft(): number {
+    return this.guessesLeft;
+  }
+
   setJokerCount(jokerCount: number) {
     this.jokersLeft = jokerCount;
   }
@@ -66,6 +64,19 @@ export class SpecialJokerService {
     this.buttonD = buttonD;
   }
 
+  setAnswerButtonColor() {
+    switch (Number(this.solutionNumber)) {
+      case 0: this.buttonA.style.backgroundColor = '#01DF01';
+              break;
+      case 1: this.buttonB.style.backgroundColor = '#01DF01';
+              break;
+      case 2: this.buttonC.style.backgroundColor = '#01DF01';
+              break;
+      case 3: this.buttonD.style.backgroundColor = '#01DF01';
+              break;
+    }
+  }
+
   setAnswer(solutionNumber: number) {
     this.solutionNumber = solutionNumber;
   }
@@ -75,6 +86,9 @@ export class SpecialJokerService {
    * default: inactive
    */
   setStatus(status: boolean) {
+    if (status) {
+      this.guessesLeft = 2;
+    }
     this.active = status;
   }
 

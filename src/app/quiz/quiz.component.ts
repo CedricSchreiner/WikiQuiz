@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { SurvivalQuizService } from './survivalquiz';
 import { XQuizService } from './xquiz';
 import { FiftyFiftyJokerService} from './fifty_fifty_joker';
 import { SpecialJokerService } from './spezial_joker';
-import {isUserloggedIn} from '../static-functions/static.function';
+import { isUserloggedIn } from '../static-functions/static.function';
 
 
 @Component({
@@ -12,7 +12,7 @@ import {isUserloggedIn} from '../static-functions/static.function';
   styleUrls: ['./quiz.component.css']
 })
 
-export class QuizComponent implements OnInit {
+export class QuizComponent implements OnInit, AfterViewInit {
   frage: Frage;
   avatarLinkString: string;
   richtigeAntworten: number;
@@ -23,12 +23,13 @@ export class QuizComponent implements OnInit {
   button: HTMLButtonElement;
   buttonRightSolution: HTMLButtonElement;
   numberOfQuestions: number;
-  howmany: number;
   timeLeft: number;
   spielLauft: boolean;
   sumTimeLeft: number;
   verbrauchteGesamtZeit: number;
   isUserLoggesIn: boolean;
+  fiftyFiftyDisabled: boolean;
+  specialJokerDisabled: boolean;
 
   /**
    * 1 = Survival Quiz
@@ -38,7 +39,20 @@ export class QuizComponent implements OnInit {
   constructor(private survivalQuiz: SurvivalQuizService, private xquiz: XQuizService,
               private fiftyJoker: FiftyFiftyJokerService, private specialJoker: SpecialJokerService) {
   }
+
+  ngAfterViewInit() {
+    ///Get all answer Buttons from html component
+    this.buttonA = (<HTMLButtonElement>document.getElementById('answerA'));
+    this.buttonB = (<HTMLButtonElement>document.getElementById('answerB'));
+    this.buttonC = (<HTMLButtonElement>document.getElementById('answerC'));
+    this.buttonD = (<HTMLButtonElement>document.getElementById('answerD'));
+
+    this.specialJoker.setButtons(this.buttonA, this.buttonB, this.buttonC, this.buttonD);
+  }
+
   async ngOnInit() {
+    this.fiftyFiftyDisabled = false;
+    this.specialJokerDisabled = false;
     this.isUserLoggesIn = true;
     if (!isUserloggedIn()) {
       this.isUserLoggesIn = false;
@@ -50,16 +64,8 @@ export class QuizComponent implements OnInit {
 
     ///Set all needed parameters 0
     this.sumTimeLeft = 0;
-    this.howmany = 0;
     this.verbrauchteGesamtZeit = 0;
 
-    ///Get all answer Buttons from html component
-    this.buttonA = (<HTMLButtonElement>document.getElementById('answerA'));
-    this.buttonB = (<HTMLButtonElement>document.getElementById('answerB'));
-    this.buttonC = (<HTMLButtonElement>document.getElementById('answerC'));
-    this.buttonD = (<HTMLButtonElement>document.getElementById('answerD'));
-
-    this.specialJoker.setButtons(this.buttonA, this.buttonB, this.buttonC, this.buttonD);
     if (sessionStorage.length > 0) {
       this.richtigeAntworten = 0;
       this.avatarLinkString = './assets/' + sessionStorage.getItem('link'); // fuer den Avatar
@@ -80,6 +86,7 @@ export class QuizComponent implements OnInit {
   async nextQuestion(buttonNumber: number) {
     if (!this.specialJoker.isJokerActive()) {
       this.spielLauft = false;
+      this.specialJokerDisabled = false;
       if (buttonNumber !== -1) {
         this.button = this.getButton(buttonNumber);
         if (buttonNumber === Number(this.frage.SolutionNumber)) {
@@ -147,7 +154,6 @@ export class QuizComponent implements OnInit {
           break;
       }
       this.specialJoker.setAnswer(this.frage.SolutionNumber);
-      this.howmany++;
       this.timeLeft = 1600;
       this.spielLauft = true;
       this.timer();
@@ -157,24 +163,46 @@ export class QuizComponent implements OnInit {
       this.buttonD.style.backgroundColor = '#0d87cf';
     } else {
       if (!this.specialJoker.deleteAnswers(buttonNumber)) {
+        this.verbrauchteGesamtZeit += 1600;
         this.changeDisableStatus(true);
         this.timeLeft = 1600;
         this.spielLauft = true;
-        this.timer();
         await this.delay(1000);
-        this.buttonA.style.backgroundColor = '#0d87cf';
-        this.buttonB.style.backgroundColor = '#0d87cf';
-        this.buttonC.style.backgroundColor = '#0d87cf';
-        this.buttonD.style.backgroundColor = '#0d87cf';
-        this.frage = this.xquiz.getQuestion();
+        this.timer();
+        this.setButtonColors('#0d87cf');
+        this.frage = this.xquiz.getQuestion(); ///<------------------------------ survival Quiz
         this.specialJoker.setAnswer(this.frage.SolutionNumber);
+        this.fiftyFiftyDisabled = false;
+        this.changeDisableStatus(false);
+      } else if (this.specialJoker.getGuessesLeft() === 0) {
+        this.richtigeAntworten++;
+        this.specialJoker.setAnswerButtonColor();
+        this.specialJoker.setStatus(false);
+        this.changeDisableStatus(true);
+        this.verbrauchteGesamtZeit += 1600 - this.timeLeft;
+        this.timeLeft = 1600;
+        this.spielLauft = true;
+        await this.delay(2000);
+        this.timer();
+        this.frage = this.xquiz.getQuestion(); ///<------------------------------ survival Quiz
+        this.specialJoker.setAnswer(this.frage.SolutionNumber);
+        this.setButtonColors('#0d87cf');
+        this.fiftyFiftyDisabled = false;
         this.changeDisableStatus(false);
       }
     }
   }
+
+  setButtonColors(color: string) {
+    this.buttonA.style.backgroundColor = color;
+    this.buttonB.style.backgroundColor = color;
+    this.buttonC.style.backgroundColor = color;
+    this.buttonD.style.backgroundColor = color;
+  }
+
   showResultSurvival() {
     sessionStorage.setItem('rightAnswers', this.richtigeAntworten.toString());
-    sessionStorage.setItem('numberOfQuestions', this.howmany.toString());
+    sessionStorage.setItem('numberOfQuestions', this.richtigeAntworten.toString());
     sessionStorage.setItem('points', this.calcPoints().toString());
     window.location.href = 'result';
   }
@@ -196,9 +224,9 @@ export class QuizComponent implements OnInit {
    */
   activateJoker(joker: number) {
     let wrongAnswers: number[];
-    this.spielLauft = false;
     switch (joker) {
       case 1 :  if (this.fiftyJoker.isJokerLeft()) {
+                  this.specialJokerDisabled = true;
                   wrongAnswers = this.fiftyJoker.deleteAnswers(this.frage.SolutionNumber);
                   if (wrongAnswers[0] === 0 || wrongAnswers[1] === 0) {
                     this.buttonA.style.backgroundColor = '#c0c1c4';
@@ -219,7 +247,9 @@ export class QuizComponent implements OnInit {
                 }
                 break;
       case 2 :  if (this.specialJoker.isJokerLeft()) {
+                  this.fiftyFiftyDisabled = true;
                   this.specialJoker.setStatus(true);
+                  this.spielLauft = false;
                 }
     }
   }
