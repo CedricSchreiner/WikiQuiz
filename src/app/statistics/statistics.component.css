@@ -69,6 +69,11 @@ tr,td,th
     margin-right: 1%;
   }
 
+  th, td
+  {
+    padding-left: 2px;
+    padding-right: 2px;
+  }
   .nav-tabs
   {
     font-size: 0.9em;
