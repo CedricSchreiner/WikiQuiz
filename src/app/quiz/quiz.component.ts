@@ -52,13 +52,13 @@ export class QuizComponent implements OnInit, AfterViewInit {
   }
 
   async ngOnInit() {
-    this.fiftyFiftyDisabled = false;
-    this.specialJokerDisabled = false;
     this.isUserLoggesIn = true;
     if (!isUserloggedIn()) {
       this.isUserLoggesIn = false;
       this.link('');
     }
+    this.fiftyFiftyDisabled = false;
+    this.specialJokerDisabled = false;
     ///Set the count how often the Jokers are available
     this.fiftyJoker.setJokerCount(1);
     this.specialJoker.setJokerCount(100);

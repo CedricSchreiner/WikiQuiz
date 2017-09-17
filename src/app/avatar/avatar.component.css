@@ -60,6 +60,18 @@ input:focus {
   background-color: #2980B9;
 }
 
+@media (min-width: 961px) {
+  .app-title
+  {
+    margin-bottom: 2%;
+  }
+
+  .changeavatar
+  {
+    margin-top: 8%
+  }
+}
+
 /** Login End*/
 
 /** Timebar */
