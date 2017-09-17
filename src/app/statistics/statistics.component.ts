@@ -12,6 +12,10 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
   avatarLinkString: string;
   userInTopList: boolean;
   isUserLoggesIn: boolean;
+  txt_personal_xquiz: string;
+  txt_personal_survial: string;
+  txt_world_xquiz: string;
+  txt_world_survial: string;
 
   constructor(private restService: RestService) {
   }
@@ -28,6 +32,16 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
     if (!isUserloggedIn()) {
       this.isUserLoggesIn = false;
       this.link('');
+    }
+    this.txt_personal_xquiz = 'Top 10 Personal XQuiz';
+    this.txt_personal_survial = 'Top 10 Personal Survival';
+    this.txt_world_xquiz = 'Top 10 World Wide XQuiz';
+    this.txt_world_survial = 'Top 10 World Wide Survival';
+    if (window.screen.width < 961) {
+      this.txt_personal_xquiz = 'Pers.<br>XQuiz';
+      this.txt_personal_survial = 'Pers.<br>Survival';
+      this.txt_world_xquiz = 'World<br>XQuiz';
+      this.txt_world_survial = 'World<br>Survival';
     }
     this.avatarLinkString = './assets/' + sessionStorage.getItem('link');
     this.userInTopList = false;
