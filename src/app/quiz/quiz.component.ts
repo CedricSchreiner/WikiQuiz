@@ -170,12 +170,13 @@ export class QuizComponent implements OnInit, AfterViewInit {
         if (this.survivalQuiz.isFinished()) {
           this.showResultSurvival();
         }
+        this.spielLauft = false;
         this.verbrauchteGesamtZeit += 1600;
         this.specialJoker.reduceUseges();
         this.changeDisableStatus(true);
+        await this.delay(1500);
         this.timeLeft = 1600;
         this.spielLauft = true;
-        await this.delay(1000);
         this.timer();
         this.setButtonColors('#0d87cf');
         this.frage = this.survivalQuiz.getQuestion(); ///<------------------------------ survival Quiz
@@ -183,15 +184,16 @@ export class QuizComponent implements OnInit, AfterViewInit {
         this.fiftyFiftyDisabled = false;
         this.changeDisableStatus(false);
       } else if (this.specialJoker.getGuessesLeft() === 0) {
+        this.spielLauft = false;
         this.specialJoker.reduceUseges();
         this.richtigeAntworten++;
         this.specialJoker.setAnswerButtonColor();
         this.specialJoker.setStatus(false);
         this.changeDisableStatus(true);
         this.verbrauchteGesamtZeit += 1600 - this.timeLeft;
+        await this.delay(1500);
         this.timeLeft = 1600;
         this.spielLauft = true;
-        await this.delay(2000);
         this.timer();
         this.frage = this.survivalQuiz.getQuestion(); ///<------------------------------ survival Quiz
         this.specialJoker.setAnswer(this.frage.SolutionNumber);
@@ -259,7 +261,6 @@ export class QuizComponent implements OnInit, AfterViewInit {
       case 2 :  if (this.specialJoker.isJokerLeft()) {
                   this.fiftyFiftyDisabled = true;
                   this.specialJoker.setStatus(true);
-                  this.spielLauft = false;
                 }
     }
   }

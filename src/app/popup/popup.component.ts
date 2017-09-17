@@ -13,6 +13,7 @@ rightQuest: string;
 anzFragen: string;
 starLogoLink: string;
 isUserLoggesIn = true;
+userPlayedGame = true;
 constructor(private restService: RestService) {
 }
 
@@ -20,16 +21,20 @@ ngOnInit() {
   if (!isUserloggedIn()) {
     this.isUserLoggesIn = false;
     this.link('');
+  }else if (sessionStorage.getItem('points') !== null) {
+    this.punkte = sessionStorage.getItem('points');
+    this.selectStarAmount(Number(this.punkte));
+    this.rightQuest = sessionStorage.getItem('rightAnswers');
+    this.anzFragen = sessionStorage.getItem('numberOfQuestions');
+    sessionStorage.removeItem('points');
+    sessionStorage.removeItem('rightAnswers');
+    sessionStorage.removeItem('numberOfQuestions');
+    this.updateStatistics();
+  } else {
+    this.userPlayedGame = false;
+    this.link('menu');
   }
-  this.punkte = sessionStorage.getItem('points');
-  this.selectStarAmount(Number(this.punkte));
-  this.rightQuest = sessionStorage.getItem('rightAnswers');
-  this.anzFragen = sessionStorage.getItem('numberOfQuestions');
-  sessionStorage.removeItem('points');
-  sessionStorage.removeItem('rightAnswers');
-  sessionStorage.removeItem('numberOfQuestions');
-  this.updateStatistics();
-  }
+}
 
   selectStarAmount(points: number) {
     if (points < 200) {
