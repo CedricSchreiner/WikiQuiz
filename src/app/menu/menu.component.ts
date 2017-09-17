@@ -27,7 +27,7 @@ export class MenuComponent implements OnInit {
     sessionStorage.getItem('username');
     if (sessionStorage.length > 0) {
       this.test = true;
-    };
+    }
   }
 
   GameModeMenu() {
