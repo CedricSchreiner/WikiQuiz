@@ -189,7 +189,7 @@
 }
 
 @media (min-width: 961px) {
-  #menu-item-1, #menu-item-2
+  #menu-item-1, #menu-item-2, #menu-item-3, #menu-item-4
   {
     position: relative;
     left: 40px;

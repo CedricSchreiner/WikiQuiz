@@ -13,15 +13,14 @@ export class LoginComponent implements OnInit {
   password: string;
   status: number;
   text: string;
-  isUserLoggesIn: boolean;
+  isUserLoggesIn = false;
 
   constructor(private restService: RestService) {
   }
 
   ngOnInit() {
-    this.isUserLoggesIn = false;
     if (isUserloggedIn()) {
-      this.isUserLoggesIn = false;
+      this.isUserLoggesIn = true;
       this.link('menu');
     }
   }
