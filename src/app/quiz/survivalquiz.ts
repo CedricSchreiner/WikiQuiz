@@ -69,8 +69,11 @@ export class SurvivalQuizService {
     }
   }
 
-  calculatePoints(anzahlFragen: number, zeit: number) {
-
+  calculatePoints(anzahlrichtigeAntworten: number, verbrauchteZeit: number, anzahlerBenutzerJoker: number): number {
+    const jokerPoints = anzahlerBenutzerJoker * 100;
+    const zeitPunkte = ((1600 * (anzahlrichtigeAntworten + 3)) - verbrauchteZeit) * 0.0625;
+    const antwortenPunkte = anzahlrichtigeAntworten * 150;
+    return zeitPunkte + antwortenPunkte - jokerPoints;
   }
 
   loadQuestionTable1() {
