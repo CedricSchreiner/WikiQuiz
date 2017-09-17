@@ -14,6 +14,7 @@ anzFragen: string;
 starLogoLink: string;
 isUserLoggesIn = true;
 userPlayedGame = true;
+
 constructor(private restService: RestService) {
 }
 
@@ -21,9 +22,14 @@ ngOnInit() {
   if (!isUserloggedIn()) {
     this.isUserLoggesIn = false;
     this.link('');
-  }else if (sessionStorage.getItem('points') !== null) {
+  } else if (sessionStorage.getItem('points') !== null) {
     this.punkte = sessionStorage.getItem('points');
-    this.selectStarAmount(Number(this.punkte));
+    if (sessionStorage.getItem('gamemode') === 'xquiz') {
+      this.selectStarAmountXQuiz(Number(this.punkte));
+    }
+    if (sessionStorage.getItem('gamemode') === 'survival') {
+      this.selectStarAmountSurvival(Number(this.punkte));
+    }
     this.rightQuest = sessionStorage.getItem('rightAnswers');
     this.anzFragen = sessionStorage.getItem('numberOfQuestions');
     sessionStorage.removeItem('points');
@@ -35,8 +41,23 @@ ngOnInit() {
     this.link('menu');
   }
 }
+  selectStarAmountXQuiz(points: number) {
+    if (points < 200) {
+      this.starLogoLink = '../../assets/5_Star_Rating_System_0_stars_T.png';
+    } else if (points < 1000) {
+      this.starLogoLink = '../../assets/5_Star_Rating_System_1_stars_T.png';
+    } else if (points < 2000) {
+      this.starLogoLink = '../../assets/5_Star_Rating_System_2_stars_T.png';
+    } else if (points < 3000) {
+      this.starLogoLink = '../../assets/5_Star_Rating_System_3_stars_T.png';
+    } else if (points < 4000) {
+      this.starLogoLink = '../../assets/5_Star_Rating_System_4_stars_T.png';
+    } else if (points <= 5000) {
+      this.starLogoLink = '../../assets/5_Star_Rating_System_5_stars_T.png';
+    }
+  }
 
-  selectStarAmount(points: number) {
+  selectStarAmountSurvival(points: number) {
     if (points < 200) {
       this.starLogoLink = '../../assets/5_Star_Rating_System_0_stars_T.png';
     } else if (points < 1000) {
