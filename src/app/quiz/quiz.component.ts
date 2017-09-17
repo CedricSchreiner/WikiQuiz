@@ -61,7 +61,7 @@ export class QuizComponent implements OnInit, AfterViewInit {
     this.specialJokerDisabled = false;
     ///Set the count how often the Jokers are available
     this.fiftyJoker.setJokerCount(1);
-    this.specialJoker.setJokerCount(100);
+    this.specialJoker.setJokerCount(1);
 
     ///Set all needed parameters 0
     this.sumTimeLeft = 0;
@@ -171,6 +171,7 @@ export class QuizComponent implements OnInit, AfterViewInit {
           this.showResultSurvival();
         }
         this.verbrauchteGesamtZeit += 1600;
+        this.specialJoker.reduceUseges();
         this.changeDisableStatus(true);
         this.timeLeft = 1600;
         this.spielLauft = true;
@@ -182,6 +183,7 @@ export class QuizComponent implements OnInit, AfterViewInit {
         this.fiftyFiftyDisabled = false;
         this.changeDisableStatus(false);
       } else if (this.specialJoker.getGuessesLeft() === 0) {
+        this.specialJoker.reduceUseges();
         this.richtigeAntworten++;
         this.specialJoker.setAnswerButtonColor();
         this.specialJoker.setStatus(false);

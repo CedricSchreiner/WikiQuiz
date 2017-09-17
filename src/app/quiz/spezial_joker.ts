@@ -13,9 +13,6 @@ export class SpecialJokerService {
 
   deleteAnswers(selectedAnswer: number): boolean {
     this.guessesLeft--;
-    if (this.guessesLeft === 0) {
-      this.jokersLeft--;
-    }
     if (Number(selectedAnswer) !== Number(this.solutionNumber)) {
       switch (selectedAnswer) {
         case 0: this.buttonA.style.backgroundColor = '#c0c1c4';
@@ -92,7 +89,11 @@ export class SpecialJokerService {
     this.active = status;
   }
 
+  reduceUseges() {
+    this.jokersLeft--;
+  }
+
   isJokerLeft() {
-    return (this.jokersLeft !== 0);
+    return (Number(this.jokersLeft) !== 0);
   }
 }
