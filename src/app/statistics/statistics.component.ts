@@ -12,10 +12,6 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
   avatarLinkString: string;
   userInTopList: boolean;
   isUserLoggesIn: boolean;
-  txt_personal_xquiz: string;
-  txt_personal_survial: string;
-  txt_world_xquiz: string;
-  txt_world_survial: string;
 
   constructor(private restService: RestService) {
   }
@@ -25,6 +21,20 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
     this.createTopTenOverallTableXquiz();
     this.createTopTenPlayerSurvival();
     this.createTopTenOverallSurvival();
+    const personalXquizTab = (<HTMLLinkElement>document.getElementById('personal-xquiz-tab'));
+    const personalSurvivalTab = (<HTMLLinkElement>document.getElementById('personal-survival-tab'));
+    const worldXquizTab = (<HTMLLinkElement>document.getElementById('world-xquiz-tab'));
+    const worldSurvivalTab = (<HTMLLinkElement>document.getElementById('world-survival-tab'));
+    personalXquizTab.innerHTML = 'Top 10 Personal XQuiz';
+    personalSurvivalTab.innerHTML = 'Top 10 Personal Survival';
+    worldXquizTab.innerHTML = 'Top 10 World Wide XQuiz';
+    worldSurvivalTab.innerHTML = 'Top 10 World Wide Survival';
+    if (window.screen.width < 961) {
+      personalXquizTab.innerHTML = 'Pers.<br>XQuiz';
+      personalSurvivalTab.innerHTML = 'Pers.<br>Survival';
+      worldXquizTab.innerHTML = 'World<br>XQuiz';
+      worldSurvivalTab.innerHTML = 'World<br>Survival';
+    }
   }
 
   ngOnInit() {
@@ -32,16 +42,6 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
     if (!isUserloggedIn()) {
       this.isUserLoggesIn = false;
       this.link('');
-    }
-    this.txt_personal_xquiz = 'Top 10 Personal XQuiz';
-    this.txt_personal_survial = 'Top 10 Personal Survival';
-    this.txt_world_xquiz = 'Top 10 World Wide XQuiz';
-    this.txt_world_survial = 'Top 10 World Wide Survival';
-    if (window.screen.width < 961) {
-      this.txt_personal_xquiz = 'Pers.<br>XQuiz';
-      this.txt_personal_survial = 'Pers.<br>Survival';
-      this.txt_world_xquiz = 'World<br>XQuiz';
-      this.txt_world_survial = 'World<br>Survival';
     }
     this.avatarLinkString = './assets/' + sessionStorage.getItem('link');
     this.userInTopList = false;
@@ -79,6 +79,8 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
     const table = (<HTMLTableElement>document.getElementById('stats-table-personal-survival'));
     this.restService.getTopTenStatisticsPlayer('survival').subscribe((stats => {
       this.stats = stats;
+
+      console.log(this.stats);
       row = table.rows[0];
       for (let i = 1; i < 11; i++) {
         row = table.rows[i];

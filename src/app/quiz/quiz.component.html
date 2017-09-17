@@ -23,12 +23,12 @@
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul id="menu-fifty-fifty" class="nav navbar-nav navbar-left">
+        <ul id="menu-fifty-fifty" class="nav navbar-nav navbar-left" *ngIf="gamemodeForJoker">
           <li id="menu-item-1" *ngIf="!fiftyFiftyDisabled"><div  (click)="activateJoker(1)">50/50</div></li>
           <li id="menu-item-3" *ngIf="fiftyFiftyDisabled"><a >50/50</a></li>
         </ul>
 
-        <ul id="menu-spezial-joker" class="nav navbar-nav navbar-left">
+        <ul id="menu-spezial-joker" class="nav navbar-nav navbar-left" *ngIf="gamemodeForJoker">
           <li id="menu-item-2" *ngIf="!specialJokerDisabled"><div  (click)="activateJoker(2)">special Joker</div></li>
           <li id="menu-item-4" *ngIf="specialJokerDisabled"><a >special Joker</a></li>
         </ul>

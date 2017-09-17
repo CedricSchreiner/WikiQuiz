@@ -14,6 +14,7 @@ import { isUserloggedIn } from '../static-functions/static.function';
 
 export class QuizComponent implements OnInit, AfterViewInit {
   frage: Frage;
+  gamemodeForJoker: boolean;
   avatarLinkString: string;
   richtigeAntworten: number;
   buttonA: HTMLButtonElement;
@@ -70,12 +71,14 @@ export class QuizComponent implements OnInit, AfterViewInit {
       this.richtigeAntworten = 0;
       this.avatarLinkString = './assets/' + sessionStorage.getItem('link'); // fuer den Avatar
       switch (sessionStorage.getItem('gamemode')) {
-        case '1': await this.survivalQuiz.startQuiz();
+        case 'survival': await this.survivalQuiz.startQuiz();
                   this.frage = this.survivalQuiz.getQuestion();
+                  this.gamemodeForJoker = true;
                   break;
         case 'xquiz': await this.xquiz.startQuiz(Number(sessionStorage.getItem('anzahlFragen')));
                       ///sessionStorage.removeItem('anzahlFragen');
                       this.frage = this.xquiz.getQuestion();
+                      this.gamemodeForJoker = false;
                       break;
       }
       this.specialJoker.setAnswer(this.frage.SolutionNumber);
@@ -137,7 +140,7 @@ export class QuizComponent implements OnInit, AfterViewInit {
 
 
       switch (sessionStorage.getItem('gamemode')) {
-        case '1':
+        case 'survival':
           if (buttonNumber !== Number(this.frage.SolutionNumber)) {
             this.survivalQuiz.reduceLives();
             if (this.survivalQuiz.isFinished()) {
@@ -163,6 +166,10 @@ export class QuizComponent implements OnInit, AfterViewInit {
       this.buttonD.style.backgroundColor = '#0d87cf';
     } else {
       if (!this.specialJoker.deleteAnswers(buttonNumber)) {
+        this.survivalQuiz.reduceLives();
+        if (this.survivalQuiz.isFinished()) {
+          this.showResultSurvival();
+        }
         this.verbrauchteGesamtZeit += 1600;
         this.changeDisableStatus(true);
         this.timeLeft = 1600;
@@ -170,7 +177,7 @@ export class QuizComponent implements OnInit, AfterViewInit {
         await this.delay(1000);
         this.timer();
         this.setButtonColors('#0d87cf');
-        this.frage = this.xquiz.getQuestion(); ///<------------------------------ survival Quiz
+        this.frage = this.survivalQuiz.getQuestion(); ///<------------------------------ survival Quiz
         this.specialJoker.setAnswer(this.frage.SolutionNumber);
         this.fiftyFiftyDisabled = false;
         this.changeDisableStatus(false);
@@ -184,7 +191,7 @@ export class QuizComponent implements OnInit, AfterViewInit {
         this.spielLauft = true;
         await this.delay(2000);
         this.timer();
-        this.frage = this.xquiz.getQuestion(); ///<------------------------------ survival Quiz
+        this.frage = this.survivalQuiz.getQuestion(); ///<------------------------------ survival Quiz
         this.specialJoker.setAnswer(this.frage.SolutionNumber);
         this.setButtonColors('#0d87cf');
         this.fiftyFiftyDisabled = false;
@@ -216,6 +223,7 @@ export class QuizComponent implements OnInit, AfterViewInit {
   calcPoints() {
     switch (sessionStorage.getItem('gamemode')) {
       case 'xquiz'   : return this.xquiz.calculatePoints(this.richtigeAntworten, this.verbrauchteGesamtZeit);
+      case 'survival': return 1200;
     }
   }
   /**
