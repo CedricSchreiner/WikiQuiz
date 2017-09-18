@@ -11,12 +11,30 @@ export class XQuizService {
   anzahlFragen: number;
   beantworteteFragen: number;
 
+  ///neu angelegte Variablen die gebraucht werden
+  private buttonA: HTMLButtonElement;
+  private buttonB: HTMLButtonElement;
+  private buttonC: HTMLButtonElement;
+  private buttonD: HTMLButtonElement;
+  private wrongAnswerColor = '#FF0000';
+  private rightAnswerColor = '#01DF01';
+  private defaultButtonColor = '';
+
+  /*Variables for Settings*/
+  private blinkingTimes: number; ///default 3 times
+
   constructor(public restService: RestService) {
   }
 
-  async startQuiz(anzahlFragen: number) {
-    this.beantworteteFragen = 0;
-    this.anzahlFragen = anzahlFragen;
+  initializeGame(buttonA: HTMLButtonElement, buttonB: HTMLButtonElement, buttonC: HTMLButtonElement, buttonD: HTMLButtonElement, anzahlFragen: number) {
+    this.buttonA = buttonA;
+    this.buttonB = buttonB;
+    this.buttonC = buttonC;
+    this.buttonD = buttonD;
+    this.blinkingTimes = 3;
+  }
+
+  async startQuiz() {
     let tableInitialStart = false;
     while (!this.tableFilled) {
       if (!tableInitialStart || (tableInitialStart && this.tableLoadFailure))  {
@@ -50,31 +68,6 @@ export class XQuizService {
         tableInitialStart = true;
       }
       await this.delay(100);
-    }
-  }
-
-  isFinished () {
-    console.log(this.beantworteteFragen);
-    console.log(this.anzahlFragen);
-    return (this.beantworteteFragen === this.anzahlFragen);
-  }
-
-  getQuestion() {
-    this.beantworteteFragen++;
-    if (this.beantworteteFragen <= this.anzahlFragen) {
-      if (this.fragenPointer < 4) {
-        this.fragenPointer++;
-        return this.fragenArrayInUse[this.fragenPointer];
-      } else {
-        console.log('Alte Fragen leer neue laden');
-        this.fragenPointer = 0;
-        this.fragenArrayInUse = this.fragenArrayLadeFragen;
-        this.updateTable();
-        this.tableFilled = false;
-        console.log(this.fragenArrayInUse);
-        console.log('Neue Fragen werden angezeigt');
-        return this.fragenArrayInUse[this.fragenPointer];
-      }
     }
   }
 
