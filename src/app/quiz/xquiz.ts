@@ -12,12 +12,12 @@ export class XQuizService {
   private buttonB: HTMLButtonElement;
   private buttonC: HTMLButtonElement;
   private buttonD: HTMLButtonElement;
+  private timerdiv: HTMLDivElement;
   private wrongAnswerColor = '#FF0000';
   private rightAnswerColor = '#01DF01';
   private defaultButtonColor = '#0d87cf';
   private fragenArray: Frage[];
   private tmpFragenArray: Frage[];
-  private answerA: Answer;
 
   /*Variables for Settings*/
   private blinkingTimes: number; /*default 3 times*/
@@ -32,16 +32,16 @@ export class XQuizService {
   }
 
   public async initializeGame(buttonA: HTMLButtonElement, buttonB: HTMLButtonElement, buttonC: HTMLButtonElement,
-                 buttonD: HTMLButtonElement, anzahlFragen: number, answerA: Answer) {
+                 buttonD: HTMLButtonElement, anzahlFragen: number, timer: HTMLDivElement) {
     /*initialize important variables*/
     this.buttonA = buttonA;
     this.buttonB = buttonB;
     this.buttonC = buttonC;
     this.buttonD = buttonD;
+    this.timerdiv = timer;
     this.blinkingTimes = 3;
     this.anzahlFragen = anzahlFragen;
     this.arrayFragenPointer = 0;
-    this.answerA = answerA;
     this.numberOfQuestionsToLoad = 5;
     this.blinkIntervall = 500;
 
@@ -166,8 +166,4 @@ interface Frage {
   Option3: string;
   Solution: string;
   SolutionNumber: number;
-}
-
-interface Answer {
-  answer: string;
 }

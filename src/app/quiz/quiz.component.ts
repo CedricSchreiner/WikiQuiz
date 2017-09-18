@@ -28,8 +28,6 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
   public deactivateFiftyFiftyJoker = false;
   private forceFullLeave = true;
 
-  public answerA: Answer;
-
 
 
 
@@ -52,11 +50,11 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
     const buttonB = (<HTMLButtonElement>document.getElementById('answerB'));
     const buttonC = (<HTMLButtonElement>document.getElementById('answerC'));
     const buttonD = (<HTMLButtonElement>document.getElementById('answerD'));
+    const timerDiv = (<HTMLDivElement> document.getElementById('timer-status-bar'));
 
-    this.answerA = {answer: ''};
     switch (sessionStorage.getItem('gamemode')) {
       case 'xquiz': await this.xquiz.initializeGame(buttonA, buttonB, buttonC, buttonD, Number(sessionStorage.getItem('anzahlFragen')),
-                                                    this.answerA);
+                                                    timerDiv);
                     this.frage = this.xquiz.startQuiz();
     }
   }
@@ -131,9 +129,5 @@ interface Frage {
   Option3: string;
   Solution: string;
   SolutionNumber: number;
-}
-
-interface Answer {
-  answer: string;
 }
 
