@@ -1,5 +1,5 @@
-<div *ngIf="isUserLoggesIn && userPlayedGame">
-  <!-- <startLogin>Felder zum einfügen der login Informationen -->
+ <!-- <startLogin>Felder zum einfügen der login Informationen -->
+
   <app-background></app-background>
 
   <app-navbarmenu></app-navbarmenu>
@@ -8,20 +8,19 @@
 
 
   <!--Main Menu-->
-  <div id="resultMenu">
+  <div id="resultMenu" *ngIf="isUserLoggesIn && userPlayedGame">
     <div id="starsImageDiv">
-   <img id="imageStars" src={{starLogoLink}}/>
-      <div id="resultDiv">
-        <div class="hit-the-floor" id="verhaeltnis">Quote: {{rightQuest}} / {{anzFragen}}</div>
-        <div class="hit-the-floor" id="punkte">Points: {{punkte}}</div>
-      </div>
+      <img id="imageStars" src={{starLogoLink}}/>
+        <div id="resultDiv">
+          <div class="hit-the-floor" id="verhaeltnis">Quote: {{rightQuest}} / {{anzFragen}}</div>
+          <div class="hit-the-floor" id="punkte">Points: {{punkte}}</div>
+         </div>
     </div>
     <br>
     <div id="buttons">
-  <button class="btn" id="btnRetry" (click)="start('2')">Retry</button>
-  <button class="btn" id="btnReady" (click)="start('1')">OK!</button>
+     <button class="btn" id="btnRetry" (click)="start('2')">Retry</button>
+     <button class="btn" id="btnReady" (click)="start('1')">OK!</button>
     </div>
   </div>
 
   <!-- Rating-->
-</div>
