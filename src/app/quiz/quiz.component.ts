@@ -23,7 +23,8 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
   private buttonD: HTMLButtonElement;
   private button: HTMLButtonElement;
   private buttonRightSolution: HTMLButtonElement;
-  private numberOfQuestions: number;
+  private numberOfQuestions = 0;
+  private numberOfQuestionsSurvival = 0;
   private timeLeft: number;
   private spielLauft: boolean;
   private sumTimeLeft: number;
@@ -35,6 +36,7 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
   public deactivateSpecialJoker = false;
   public deactivateFiftyFiftyJoker = false;
   private forceFullLeave = true;
+
 
   constructor(private survivalQuiz: SurvivalQuizService, private xquiz: XQuizService,
               private fiftyJoker: FiftyFiftyJokerService, private specialJoker: SpecialJokerService) {
@@ -93,6 +95,7 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
   async nextQuestion(buttonNumber: number) {
+    this.numberOfQuestionsSurvival ++;
     if (!this.specialJoker.isJokerActive()) {
       this.spielLauft = false;
       this.specialJokerDisabled = false;
@@ -233,7 +236,7 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
 
   showResultSurvival() {
     sessionStorage.setItem('rightAnswers', this.richtigeAntworten.toString());
-    sessionStorage.setItem('numberOfQuestions', this.richtigeAntworten.toString());
+    sessionStorage.setItem('numberOfQuestions', this.numberOfQuestionsSurvival.toString());
     sessionStorage.setItem('points', this.calcPoints().toString());
     this.forceFullLeave = false;
     this.link('result');

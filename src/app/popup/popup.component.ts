@@ -32,9 +32,10 @@ ngOnInit() {
     }
     this.rightQuest = sessionStorage.getItem('rightAnswers');
     this.anzFragen = sessionStorage.getItem('numberOfQuestions');
-    sessionStorage.removeItem('points');
-    sessionStorage.removeItem('rightAnswers');
-    sessionStorage.removeItem('numberOfQuestions');
+    ///this.anzFragen = '20';
+    ///sessionStorage.removeItem('points');
+    ///sessionStorage.removeItem('rightAnswers');
+    ///sessionStorage.removeItem('numberOfQuestions');
     this.updateStatistics();
   } else {
     this.userPlayedGame = false;
