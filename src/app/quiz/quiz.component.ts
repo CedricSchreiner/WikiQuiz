@@ -3,7 +3,6 @@ import { SurvivalQuizService } from './survivalquiz';
 import { XQuizService } from './xquiz';
 import { FiftyFiftyJokerService} from './fifty_fifty_joker';
 import { SpecialJokerService } from './spezial_joker';
-import { isUserloggedIn } from '../static-functions/static.function';
 
 
 @Component({
@@ -29,6 +28,8 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
   public deactivateFiftyFiftyJoker = false;
   private forceFullLeave = true;
 
+  public answerA: Answer;
+
 
 
 
@@ -37,22 +38,26 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    /*
     if (this.forceFullLeave) {
       sessionStorage.removeItem('gamemode');
       sessionStorage.removeItem('anzahlFragen');
     }
+    */
   }
 
-  ngAfterViewInit() {
+  async ngAfterViewInit() {
     ///Get all answer Buttons from html component
     const buttonA = (<HTMLButtonElement>document.getElementById('answerA'));
     const buttonB = (<HTMLButtonElement>document.getElementById('answerB'));
     const buttonC = (<HTMLButtonElement>document.getElementById('answerC'));
     const buttonD = (<HTMLButtonElement>document.getElementById('answerD'));
 
+    this.answerA = {answer: ''};
     switch (sessionStorage.getItem('gamemode')) {
-      case 'xquiz': this.xquiz.initializeGame(buttonA, buttonB, buttonC, buttonD, Number(sessionStorage.getItem('anzahlFragen')));
-                    this.xquiz.startQuiz();
+      case 'xquiz': await this.xquiz.initializeGame(buttonA, buttonB, buttonC, buttonD, Number(sessionStorage.getItem('anzahlFragen')),
+                                                    this.answerA);
+                    this.frage = this.xquiz.startQuiz();
     }
   }
 
@@ -60,22 +65,23 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
 
   }
 
-  nextQuestion(selectedButtonNumber: number) {
+  async nextQuestion(selectedButtonNumber: number) {
     switch (sessionStorage.getItem('gamemode')) {
-      case 'xquiz':
+      case 'xquiz': await this.xquiz.selectedAnswer(selectedButtonNumber);
+                    this.frage = this.xquiz.nextQuestion();
     }
   }
-
 
   showResultSurvival() {
     sessionStorage.setItem('rightAnswers', this.richtigeAntworten.toString());
     sessionStorage.setItem('numberOfQuestions', this.numberOfQuestionsSurvival.toString());
-    sessionStorage.setItem('points', this.calcPoints().toString());
+    ///sessionStorage.setItem('points', this.calcPoints().toString());
     this.forceFullLeave = false;
     this.link('result');
   }
+
   showResultXquiz() {
-    this.numberOfQuestions = this.xquiz.anzahlFragen;
+    ///this.numberOfQuestions = this.xquiz.anzahlFragen;
     sessionStorage.setItem('rightAnswers', this.richtigeAntworten.toString());
     sessionStorage.setItem('numberOfQuestions', this.numberOfQuestions.toString());
     sessionStorage.setItem('points', this.calcPoints().toString());
@@ -116,6 +122,7 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
     window.location.href = linkToGo;
   }
 }
+
 interface Frage {
   Verbalization: string;
   Option0: string;
@@ -124,5 +131,9 @@ interface Frage {
   Option3: string;
   Solution: string;
   SolutionNumber: number;
+}
+
+interface Answer {
+  answer: string;
 }
 

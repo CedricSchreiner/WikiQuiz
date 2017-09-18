@@ -3,50 +3,69 @@ import { RestService } from '../service/rest.service';
 
 @Injectable()
 export class XQuizService {
-  fragenArrayInUse: Frage[];
-  fragenArrayLadeFragen: Frage[];
-  fragenPointer: number;
   tableFilled: boolean;
   tableLoadFailure: boolean;
-  anzahlFragen: number;
   beantworteteFragen: number;
 
-  ///neu angelegte Variablen die gebraucht werden
+  /*neu angelegte Variablen die gebraucht werden*/
   private buttonA: HTMLButtonElement;
   private buttonB: HTMLButtonElement;
   private buttonC: HTMLButtonElement;
   private buttonD: HTMLButtonElement;
   private wrongAnswerColor = '#FF0000';
   private rightAnswerColor = '#01DF01';
-  private defaultButtonColor = '';
+  private defaultButtonColor = '#0d87cf';
+  private fragenArray: Frage[];
+  private tmpFragenArray: Frage[];
+  private answerA: Answer;
 
   /*Variables for Settings*/
-  private blinkingTimes: number; ///default 3 times
+  private blinkingTimes: number; /*default 3 times*/
+  private anzahlFragen: number;
+  private arrayFragenPointer: number;
+  private numberOfQuestionsToLoad: number; /*default 5*/
+  private blinkIntervall: number; /*default 500ms*/
 
+  /*------------------------------------------------------------------------------------------------------------------*/
+  /*Public Section*/
   constructor(public restService: RestService) {
   }
 
-  initializeGame(buttonA: HTMLButtonElement, buttonB: HTMLButtonElement, buttonC: HTMLButtonElement, buttonD: HTMLButtonElement, anzahlFragen: number) {
+  public async initializeGame(buttonA: HTMLButtonElement, buttonB: HTMLButtonElement, buttonC: HTMLButtonElement,
+                 buttonD: HTMLButtonElement, anzahlFragen: number, answerA: Answer) {
+    /*initialize important variables*/
     this.buttonA = buttonA;
     this.buttonB = buttonB;
     this.buttonC = buttonC;
     this.buttonD = buttonD;
     this.blinkingTimes = 3;
+    this.anzahlFragen = anzahlFragen;
+    this.arrayFragenPointer = 0;
+    this.answerA = answerA;
+    this.numberOfQuestionsToLoad = 5;
+    this.blinkIntervall = 500;
+
+    /*initialize questionarray*/
+    await this.updateTable().then();
   }
 
-  async startQuiz() {
-    let tableInitialStart = false;
-    while (!this.tableFilled) {
-      if (!tableInitialStart || (tableInitialStart && this.tableLoadFailure))  {
-        this.loadQuestionTable1();
-        tableInitialStart = true;
-      }
-      await this.delay(100);
+  public startQuiz(): Frage {
+    return this.nextQuestion();
+  }
+
+  public async selectedAnswer(selectedButtonNumber: number) {
+    console.log('Solution: ' + this.fragenArray[this.arrayFragenPointer].SolutionNumber);
+    console.log('Auswahl:' + selectedButtonNumber);
+    if (Number(this.fragenArray[this.arrayFragenPointer].SolutionNumber) !== selectedButtonNumber) {
+      await this.wrongAnswer(selectedButtonNumber);
+    } else {
+      await this.rightAnswer();
     }
-    this.fragenArrayInUse = this.fragenArrayLadeFragen;
-    console.log(this.fragenArrayInUse);
-    this.fragenPointer = -1;
-    this.updateTable();
+  }
+
+  public nextQuestion(): Frage {
+    this.arrayFragenPointer++;
+    return this.fragenArray[this.arrayFragenPointer];
   }
 
   delay(ms: number) {
@@ -59,29 +78,83 @@ export class XQuizService {
     return Math.round(5000 - fragenPunkte - zeitPunkte * verbrauchteZeit);
   }
 
-  async updateTable() {
+  /*Private Section*/
+  private async updateTable() {
     let tableInitialStart = false;
     this.tableFilled = false;
     while (!this.tableFilled) {
       if (!tableInitialStart || (tableInitialStart && this.tableLoadFailure))  {
-        this.loadQuestionTable1();
+        await this.loadQuestionTable1();
         tableInitialStart = true;
       }
       await this.delay(100);
     }
   }
 
-  loadQuestionTable1() {
-    console.log('Table 1 is loading');
+  private async loadQuestionTable1() {
     this.tableLoadFailure = false;
-    this.restService.getQuestions(5, 1).subscribe((fragen) => {
-      this.fragenArrayLadeFragen = fragen;
+    this.restService.getQuestions(this.numberOfQuestionsToLoad, 1).subscribe((fragen) => {
+      this.fragenArray = fragen;
       this.tableFilled = true;
-      console.log('Table 1 loaded');
     }, () => {
-      console.log('load Table Error');
       this.tableLoadFailure = true;
     });
+  }
+
+  private async rightAnswer() {
+    this.setButtonColor(Number(this.fragenArray[this.arrayFragenPointer].SolutionNumber), this.rightAnswerColor);
+    await this.delay(this.blinkIntervall * 2 * (this.blinkingTimes - 1));
+    this.setButtonColor(Number(this.fragenArray[this.arrayFragenPointer].SolutionNumber), this.defaultButtonColor);
+  }
+
+  private async wrongAnswer(selectedButton: number) {
+    this.setButtonColor(selectedButton, this.wrongAnswerColor);
+    for (let i = 0; i < this.blinkingTimes; i++) {
+      this.setButtonColor(Number(this.fragenArray[this.arrayFragenPointer].SolutionNumber), this.rightAnswerColor);
+      await this.delay(this.blinkIntervall);
+      this.setButtonColor(Number(this.fragenArray[this.arrayFragenPointer].SolutionNumber), this.defaultButtonColor);
+      await this.delay(this.blinkIntervall);
+    }
+    this.setButtonColor(selectedButton, this.defaultButtonColor);
+  }
+
+  private setButtonColor(selectedButton: number, color: string) {
+    switch (selectedButton) {
+      case 0: this.buttonA.style.backgroundColor = color;
+        break;
+      case 1: this.buttonB.style.backgroundColor = color;
+        break;
+      case 2: this.buttonC.style.backgroundColor = color;
+        break;
+      case 3: this.buttonD.style.backgroundColor = color;
+        break;
+    }
+  }
+
+  private time() {
+
+  }
+
+  /*Setting functions*/
+
+  public setWrongAnswerColor(color: string) {
+    this.wrongAnswerColor = color;
+  }
+
+  public setRightAnswerColor(color: string) {
+    this.rightAnswerColor = color;
+  }
+
+  public setDefaultButtonColor(color: string) {
+    this.defaultButtonColor = color;
+  }
+
+  public setnumberOfQuestionsToLoad(questionsToLoad: number) {
+    this.numberOfQuestionsToLoad = questionsToLoad;
+  }
+
+  public setBlinkIntervall(intervall: number) {
+    this.blinkIntervall = intervall;
   }
 }
 
@@ -93,4 +166,8 @@ interface Frage {
   Option3: string;
   Solution: string;
   SolutionNumber: number;
+}
+
+interface Answer {
+  answer: string;
 }
