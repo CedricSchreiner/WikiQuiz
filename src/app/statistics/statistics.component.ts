@@ -10,7 +10,8 @@ import { isUserloggedIn } from '../static-functions/static.function';
 export class StatisticsComponent implements OnInit, AfterViewInit {
   stats: Statistic[];
   avatarLinkString: string;
-  userInTopList: boolean;
+  userInTopListSurvival: boolean;
+  userInTopListXquiz: boolean;
   isUserLoggesIn: boolean;
 
   constructor(private restService: RestService) {
@@ -44,7 +45,8 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
       this.link('');
     }
     this.avatarLinkString = './assets/' + sessionStorage.getItem('link');
-    this.userInTopList = false;
+    this.userInTopListXquiz = false;
+    this.userInTopListSurvival = false;
 
   }
 
@@ -99,7 +101,6 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
   }
 
   createTopTenOverallTableXquiz() {
-    let userInTopList: boolean;
     let row: HTMLTableRowElement;
     let cell: HTMLTableCellElement;
     const table = (<HTMLTableElement>document.getElementById('stats-table-world-xquiz'));
@@ -124,10 +125,10 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
         row = table.rows[i + 1];
         cell = row.cells[5];
         if (sessionStorage.getItem('username') === cell.innerHTML) {
-          userInTopList = true;
+          this.userInTopListXquiz = true;
         }
       }
-      if (!userInTopList) {
+      if (!this.userInTopListXquiz) {
         lastRow.style.visibility = 'visible';
         this.restService.getStatisticsPlayer('xquiz').subscribe((statsTop => {
           this.stats[0] = statsTop;
@@ -174,10 +175,10 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
         row = table.rows[i];
         cell = row.cells[5];
         if (sessionStorage.getItem('username') === cell.innerHTML) {
-          this.userInTopList = true;
+          this.userInTopListSurvival = true;
         }
       }
-      if (!this.userInTopList) {
+      if (!this.userInTopListSurvival) {
         ///lastRow.style.visibility = 'visible';
         this.restService.getStatisticsPlayer('survival').subscribe((statsTop => {
           this.stats[0] = statsTop;

@@ -257,7 +257,7 @@
             <td></td>
             <td></td>
           </tr>
-          <tr id="last-row-xquiz">
+          <tr *ngIf="userInTopListXquiz == false">
             <td></td>
             <td></td>
             <td></td>
@@ -363,7 +363,7 @@
             <td></td>
             <td></td>
           </tr>
-          <tr *ngIf="userInTopList == false">
+          <tr *ngIf="userInTopListSurvival == false">
             <td></td>
             <td></td>
             <td></td>
