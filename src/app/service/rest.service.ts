@@ -11,13 +11,13 @@ export class RestService {
   login(email: string, password: string) {
     const myHeader = new Headers();
     myHeader.append('Authorization', 'Basic ' + btoa(email + ':' + password));
-    return this.http.get('http://localhost:8080/quiz/webapi/profile/auth/login', {headers: myHeader}).map(res => res.json());
+    return this.http.get('http://localhost:8082/ProjektQuiz/quiz/webapi/profile/auth/login', {headers: myHeader}).map(res => res.json());
   }
 
   signup(name: string, e_mail: string, passwort: string) {
     const myHeader = new Headers();
     myHeader.append('Content-Type', 'application/json');
-    return this.http.put('http://localhost:8080/quiz/webapi/profile',
+    return this.http.put('http://localhost:8082/ProjektQuiz/quiz/webapi/profile',
       JSON.stringify({name: name, e_mail: e_mail, passwort: passwort}), {headers: myHeader})
       .map(res => res.json());
   }
@@ -26,7 +26,7 @@ export class RestService {
     const myHeader = new Headers();
     myHeader.append('Authorization', 'Basic ' + btoa(sessionStorage.getItem('email') +
       ':' + sessionStorage.getItem('password')));
-    return this.http.get('http://localhost:8080/quiz/webapi/fragenresource/' + anzahlFragen + '?query=' + quiztype,
+    return this.http.get('http://localhost:8082/ProjektQuiz/quiz/webapi/fragenresource/' + anzahlFragen + '?query=' + quiztype,
                          {headers: myHeader}).map(res => res.json());
   }
 
@@ -34,7 +34,7 @@ export class RestService {
     const myHeader = new Headers();
     myHeader.append('Authorization', 'Basic ' + btoa(sessionStorage.getItem('email') +
       ':' + sessionStorage.getItem('password')));
-    return this.http.get('http://localhost:8080/quiz/webapi/stats/auth/topTenOverall/' + gamemode, {headers: myHeader})
+    return this.http.get('http://localhost:8082/ProjektQuiz/quiz/webapi/stats/auth/topTenOverall/' + gamemode, {headers: myHeader})
                          .map (res => res.json());
   }
 
@@ -42,7 +42,7 @@ export class RestService {
     const myHeader = new Headers();
     myHeader.append('Authorization', 'Basic ' + btoa(sessionStorage.getItem('email') +
       ':' + sessionStorage.getItem('password')));
-    return this.http.get('http://localhost:8080/quiz/webapi/stats/auth/TopTenPlayer/' + gamemode, {headers: myHeader})
+    return this.http.get('http://localhost:8082/ProjektQuiz/quiz/webapi/stats/auth/TopTenPlayer/' + gamemode, {headers: myHeader})
       .map(res => res.json());
   }
 
@@ -51,7 +51,7 @@ export class RestService {
     myHeader.append('Authorization', 'Basic ' + btoa(sessionStorage.getItem('email') +
       ':' + sessionStorage.getItem('password')));
     myHeader.append('Content-Type', 'application/json');
-    return this.http.put('http://localhost:8080/quiz/webapi/profile/auth/chPas',
+    return this.http.put('http://localhost:8082/ProjektQuiz/quiz/webapi/profile/auth/chPas',
       JSON.stringify({name: sessionStorage.getItem('username'), e_mail: sessionStorage.getItem('email'), passwort: password}),
       {headers: myHeader})
                         .map(res => res.json());
@@ -63,7 +63,7 @@ export class RestService {
       ':' + sessionStorage.getItem('password')));
     myHeader.append('Content-Type', 'application/json');
 
-    return this.http.put('http://localhost:8080/quiz/webapi/profile/auth/chAvl',
+    return this.http.put('http://localhost:8082/ProjektQuiz/quiz/webapi/profile/auth/chAvl',
         JSON.stringify({e_mail: sessionStorage.getItem('email'), avatar_link: avatarLink}),
         {headers: myHeader})
         .map(res => res.json());
@@ -73,7 +73,7 @@ export class RestService {
     myHeader.append('Authorization', 'Basic ' + btoa(sessionStorage.getItem('email') +
       ':' + sessionStorage.getItem('password')));
     myHeader.append('Content-Type', 'application/json');
-    return this.http.put('http://localhost:8080/quiz/webapi/stats/auth',
+    return this.http.put('http://localhost:8082/ProjektQuiz/quiz/webapi/stats/auth',
       JSON.stringify({gameMode: gameMode, user_id: user_id, fragenBeantwortet: fragenBeantwortet,
         fragenRichtig: fragenRichtig, punkte: punkte}),
       {headers: myHeader})
@@ -85,7 +85,7 @@ export class RestService {
     myHeader.append('Authorization', 'Basic ' + btoa(sessionStorage.getItem('email') +
       ':' + sessionStorage.getItem('password')));
 
-    return this.http.get('http://localhost:8080/quiz/webapi/stats/auth/' + sessionStorage.getItem('id') +
+    return this.http.get('http://localhost:8082/ProjektQuiz/quiz/webapi/stats/auth/' + sessionStorage.getItem('id') +
       '?gamemode=' + gamemode, {headers: myHeader})
       .map(res => res.json());
   }
