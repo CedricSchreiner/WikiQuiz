@@ -22,17 +22,21 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
     this.createTopTenOverallTableXquiz();
     this.createTopTenPlayerSurvival();
     this.createTopTenOverallSurvival();
+    this.createTopTenPlayerTimeQuiz();
     const personalXquizTab = (<HTMLLinkElement>document.getElementById('personal-xquiz-tab'));
+    const personalTimeTab = (<HTMLLinkElement>document.getElementById('personal-time-tab'));
     const personalSurvivalTab = (<HTMLLinkElement>document.getElementById('personal-survival-tab'));
     const worldXquizTab = (<HTMLLinkElement>document.getElementById('world-xquiz-tab'));
     const worldSurvivalTab = (<HTMLLinkElement>document.getElementById('world-survival-tab'));
     personalXquizTab.innerHTML = 'Top 10 Personal XQuiz';
     personalSurvivalTab.innerHTML = 'Top 10 Personal Survival';
+    personalTimeTab.innerHTML = 'Top 10 Personmal Time';
     worldXquizTab.innerHTML = 'Top 10 World Wide XQuiz';
     worldSurvivalTab.innerHTML = 'Top 10 World Wide Survival';
     if (window.screen.width < 961) {
       personalXquizTab.innerHTML = 'Pers.<br>XQuiz';
       personalSurvivalTab.innerHTML = 'Pers.<br>Survival';
+      personalTimeTab.innerHTML = 'Pers.<br>Time';
       worldXquizTab.innerHTML = 'World<br>XQuiz';
       worldSurvivalTab.innerHTML = 'World<br>Survival';
     }
@@ -54,7 +58,7 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
     let row: HTMLTableRowElement;
     let cell: HTMLTableCellElement;
     let table: HTMLTableElement;
-    table = (<HTMLTableElement>document.getElementById('a'));
+    table = (<HTMLTableElement>document.getElementById('stats-table-personal-xquiz'));
     console.log(table);
     this.restService.getTopTenStatisticsPlayer('xquiz').subscribe((stats => {
       this.stats = stats;
@@ -78,11 +82,36 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
   createTopTenPlayerSurvival() {
     let row: HTMLTableRowElement;
     let cell: HTMLTableCellElement;
-    const table = (<HTMLTableElement>document.getElementById('stats-table-personal-survival'));
+    const table = (<HTMLTableElement>document.getElementById('stats-table-personal-time'));
     this.restService.getTopTenStatisticsPlayer('survival').subscribe((stats => {
       this.stats = stats;
 
       console.log(this.stats);
+      row = table.rows[0];
+      for (let i = 1; i < 11; i++) {
+        row = table.rows[i];
+        cell = row.cells[0];
+        cell.innerHTML = String(i + '.');
+        for (let j = 1; j < 4; j++) {
+          cell = row.cells[j];
+          if (this.stats.length >= i) {
+            cell.innerHTML = this.get(i - 1, j);
+          } else {
+            cell.innerHTML = '-';
+          }
+        }
+      }
+    }));
+  }
+
+  createTopTenPlayerTimeQuiz() {
+    let row: HTMLTableRowElement;
+    let cell: HTMLTableCellElement;
+    let table: HTMLTableElement;
+    table = (<HTMLTableElement>document.getElementById('stats-table-personal-time'));
+    console.log(table);
+    this.restService.getTopTenStatisticsPlayer('time').subscribe((stats => {
+      this.stats = stats;
       row = table.rows[0];
       for (let i = 1; i < 11; i++) {
         row = table.rows[i];

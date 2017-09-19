@@ -6,6 +6,7 @@
     <ul class="nav nav-tabs">
       <li class="active"><a id="personal-xquiz-tab" data-toggle="tab" href="#top-ten-personal-xquiz"></a></li>
       <li><a id="personal-survival-tab" data-toggle="tab" href="#top-ten-personal-survival"></a></li>
+      <li><a id="personal-time-tab" data-toggle="tab" href="#top-ten-personal-time"></a></li>
       <li><a id="world-xquiz-tab" data-toggle="tab" href="#top-ten-world-xquiz"></a></li>
       <li><a id="world-survival-tab" data-toggle="tab" href="#top-ten-world-survival"></a></li>
     </ul>
@@ -14,7 +15,7 @@
 
     <div class="tab-content">
       <div id="top-ten-personal-xquiz" class="tab-pane fade in active">
-        <table id="a" (timeupdate)="createTopTenPlayerXquiz()">
+        <table id="stats-table-personal-xquiz" (timeupdate)="createTopTenPlayerXquiz()">
           <thead>
           <tr id="stats-table-personal-xquiz-header">
             <th>Top</th>
@@ -92,6 +93,81 @@
         <table id="stats-table-personal-survival">
           <thead>
           <tr id="stats-table-personal-survival-header">
+            <th>Top</th>
+            <th>Answered Questions</th>
+            <th>Right Answers</th>
+            <th>Score</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div id="top-ten-personal-time" class="tab-pane fade">
+        <table id="stats-table-personal-time">
+          <thead>
+          <tr id="stats-table-personal-time-header">
             <th>Top</th>
             <th>Answered Questions</th>
             <th>Right Answers</th>
