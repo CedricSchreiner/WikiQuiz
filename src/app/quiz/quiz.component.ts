@@ -1,9 +1,7 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, AfterViewInit, OnDestroy, DoCheck} from '@angular/core';
 import { SurvivalQuizService } from './survivalquiz';
 import { XQuizService } from './xquiz';
-import { FiftyFiftyJokerService} from './fifty_fifty_joker';
-import { SpecialJokerService } from './spezial_joker';
-import {Observable} from "rxjs/Observable";
+import {Observable} from 'rxjs/Observable';
 
 
 @Component({
@@ -12,11 +10,10 @@ import {Observable} from "rxjs/Observable";
   styleUrls: ['./quiz.component.css']
 })
 
-export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
+export class QuizComponent implements OnInit, AfterViewInit, OnDestroy, DoCheck {
   public frage: Frage;
   public gamemodeForJoker: boolean;
   public avatarLinkString: string;
-  public richtigeAntworten: number;
   private numberOfQuestions = 0;
   private numberOfQuestionsSurvival = 0;
   private timeLeft: number;
@@ -31,8 +28,7 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
   private gameFinished: Observable<boolean>;
 
 
-  constructor(private survivalQuiz: SurvivalQuizService, private xquiz: XQuizService,
-              private fiftyJoker: FiftyFiftyJokerService, private specialJoker: SpecialJokerService) {
+  constructor(private survivalQuiz: SurvivalQuizService, private xquiz: XQuizService) {
   }
 
   ngOnDestroy() {
@@ -44,34 +40,57 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
     */
   }
 
+  ngDoCheck() {
+  }
+
   async ngAfterViewInit() {
     ///Get all answer Buttons from html component
     const buttonA = (<HTMLButtonElement>document.getElementById('answerA'));
     const buttonB = (<HTMLButtonElement>document.getElementById('answerB'));
     const buttonC = (<HTMLButtonElement>document.getElementById('answerC'));
     const buttonD = (<HTMLButtonElement>document.getElementById('answerD'));
+    const button = (<HTMLButtonElement>document.getElementById('wrong-answer'));
     const timerDiv = (<HTMLDivElement> document.getElementById('timer-status-bar'));
 
     switch (sessionStorage.getItem('gamemode')) {
-      case 'xquiz': await this.xquiz.initializeGame(buttonA, buttonB, buttonC, buttonD, Number(sessionStorage.getItem('anzahlFragen')),
-                                                    timerDiv).then( res => this.gameFinished = res);
-                    this.xquiz.startQuiz().then(res => this.frage = res);
+      case 'xquiz':     await this.xquiz.initializeGame(buttonA, buttonB, buttonC, buttonD, button,
+                          Number(sessionStorage.getItem('anzahlFragen')), timerDiv).then( res => this.gameFinished = res);
+                        this.xquiz.startQuiz().then(res => this.frage = res);
+                        break;
+      case 'survival':  await this.survivalQuiz.initializeGame(buttonA, buttonB, buttonC, buttonD, button,
+                          timerDiv).then(res => this.gameFinished = res);
+                        this.survivalQuiz.startQuiz().then(res => this.frage = res);
+                        break;
     }
   }
 
   async ngOnInit() {
-
+    this.avatarLinkString = './assets/' + sessionStorage.getItem('link'); // fuer den Avatar
   }
 
   async nextQuestion(selectedButtonNumber: number) {
+    let finished = false;
     switch (sessionStorage.getItem('gamemode')) {
-      case 'xquiz': await this.xquiz.selectedAnswer(selectedButtonNumber);
-                    this.frage = this.xquiz.nextQuestion();
+      case 'xquiz':
+        await this.xquiz.selectedAnswer(selectedButtonNumber);
+        this.frage = this.xquiz.nextQuestion();
+        break;
+      case 'survival':
+        await this.survivalQuiz.selectedAnswer(selectedButtonNumber);
+        this.frage = this.survivalQuiz.nextQuestion();
+        break;
+    }
+    this.gameFinished.subscribe((data) => {
+      finished = data;
+    });
+    if (finished) {
+      this.frage = null;
+      this.showResultXquiz();
     }
   }
 
   showResultSurvival() {
-    sessionStorage.setItem('rightAnswers', this.richtigeAntworten.toString());
+    sessionStorage.setItem('rightAnswers', '2');
     sessionStorage.setItem('numberOfQuestions', this.numberOfQuestionsSurvival.toString());
     ///sessionStorage.setItem('points', this.calcPoints().toString());
     this.forceFullLeave = false;
@@ -79,18 +98,21 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   showResultXquiz() {
-    ///this.numberOfQuestions = this.xquiz.anzahlFragen;
-    sessionStorage.setItem('rightAnswers', this.richtigeAntworten.toString());
-    sessionStorage.setItem('numberOfQuestions', this.numberOfQuestions.toString());
+    switch (sessionStorage.getItem('gamemode')) {
+      case 'xquiz': sessionStorage.setItem('rightAnswers', this.xquiz.getNumberOfRightAnswers().toString());
+                    sessionStorage.setItem('numberOfQuestions', sessionStorage.getItem('anzahlFragen'));
+                    break;
+      case 'survival': sessionStorage.setItem('rightAnswers', this.survivalQuiz.getNumberOfRightAnswers().toString());
+    }
+
     sessionStorage.setItem('points', this.calcPoints().toString());
     this.forceFullLeave = false;
     this.link('result');
   }
   calcPoints(): number {
     switch (sessionStorage.getItem('gamemode')) {
-      case 'xquiz'   : return this.xquiz.calculatePoints(this.richtigeAntworten, this.verbrauchteGesamtZeit);
-      case 'survival': return this.survivalQuiz.calculatePoints(this.richtigeAntworten, this.verbrauchteGesamtZeit,
-                                                                this.jokersUsed);
+      case 'xquiz'   : return this.xquiz.calculatePoints();
+      case 'survival': return this.survivalQuiz.calculatePoints(1, 1, 1);
     }
   }
   /**

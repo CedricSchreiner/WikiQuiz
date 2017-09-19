@@ -60,6 +60,8 @@
       <p *ngIf="frage != undefined" class="answer-string" id="answer-stringD"> {{frage.Option3}} </p>
     </button>
 
+    <button id="wrong-answer" (click)="nextQuestion(-1)" style="visibility: hidden"></button>
+
   </div>
   <!-- Timebar -->
 

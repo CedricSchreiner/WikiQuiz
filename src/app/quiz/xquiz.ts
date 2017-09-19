@@ -1,18 +1,14 @@
 import { Injectable } from '@angular/core';
 import { RestService } from '../service/rest.service';
-import {Observable} from "rxjs/Observable";
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class XQuizService {
-  tableFilled: boolean;
-  tableLoadFailure: boolean;
-  beantworteteFragen: number;
-
-  /*neu angelegte Variablen die gebraucht werden*/
   private buttonA: HTMLButtonElement;
   private buttonB: HTMLButtonElement;
   private buttonC: HTMLButtonElement;
   private buttonD: HTMLButtonElement;
+  private button: HTMLButtonElement; /*Only Used when time is up*/
   private timerdiv: HTMLDivElement;
   private wrongAnswerColor = '#FF0000';
   private rightAnswerColor = '#01DF01';
@@ -20,7 +16,12 @@ export class XQuizService {
   private questionArray: Frage[];
   private tmpQuestionArray: Frage[];
   private running: boolean;
-  private gameFinished: Observable<boolean>;
+  private gameFinishedObserver: Observable<boolean>;
+  private gameFinished: boolean;
+  private answeredQuestions: number;
+  private rightAnswers: number;
+  private spentTime: number;
+  private timeLeft: number;
 
   /*Variables for Settings*/
   private blinkingTimes: number; /*default 3 times*/
@@ -35,13 +36,28 @@ export class XQuizService {
   constructor(public restService: RestService) {
   }
 
+  /**
+   * Setzt alle Parameter die im Spielmodus gebraucht werden. Als Parameter erhaelt die Funktion alle noetigen
+   * HTML Komponenten.
+   * Beim initialisieren wird auch zum ersten mal die Tabelle der Fragen geladen.
+   * @param {HTMLButtonElement} buttonA
+   * @param {HTMLButtonElement} buttonB
+   * @param {HTMLButtonElement} buttonC
+   * @param {HTMLButtonElement} buttonD
+   * @param {HTMLButtonElement} button
+   * @param {number} anzahlFragen
+   * @param {HTMLDivElement} timer
+   * @returns {Promise<Observable<boolean>>}
+   */
+
   public async initializeGame(buttonA: HTMLButtonElement, buttonB: HTMLButtonElement, buttonC: HTMLButtonElement,
-                 buttonD: HTMLButtonElement, anzahlFragen: number, timer: HTMLDivElement) {
+                 buttonD: HTMLButtonElement, button: HTMLButtonElement, anzahlFragen: number, timer: HTMLDivElement) {
     /*initialize important variables*/
     this.buttonA = buttonA;
     this.buttonB = buttonB;
     this.buttonC = buttonC;
     this.buttonD = buttonD;
+    this.button = button;
     this.timerdiv = timer;
     this.blinkingTimes = 3;
     this.numberOfQuestions = anzahlFragen;
@@ -50,23 +66,41 @@ export class XQuizService {
     this.blinkIntervall = 500;
     this.running = false;
     this.timeInMs = 1600;
+    this.gameFinished = false;
+    this.answeredQuestions = 0;
+    this.rightAnswers = 0;
+    this.spentTime = 0;
 
     /*initialize questionarray*/
-    await this.updateTableBeta().then(res => this.questionArray = res);
-    console.log(this.questionArray);
-    this.updateTableBeta().then(res => this.tmpQuestionArray = res);
-    return
+    await this.loadQuestions().then(res => this.questionArray = res);
+    console.log(this.questionArray); /*<--REMOVE*/
+    this.loadQuestions().then(res => this.tmpQuestionArray = res);
+    this.gameFinishedObserver = Observable.create((observer) => {
+      observer.next(this.gameFinished);
+    });
+    return this.gameFinishedObserver;
   }
 
+  /**
+   * Startet das Spiel und gibt die erste Frage zurueck.
+   * @returns {Promise<Frage>} erste Frage aus dem Antwortenarray
+   */
   public async startQuiz() {
     this.running = true;
-    ///this.updateTableBeta(this.tmpFragenArray).then();
-    console.log('start');
     this.timer().then();
     return this.nextQuestion();
   }
 
+  /**
+   * dem Spiel wird die auswahl des Users übergeben. Danach wird ueberprueft ob die Auswahl richtig oder falsch ist
+   * @param {number} selectedButtonNumber
+   * @returns {Promise<void>}
+   */
   public async selectedAnswer(selectedButtonNumber: number) {
+    this.answeredQuestions++;
+    if (this.answeredQuestions === this.numberOfQuestions) {
+      this.gameFinished = true;
+    }
     this.running = false;
     if (Number(this.questionArray[this.arrayFragenPointer].SolutionNumber) !== selectedButtonNumber) {
       await this.wrongAnswer(selectedButtonNumber);
@@ -75,49 +109,73 @@ export class XQuizService {
     }
     this.running = true;
     this.timer().then();
+
+    console.log('Richtige Antworten: ' + this.rightAnswers);
+    console.log('Verbrauchte Zeit: ' + this.spentTime);
   }
 
+  /**
+   * Gibt die naechte Frage im Array zurueck
+   * @returns {Frage}
+   */
   public nextQuestion(): Frage {
     this.arrayFragenPointer++;
     if (this.arrayFragenPointer === this.numberOfQuestionsToLoad - 1) {
       this.questionArray = this.tmpQuestionArray;
-      this.updateTableBeta().then(res => this.tmpQuestionArray = res);
+      this.loadQuestions().then(res => this.tmpQuestionArray = res);
       this.arrayFragenPointer = 0;
     }
     return this.questionArray[this.arrayFragenPointer];
   }
 
-  delay(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+  /**
+   * Wird am Ende des Spiel aufgerufen. Berechnet die Punkte die der Spieler erreicht hat.
+   * @returns {number}
+   */
+  calculatePoints(): number {
+    const questionPoints = 3250 / this.numberOfQuestions * (this.numberOfQuestions - this.rightAnswers);
+    console.log(questionPoints);
+    const timePoints = 1750 / 1600 / this.numberOfQuestions;
+    console.log(timePoints);
+    return Math.round(5000 - questionPoints - timePoints * this.spentTime);
   }
 
-  calculatePoints(anzahlrichtigeAntworten: number, verbrauchteZeit: number): number {
-    const fragenPunkte = 3250 / this.numberOfQuestions * (this.numberOfQuestions - anzahlrichtigeAntworten);
-    const zeitPunkte = 1750 / 1600 / this.numberOfQuestions;
-    return Math.round(5000 - fragenPunkte - zeitPunkte * verbrauchteZeit);
-  }
-
-  private async updateTableBeta() {
-    this.tableFilled = false;
-    let tableToLoad: Frage[];
-    await this.loadQuestions().then(res => tableToLoad = res);
-    return tableToLoad;
-  }
-
+  /*Private Section*/
+  /**
+   * Laedt eine bestimme Anzahl an neuen Fragen fuer das Spiel.
+   * @returns {Promise<Array<Frage>>}
+   */
   private async loadQuestions() {
+    let errorLoadingQuestions: boolean;
     let returnArray: Array<Frage>;
-    returnArray = await this.restService.getQuestionsBeta(this.numberOfQuestionsToLoad, 1);
+    do {
+      errorLoadingQuestions = false;
+      returnArray = await this.restService.getQuestionsBeta(this.numberOfQuestionsToLoad, 1)
+        .then().catch(() => {
+        errorLoadingQuestions = true;
+      });
+    } while (errorLoadingQuestions);
     return returnArray;
   }
 
+  /**
+   * Wenn der User eine richtige Antwort ausgewaehlt hat, werden die Buttons entsprechend gefaerbt.
+   * @returns {Promise<void>}
+   */
   private async rightAnswer() {
     this.buttonStatus(false);
+    this.addTime(true);
+    this.rightAnswers++;
     this.setButtonColor(Number(this.questionArray[this.arrayFragenPointer].SolutionNumber), this.rightAnswerColor);
     await this.delay(this.blinkIntervall * 2 * (this.blinkingTimes - 1));
     this.setButtonColor(Number(this.questionArray[this.arrayFragenPointer].SolutionNumber), this.defaultButtonColor);
     this.buttonStatus(true);
   }
 
+  /**
+   * Aktiviert/Deaktiert die Buttons.
+   * @param {boolean} active
+   */
   private buttonStatus(active: boolean) {
     this.buttonA.disabled = !active;
     this.buttonB.disabled = !active;
@@ -125,8 +183,14 @@ export class XQuizService {
     this.buttonD.disabled = !active;
   }
 
+  /**
+   * Wenn der User eine falsche Antwort ausgewaehlt hat, werden die Buttons entsprechend gefaerbt.
+   * @param {number} selectedButton
+   * @returns {Promise<void>}
+   */
   private async wrongAnswer(selectedButton: number) {
     this.buttonStatus(false);
+    this.addTime(false);
     this.setButtonColor(selectedButton, this.wrongAnswerColor);
     for (let i = 0; i < this.blinkingTimes; i++) {
       this.setButtonColor(Number(this.questionArray[this.arrayFragenPointer].SolutionNumber), this.rightAnswerColor);
@@ -138,6 +202,11 @@ export class XQuizService {
     this.buttonStatus(true);
   }
 
+  /**
+   * Kann einen einzelnen Button in einer gewuenschten Farbe darstellen.
+   * @param {number} selectedButton
+   * @param {string} color
+   */
   private setButtonColor(selectedButton: number, color: string) {
     switch (selectedButton) {
       case 0: this.buttonA.style.backgroundColor = color;
@@ -151,18 +220,36 @@ export class XQuizService {
     }
   }
 
+  /**
+   * Addiert die verbrauchte Zeit auf die bereits verbrauchte Zeit.
+   * @param {boolean} questionRight
+   */
+  private addTime(questionRight: boolean) {
+    if (questionRight) {
+      this.spentTime += this.timeInMs - this.timeLeft;
+    } else {
+      this.spentTime += 1600;
+    }
+  }
+
+  private delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  /**
+   * Timer der bestimmt wie lange der Spieler Zeit hat eine Frage zu beantworten.
+   * @returns {Promise<void>}
+   */
   private async timer() {
-    let timeLeft: number;
-    timeLeft = this.timeInMs;
+    this.timeLeft = this.timeInMs;
     while (this.running === true) {
       await this.delay(10).then();
-      this.timerdiv.style.width = String((timeLeft * 0.0625)) + '%';
-      timeLeft--;
-      if (timeLeft === 0) {
-        this.wrongAnswer(-1).then();
+      this.timerdiv.style.width = String((this.timeLeft * 0.0625)) + '%';
+      this.timeLeft--;
+      if (this.timeLeft === 0) {
         this.running = false;
+        this.button.click();
       }
-      console.log(timeLeft);
     }
   }
 
@@ -190,6 +277,12 @@ export class XQuizService {
 
   public setTime(time: number) {
     this.timeInMs = time;
+  }
+
+  /*Getter*/
+
+  public getNumberOfRightAnswers(): number {
+    return this.rightAnswers;
   }
 }
 
