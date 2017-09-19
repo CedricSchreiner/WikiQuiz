@@ -1,9 +1,8 @@
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { SurvivalQuizService } from './survivalquiz';
 import { XQuizService } from './xquiz';
-import { FiftyFiftyJokerService} from './fifty_fifty_joker';
-import { SpecialJokerService } from './spezial_joker';
-import { isUserloggedIn } from '../static-functions/static.function';
+import { Observable } from 'rxjs/Observable';
+import { TimeQuizService } from './timequiz';
 
 
 @Component({
@@ -16,328 +15,121 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
   public frage: Frage;
   public gamemodeForJoker: boolean;
   public avatarLinkString: string;
-  public richtigeAntworten: number;
-  private buttonA: HTMLButtonElement;
-  private buttonB: HTMLButtonElement;
-  private buttonC: HTMLButtonElement;
-  private buttonD: HTMLButtonElement;
-  private button: HTMLButtonElement;
-  private buttonRightSolution: HTMLButtonElement;
-  private numberOfQuestions = 0;
-  private numberOfQuestionsSurvival = 0;
-  private timeLeft: number;
-  private spielLauft: boolean;
-  private sumTimeLeft: number;
   public verbrauchteGesamtZeit: number;
-  private isUserLoggesIn: boolean;
   public fiftyFiftyDisabled: boolean;
   public specialJokerDisabled: boolean;
-  private jokersUsed = 0;
   public deactivateSpecialJoker = false;
   public deactivateFiftyFiftyJoker = false;
   private forceFullLeave = true;
+  private gameFinished: Observable<boolean>;
 
 
-  constructor(private survivalQuiz: SurvivalQuizService, private xquiz: XQuizService,
-              private fiftyJoker: FiftyFiftyJokerService, private specialJoker: SpecialJokerService) {
+  constructor(private survivalQuiz: SurvivalQuizService, private xquiz: XQuizService, private timequiz: TimeQuizService) {
   }
 
   ngOnDestroy() {
+    /*
     if (this.forceFullLeave) {
       sessionStorage.removeItem('gamemode');
       sessionStorage.removeItem('anzahlFragen');
     }
+    */
   }
 
-  ngAfterViewInit() {
+  async ngAfterViewInit() {
     ///Get all answer Buttons from html component
-    this.buttonA = (<HTMLButtonElement>document.getElementById('answerA'));
-    this.buttonB = (<HTMLButtonElement>document.getElementById('answerB'));
-    this.buttonC = (<HTMLButtonElement>document.getElementById('answerC'));
-    this.buttonD = (<HTMLButtonElement>document.getElementById('answerD'));
+    const buttonA = (<HTMLButtonElement>document.getElementById('answerA'));
+    const buttonB = (<HTMLButtonElement>document.getElementById('answerB'));
+    const buttonC = (<HTMLButtonElement>document.getElementById('answerC'));
+    const buttonD = (<HTMLButtonElement>document.getElementById('answerD'));
+    const button = (<HTMLButtonElement>document.getElementById('wrong-answer'));
+    const timerDiv = (<HTMLDivElement> document.getElementById('timer-status-bar'));
 
-    this.specialJoker.setButtons(this.buttonA, this.buttonB, this.buttonC, this.buttonD);
+    switch (sessionStorage.getItem('gamemode')) {
+      case 'xquiz':     await this.xquiz.initializeGame(buttonA, buttonB, buttonC, buttonD, button,
+                          Number(sessionStorage.getItem('anzahlFragen')), timerDiv).then( res => this.gameFinished = res);
+                        this.xquiz.startQuiz().then(res => this.frage = res);
+                        this.gamemodeForJoker = this.xquiz.supportJoker();
+                        break;
+      case 'survival':  await this.survivalQuiz.initializeGame(buttonA, buttonB, buttonC, buttonD, button,
+                          timerDiv).then(res => this.gameFinished = res);
+                        this.survivalQuiz.startQuiz().then(res => this.frage = res);
+                        this.gamemodeForJoker = this.survivalQuiz.supportJoker();
+                        break;
+      case 'time':      await this.timequiz.initializeGame(buttonA, buttonB, buttonC, buttonD, button,
+                          timerDiv).then(res => this.gameFinished = res);
+                        this.timequiz.startQuiz().then(res => this.frage = res);
+                        this.gamemodeForJoker = this.timequiz.supportJoker();
+    }
   }
 
   async ngOnInit() {
-    this.isUserLoggesIn = true;
-    if (!isUserloggedIn()) {
-      this.isUserLoggesIn = false;
-      this.link('');
-    }
-    this.fiftyFiftyDisabled = false;
-    this.specialJokerDisabled = false;
-    ///Set the count how often the Jokers are available
-    this.fiftyJoker.setJokerCount(1);
-    this.specialJoker.setJokerCount(1);
-
-    ///Set all needed parameters 0
-    this.sumTimeLeft = 0;
-    this.verbrauchteGesamtZeit = 0;
-
-    if (sessionStorage.length > 0) {
-      this.richtigeAntworten = 0;
-      this.avatarLinkString = './assets/' + sessionStorage.getItem('link'); // fuer den Avatar
-      switch (sessionStorage.getItem('gamemode')) {
-        case 'survival': await this.survivalQuiz.startQuiz();
-                  this.frage = this.survivalQuiz.getQuestion();
-                  this.gamemodeForJoker = true;
-                  break;
-        case 'xquiz': await this.xquiz.startQuiz(Number(sessionStorage.getItem('anzahlFragen')));
-                      ///sessionStorage.removeItem('anzahlFragen');
-                      this.frage = this.xquiz.getQuestion();
-                      this.gamemodeForJoker = false;
-                      break;
-      }
-      this.specialJoker.setAnswer(this.frage.SolutionNumber);
-      this.spielLauft = true;
-      this.timer();
-    }
-  }
-  async nextQuestion(buttonNumber: number) {
-    this.numberOfQuestionsSurvival ++;
-    if (!this.specialJoker.isJokerActive()) {
-      this.spielLauft = false;
-      this.specialJokerDisabled = false;
-      if (buttonNumber !== -1) {
-        this.button = this.getButton(buttonNumber);
-        if (buttonNumber === Number(this.frage.SolutionNumber)) {
-          this.verbrauchteGesamtZeit += 1600 - this.timeLeft;
-          this.richtigeAntworten++;
-          this.button.style.backgroundColor = '#01DF01';
-          this.changeDisableStatus(true);
-          await this.delay(2500);
-          this.changeDisableStatus(false);
-          this.button.style.backgroundColor = '#0d87cf';
-          this.sumTimeLeft += this.timeLeft;
-        } else {
-          this.verbrauchteGesamtZeit += 1600;
-          this.buttonRightSolution = this.getButton(Number(this.frage.SolutionNumber));
-          this.changeDisableStatus(true);
-          this.button.style.backgroundColor = '#FF0000';
-          this.buttonRightSolution.style.backgroundColor = '#01DF01';
-          await this.delay(500);
-          this.buttonRightSolution.style.backgroundColor = '#0d87cf';
-          await this.delay(500);
-          this.buttonRightSolution.style.backgroundColor = '#01DF01';
-          await this.delay(500);
-          this.buttonRightSolution.style.backgroundColor = '#0d87cf';
-          await this.delay(500);
-          this.buttonRightSolution.style.backgroundColor = '#01DF01';
-          await this.delay(500);
-          this.buttonRightSolution.style.backgroundColor = '#0d87cf';
-          this.button.style.backgroundColor = '#0d87cf';
-          this.changeDisableStatus(false);
-        }
-      } else {
-        this.verbrauchteGesamtZeit += 1600;
-        this.buttonRightSolution = this.getButton(Number(this.frage.SolutionNumber));
-        this.changeDisableStatus(true);
-        this.buttonRightSolution.style.backgroundColor = '#01DF01';
-        await this.delay(500);
-        this.buttonRightSolution.style.backgroundColor = '#0d87cf';
-        await this.delay(500);
-        this.buttonRightSolution.style.backgroundColor = '#01DF01';
-        await this.delay(500);
-        this.buttonRightSolution.style.backgroundColor = '#0d87cf';
-        await this.delay(500);
-        this.buttonRightSolution.style.backgroundColor = '#01DF01';
-        await this.delay(500);
-        this.buttonRightSolution.style.backgroundColor = '#0d87cf';
-        this.changeDisableStatus(false);
-      }
-
-
-      switch (sessionStorage.getItem('gamemode')) {
-        case 'survival':
-          if (buttonNumber !== Number(this.frage.SolutionNumber)) {
-            this.survivalQuiz.reduceLives();
-            if (this.survivalQuiz.isFinished()) {
-              this.showResultSurvival();
-            }
-          }
-          this.frage = this.survivalQuiz.getQuestion();
-          break;
-        case 'xquiz':
-          if (this.xquiz.isFinished()) {
-            this.showResultXquiz();
-          }
-          this.frage = this.xquiz.getQuestion();
-          break;
-      }
-      this.specialJoker.setAnswer(this.frage.SolutionNumber);
-      this.timeLeft = 1600;
-      this.spielLauft = true;
-      this.timer();
-      this.buttonA.style.backgroundColor = '#0d87cf';
-      this.buttonB.style.backgroundColor = '#0d87cf';
-      this.buttonC.style.backgroundColor = '#0d87cf';
-      this.buttonD.style.backgroundColor = '#0d87cf';
-    } else {
-      if (!this.specialJoker.deleteAnswers(buttonNumber)) {
-        this.survivalQuiz.reduceLives();
-        if (this.survivalQuiz.isFinished()) {
-          this.showResultSurvival();
-        }
-        this.spielLauft = false;
-        this.verbrauchteGesamtZeit += 1600;
-        this.specialJoker.reduceUseges();
-        this.disableSpecialJoker();
-        this.changeDisableStatus(true);
-        await this.delay(1500);
-        this.timeLeft = 1600;
-        this.spielLauft = true;
-        this.timer();
-        this.setButtonColors('#0d87cf');
-        this.frage = this.survivalQuiz.getQuestion(); ///<------------------------------ survival Quiz
-        this.specialJoker.setAnswer(this.frage.SolutionNumber);
-        this.fiftyFiftyDisabled = false;
-        this.changeDisableStatus(false);
-      } else if (this.specialJoker.getGuessesLeft() === 0) {
-        this.spielLauft = false;
-        this.specialJoker.reduceUseges();
-        this.disableSpecialJoker();
-        this.richtigeAntworten++;
-        this.specialJoker.setAnswerButtonColor();
-        this.specialJoker.setStatus(false);
-        this.changeDisableStatus(true);
-        this.verbrauchteGesamtZeit += 1600 - this.timeLeft;
-        await this.delay(1500);
-        this.timeLeft = 1600;
-        this.spielLauft = true;
-        this.timer();
-        this.frage = this.survivalQuiz.getQuestion(); ///<------------------------------ survival Quiz
-        this.specialJoker.setAnswer(this.frage.SolutionNumber);
-        this.setButtonColors('#0d87cf');
-        this.fiftyFiftyDisabled = false;
-        this.changeDisableStatus(false);
-      }
-    }
+    this.avatarLinkString = './assets/' + sessionStorage.getItem('link'); // fuer den Avatar
   }
 
-  disableSpecialJoker() {
-    if (!this.specialJoker.isJokerLeft()) {
-      this.deactivateSpecialJoker = true;
-    }
-  }
-
-  disableFiftyFiftyJoker() {
-    if (!this.fiftyJoker.isJokerLeft()) {
-      this.deactivateFiftyFiftyJoker = true;
-    }
-  }
-
-  setButtonColors(color: string) {
-    this.buttonA.style.backgroundColor = color;
-    this.buttonB.style.backgroundColor = color;
-    this.buttonC.style.backgroundColor = color;
-    this.buttonD.style.backgroundColor = color;
-  }
-
-  showResultSurvival() {
-    sessionStorage.setItem('rightAnswers', this.richtigeAntworten.toString());
-    sessionStorage.setItem('numberOfQuestions', this.numberOfQuestionsSurvival.toString());
-    sessionStorage.setItem('points', this.calcPoints().toString());
-    this.forceFullLeave = false;
-    this.link('result');
-  }
-  showResultXquiz() {
-    this.numberOfQuestions = this.xquiz.anzahlFragen;
-    sessionStorage.setItem('rightAnswers', this.richtigeAntworten.toString());
-    sessionStorage.setItem('numberOfQuestions', this.numberOfQuestions.toString());
-    sessionStorage.setItem('points', this.calcPoints().toString());
-    this.forceFullLeave = false;
-    this.link('result');
-  }
-  calcPoints(): number {
+  public async nextQuestion(selectedButtonNumber: number) {
+    let finished = false;
     switch (sessionStorage.getItem('gamemode')) {
-      case 'xquiz'   : return this.xquiz.calculatePoints(this.richtigeAntworten, this.verbrauchteGesamtZeit);
-      case 'survival': return this.survivalQuiz.calculatePoints(this.richtigeAntworten, this.verbrauchteGesamtZeit,
-                                                                this.jokersUsed);
+      case 'xquiz':
+        await this.xquiz.selectedAnswer(selectedButtonNumber);
+        this.frage = this.xquiz.nextQuestion();
+        break;
+      case 'survival':
+        await this.survivalQuiz.selectedAnswer(selectedButtonNumber);
+        this.frage = this.survivalQuiz.nextQuestion();
+        break;
+      case 'time':
+        await this.timequiz.selectedAnswer(selectedButtonNumber);
+        this.frage = this.timequiz.nextQuestion();
+        break;
     }
-  }
-  /**
-   1: 50/50 Joker
-   2: anderer Joker
-   */
-  activateJoker(joker: number) {
-    let wrongAnswers: number[];
-    switch (joker) {
-      case 1 :  if (this.fiftyJoker.isJokerLeft()) {
-                  this.jokersUsed++;
-                  this.specialJokerDisabled = true;
-                  wrongAnswers = this.fiftyJoker.deleteAnswers(this.frage.SolutionNumber);
-                  if (wrongAnswers[0] === 0 || wrongAnswers[1] === 0) {
-                    this.buttonA.style.backgroundColor = '#c0c1c4';
-                    this.buttonA.disabled = true;
-                  }
-                  if (wrongAnswers[0] === 1 || wrongAnswers[1] === 1) {
-                    this.buttonB.style.backgroundColor = '#c0c1c4';
-                    this.buttonB.disabled = true;
-                  }
-                  if (wrongAnswers[0] === 2 || wrongAnswers[1] === 2) {
-                    this.buttonC.style.backgroundColor = '#c0c1c4';
-                    this.buttonC.disabled = true;
-                  }
-                  if (wrongAnswers[0] === 3 || wrongAnswers[1] === 3) {
-                    this.buttonD.style.backgroundColor = '#c0c1c4';
-                    this.buttonD.disabled = true;
-                  }
-                  this.disableFiftyFiftyJoker();
-                }
-                break;
-      case 2 :  if (this.specialJoker.isJokerLeft()) {
-                  this.jokersUsed++;
-                  this.fiftyFiftyDisabled = true;
-                  this.specialJoker.setStatus(true);
-                }
+    this.gameFinished.subscribe((data) => {
+      finished = data;
+    });
+    if (finished) {
+      this.frage = null;
+      this.showResult();
     }
   }
 
-  async timer() {
-    const timerDiv = (<HTMLDivElement> document.getElementById('timer-status-bar'));
-    this.timeLeft = 1600;
-    while (this.spielLauft) {
-      await this.delay(10);
-      timerDiv.style.width = String((this.timeLeft * 0.0625)) + '%';
-      this.timeLeft--;
-      if (this.timeLeft === 0) {
-        console.log('fertig');
-        this.nextQuestion(-1);
-      }
+  public activateJoker(selectedjoker: number) {
+    console.log('pressed');
+    switch (sessionStorage.getItem('gamemode')) {
+      case 'survival': this.survivalQuiz.activateJoker(selectedjoker);
+                       break;
     }
   }
 
-  delay(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+  private showResult() {
+    switch (sessionStorage.getItem('gamemode')) {
+      case 'xquiz':    sessionStorage.setItem('rightAnswers', this.xquiz.getNumberOfRightAnswers().toString());
+                       sessionStorage.setItem('numberOfQuestions', sessionStorage.getItem('anzahlFragen'));
+                       break;
+      case 'survival': sessionStorage.setItem('rightAnswers', this.survivalQuiz.getNumberOfRightAnswers().toString());
+                       break;
+      case 'time':     sessionStorage.setItem('numberOfQuestions', this.timequiz.getNumberAnsweredQuestions().toString());
+                       sessionStorage.setItem('rightAnswers', this.timequiz.getNumberOfRightAnswers().toString());
+                       break;
+    }
+
+    sessionStorage.setItem('points', this.calcPoints().toString());
+    this.forceFullLeave = false;
+    this.link('result');
   }
 
-  getButton(buttonNumber: number) {
-    if (buttonNumber === 0) {
-      return this.buttonA;
-    }
-    if (buttonNumber === 1) {
-      return this.buttonB;
-    }
-    if (buttonNumber === 2) {
-      return this.buttonC;
-    }
-    if (buttonNumber === 3) {
-      return this.buttonD;
+  private calcPoints(): number {
+    switch (sessionStorage.getItem('gamemode')) {
+      case 'xquiz'   : return this.xquiz.calculatePoints();
+      case 'survival': return this.survivalQuiz.calculatePoints(1, 1, 1);
+      case 'time'    : return this.timequiz.calculatePoints();
     }
   }
 
-  changeDisableStatus(disabled: boolean) {
-    this.buttonA.disabled = disabled;
-    this.buttonB.disabled = disabled;
-    this.buttonC.disabled = disabled;
-    this.buttonD.disabled = disabled;
-  }
-
-  link(linkToGo: string) {
+  public link(linkToGo: string) {
     window.location.href = linkToGo;
   }
 }
+
 interface Frage {
   Verbalization: string;
   Option0: string;

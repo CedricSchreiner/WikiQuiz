@@ -3,14 +3,12 @@ import { RestService } from '../service/rest.service';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class XQuizService {
-
+export class TimeQuizService {
   private buttonA: HTMLButtonElement;
   private buttonB: HTMLButtonElement;
   private buttonC: HTMLButtonElement;
   private buttonD: HTMLButtonElement;
   private button: HTMLButtonElement; /*Only Used when time is up*/
-
   private timerdiv: HTMLDivElement;
   private wrongAnswerColor = '#FF0000';
   private rightAnswerColor = '#01DF01';
@@ -23,21 +21,16 @@ export class XQuizService {
   private answeredQuestions: number;
   private rightAnswers: number;
   private spentTime: number;
-  private timeLeft: number;
 
   /*Variables for Settings*/
-
   private blinkingTimes: number; /*default 3 times*/
-  private numberOfQuestions: number;
   private arrayFragenPointer: number;
   private numberOfQuestionsToLoad: number; /*default 5*/
   private blinkIntervall: number; /*default 500ms*/
-  private timeInMs: number; /*default 1600ms*/
-  private jokerSupport: boolean; /*default false (Not supported in this gamemode)*/
+  private timeInMs: number; /*default 30000ms (5min)*/
+  private jokerSupport: boolean; /*default true*/
 
-  /*------------------------------------------------------------------------------------------------------------------*/
-  /*Public Section*/
-  constructor(public restService: RestService) {
+  constructor(private restService: RestService) {
   }
 
   /**
@@ -49,13 +42,12 @@ export class XQuizService {
    * @param {HTMLButtonElement} buttonC
    * @param {HTMLButtonElement} buttonD
    * @param {HTMLButtonElement} button
-   * @param {number} anzahlFragen
    * @param {HTMLDivElement} timer
    * @returns {Promise<Observable<boolean>>}
    */
-
   public async initializeGame(buttonA: HTMLButtonElement, buttonB: HTMLButtonElement, buttonC: HTMLButtonElement,
-                 buttonD: HTMLButtonElement, button: HTMLButtonElement, anzahlFragen: number, timer: HTMLDivElement) {
+                              buttonD: HTMLButtonElement, button: HTMLButtonElement, timer: HTMLDivElement) {
+    /*initialize important variables*/
     this.buttonA = buttonA;
     this.buttonB = buttonB;
     this.buttonC = buttonC;
@@ -63,17 +55,16 @@ export class XQuizService {
     this.button = button;
     this.timerdiv = timer;
     this.blinkingTimes = 3;
-    this.numberOfQuestions = anzahlFragen;
     this.arrayFragenPointer = -1;
     this.numberOfQuestionsToLoad = 5;
     this.blinkIntervall = 500;
     this.running = false;
-    this.timeInMs = 1600;
+    this.timeInMs = 3000;
     this.gameFinished = false;
     this.answeredQuestions = 0;
     this.rightAnswers = 0;
     this.spentTime = 0;
-    this.jokerSupport = false;
+    this.jokerSupport = true;
 
     /*initialize questionarray*/
     await this.loadQuestions().then(res => this.questionArray = res);
@@ -85,10 +76,7 @@ export class XQuizService {
     return this.gameFinishedObserver;
   }
 
-  /**
-   * Startet das Spiel und gibt die erste Frage zurueck.
-   * @returns {Promise<Frage>} erste Frage aus dem Antwortenarray
-   */
+
   public async startQuiz() {
     this.running = true;
     this.timer().then();
@@ -102,9 +90,6 @@ export class XQuizService {
    */
   public async selectedAnswer(selectedButtonNumber: number) {
     this.answeredQuestions++;
-    if (this.answeredQuestions === this.numberOfQuestions) {
-      this.gameFinished = true;
-    }
     this.running = false;
     if (Number(this.questionArray[this.arrayFragenPointer].SolutionNumber) !== selectedButtonNumber) {
       await this.wrongAnswer(selectedButtonNumber);
@@ -113,10 +98,16 @@ export class XQuizService {
     }
     this.running = true;
     this.timer().then();
-
-    console.log('Richtige Antworten: ' + this.rightAnswers);
-    console.log('Verbrauchte Zeit: ' + this.spentTime);
   }
+
+  /*
+  public activateJoker(joker: number) {
+    switch (joker) {
+      case 1: this.fJoker.deleteAnswers(Number(this.questionArray[this.arrayFragenPointer].SolutionNumber), this.buttonA,
+        this.buttonB, this.buttonC, this.buttonD);
+    }
+  }
+  */
 
   /**
    * Gibt die naechte Frage im Array zurueck
@@ -136,12 +127,8 @@ export class XQuizService {
    * Wird am Ende des Spiel aufgerufen. Berechnet die Punkte die der Spieler erreicht hat.
    * @returns {number}
    */
-  calculatePoints(): number {
-    const questionPoints = 3250 / this.numberOfQuestions * (this.numberOfQuestions - this.rightAnswers);
-    console.log(questionPoints);
-    const timePoints = 1750 / 1600 / this.numberOfQuestions;
-    console.log(timePoints);
-    return Math.round(5000 - questionPoints - timePoints * this.spentTime);
+  public calculatePoints(): number {
+    return 1000;
   }
 
   /*Private Section*/
@@ -149,7 +136,6 @@ export class XQuizService {
    * Laedt eine bestimme Anzahl an neuen Fragen fuer das Spiel.
    * @returns {Promise<Array<Frage>>}
    */
-
   private async loadQuestions() {
     let errorLoadingQuestions: boolean;
     let returnArray: Array<Frage>;
@@ -157,8 +143,8 @@ export class XQuizService {
       errorLoadingQuestions = false;
       returnArray = await this.restService.getQuestionsBeta(this.numberOfQuestionsToLoad, 1)
         .then().catch(() => {
-        errorLoadingQuestions = true;
-      });
+          errorLoadingQuestions = true;
+        });
     } while (errorLoadingQuestions);
     return returnArray;
   }
@@ -167,17 +153,25 @@ export class XQuizService {
    * Wenn der User eine richtige Antwort ausgewaehlt hat, werden die Buttons entsprechend gefaerbt.
    * @returns {Promise<void>}
    */
-
   private async rightAnswer() {
-    this.buttonStatus(false);
-    this.addTime(true);
     this.rightAnswers++;
+    this.buttonStatus(false);
     this.setButtonColor(Number(this.questionArray[this.arrayFragenPointer].SolutionNumber), this.rightAnswerColor);
     await this.delay(this.blinkIntervall * 2 * (this.blinkingTimes - 1));
     this.setButtonColor(Number(this.questionArray[this.arrayFragenPointer].SolutionNumber), this.defaultButtonColor);
     this.buttonStatus(true);
   }
 
+  /*
+  /**
+   * De/A-ktiviert die Joker
+   */
+  /*
+  private setJokerStatus(activate: boolean) {
+    if (activate) {
+    }
+  }
+  */
   /**
    * Aktiviert/Deaktiert die Buttons.
    * @param {boolean} active
@@ -196,7 +190,7 @@ export class XQuizService {
    */
   private async wrongAnswer(selectedButton: number) {
     this.buttonStatus(false);
-    this.addTime(false);
+    this.timeInMs -= 1000;
     this.setButtonColor(selectedButton, this.wrongAnswerColor);
     for (let i = 0; i < this.blinkingTimes; i++) {
       this.setButtonColor(Number(this.questionArray[this.arrayFragenPointer].SolutionNumber), this.rightAnswerColor);
@@ -226,17 +220,6 @@ export class XQuizService {
     }
   }
 
-  /**
-   * Addiert die verbrauchte Zeit auf die bereits verbrauchte Zeit.
-   * @param {boolean} questionRight
-   */
-  private addTime(questionRight: boolean) {
-    if (questionRight) {
-      this.spentTime += this.timeInMs - this.timeLeft;
-    } else {
-      this.spentTime += 1600;
-    }
-  }
   private delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
@@ -246,15 +229,16 @@ export class XQuizService {
    * @returns {Promise<void>}
    */
   private async timer() {
-    this.timeLeft = this.timeInMs;
     while (this.running === true) {
-      await this.delay(10).then();
-      this.timerdiv.style.width = String((this.timeLeft * 0.0625)) + '%';
-      this.timeLeft--;
-      if (this.timeLeft === 0) {
+      await this.delay(100).then();
+      this.timerdiv.style.width = String((this.timeInMs * 0.03333)) + '%';
+      this.timeInMs--;
+      if (this.timeInMs <= 0) {
         this.running = false;
+        this.gameFinished = true;
         this.button.click();
       }
+      console.log(this.timeInMs);
     }
   }
 
@@ -285,6 +269,9 @@ export class XQuizService {
   }
 
   /*Getter*/
+  public getNumberAnsweredQuestions(): number {
+    return this.answeredQuestions;
+  }
 
   public getNumberOfRightAnswers(): number {
     return this.rightAnswers;
