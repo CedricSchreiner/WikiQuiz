@@ -3,6 +3,7 @@ import { SurvivalQuizService } from './survivalquiz';
 import { XQuizService } from './xquiz';
 import { FiftyFiftyJokerService} from './fifty_fifty_joker';
 import { SpecialJokerService } from './spezial_joker';
+import {Observable} from "rxjs/Observable";
 
 
 @Component({
@@ -27,8 +28,7 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
   public deactivateSpecialJoker = false;
   public deactivateFiftyFiftyJoker = false;
   private forceFullLeave = true;
-
-
+  private gameFinished: Observable<boolean>;
 
 
   constructor(private survivalQuiz: SurvivalQuizService, private xquiz: XQuizService,
@@ -54,7 +54,7 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
 
     switch (sessionStorage.getItem('gamemode')) {
       case 'xquiz': await this.xquiz.initializeGame(buttonA, buttonB, buttonC, buttonD, Number(sessionStorage.getItem('anzahlFragen')),
-                                                    timerDiv);
+                                                    timerDiv).then( res => this.gameFinished = res);
                     this.xquiz.startQuiz().then(res => this.frage = res);
     }
   }
