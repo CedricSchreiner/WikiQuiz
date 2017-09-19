@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RestService } from '../service/rest.service';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
+import { FiftyFiftyJokerService } from './fifty_fifty_joker';
 
 @Injectable()
 export class SurvivalQuizService {
@@ -30,10 +31,23 @@ export class SurvivalQuizService {
   private blinkIntervall: number; /*default 500ms*/
   private timeInMs: number; /*default 1600ms*/
   private lives: number; /*default 3*/
+  private jokerSupport: boolean; /*default true*/
 
-  constructor(public restService: RestService) {
+  constructor(private restService: RestService, private fJoker: FiftyFiftyJokerService) {
   }
 
+  /**
+   * Setzt alle Parameter die im Spielmodus gebraucht werden. Als Parameter erhaelt die Funktion alle noetigen
+   * HTML Komponenten.
+   * Beim initialisieren wird auch zum ersten mal die Tabelle der Fragen geladen.
+   * @param {HTMLButtonElement} buttonA
+   * @param {HTMLButtonElement} buttonB
+   * @param {HTMLButtonElement} buttonC
+   * @param {HTMLButtonElement} buttonD
+   * @param {HTMLButtonElement} button
+   * @param {HTMLDivElement} timer
+   * @returns {Promise<Observable<boolean>>}
+   */
   public async initializeGame(buttonA: HTMLButtonElement, buttonB: HTMLButtonElement, buttonC: HTMLButtonElement,
                               buttonD: HTMLButtonElement, button: HTMLButtonElement, timer: HTMLDivElement) {
     /*initialize important variables*/
@@ -54,6 +68,7 @@ export class SurvivalQuizService {
     this.rightAnswers = 0;
     this.spentTime = 0;
     this.lives = 3;
+    this.jokerSupport = true;
 
     /*initialize questionarray*/
     await this.loadQuestions().then(res => this.questionArray = res);
@@ -93,6 +108,13 @@ export class SurvivalQuizService {
     this.timer().then();
   }
 
+  public activateJoker(joker: number) {
+    switch (joker) {
+      case 1: this.fJoker.deleteAnswers(Number(this.questionArray[this.arrayFragenPointer].SolutionNumber), this.buttonA,
+        this.buttonB, this.buttonC, this.buttonD);
+    }
+  }
+
   /**
    * Gibt die naechte Frage im Array zurueck
    * @returns {Frage}
@@ -107,6 +129,10 @@ export class SurvivalQuizService {
     return this.questionArray[this.arrayFragenPointer];
   }
 
+  /**
+   * Wird am Ende des Spiel aufgerufen. Berechnet die Punkte die der Spieler erreicht hat.
+   * @returns {number}
+   */
   public calculatePoints(anzahlrichtigeAntworten: number, verbrauchteZeit: number, anzahlerBenutzerJoker: number): number {
     const jokerPoints = anzahlerBenutzerJoker * 100;
     const zeitPunkte = ((1600 * (anzahlrichtigeAntworten + 3)) - verbrauchteZeit) * 0.0625;
@@ -146,6 +172,13 @@ export class SurvivalQuizService {
     this.buttonStatus(true);
   }
 
+  /**
+   * De/A-ktiviert die Joker
+   */
+  private setJokerStatus(activate: boolean) {
+    if (activate) {
+    }
+  }
   /**
    * Aktiviert/Deaktiert die Buttons.
    * @param {boolean} active
@@ -262,6 +295,10 @@ export class SurvivalQuizService {
 
   public getNumberOfRightAnswers(): number {
     return this.rightAnswers;
+  }
+
+  public supportJoker(): boolean {
+    return this.jokerSupport;
   }
 }
 
