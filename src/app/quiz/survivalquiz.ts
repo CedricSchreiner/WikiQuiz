@@ -73,7 +73,7 @@ export class SurvivalQuizService {
     const jokerPoints = anzahlerBenutzerJoker * 100;
     const zeitPunkte = ((1600 * (anzahlrichtigeAntworten + 3)) - verbrauchteZeit) * 0.0625;
     const antwortenPunkte = anzahlrichtigeAntworten * 150;
-    return zeitPunkte + antwortenPunkte - jokerPoints;
+    return Math.round(zeitPunkte + antwortenPunkte - jokerPoints);
   }
 
   loadQuestionTable1() {
