@@ -18,6 +18,7 @@ export class XQuizService {
   private defaultButtonColor = '#0d87cf';
   private fragenArray: Frage[];
   private tmpFragenArray: Frage[];
+  private running: boolean;
 
   /*Variables for Settings*/
   private blinkingTimes: number; /*default 3 times*/
@@ -25,6 +26,7 @@ export class XQuizService {
   private arrayFragenPointer: number;
   private numberOfQuestionsToLoad: number; /*default 5*/
   private blinkIntervall: number; /*default 500ms*/
+  private timeInMs: number; /*default 1600ms*/
 
   /*------------------------------------------------------------------------------------------------------------------*/
   /*Public Section*/
@@ -44,12 +46,17 @@ export class XQuizService {
     this.arrayFragenPointer = 0;
     this.numberOfQuestionsToLoad = 5;
     this.blinkIntervall = 500;
+    this.running = false;
+    this.timeInMs = 1600;
 
     /*initialize questionarray*/
-    await this.updateTable().then();
+    await this.updateTableBeta().then();
   }
 
-  public startQuiz(): Frage {
+  public async startQuiz() {
+    this.running = true;
+    await this.updateTableBeta().then();
+    console.log('start');
     return this.nextQuestion();
   }
 
@@ -84,21 +91,37 @@ export class XQuizService {
     this.tableFilled = false;
     while (!this.tableFilled) {
       if (!tableInitialStart || (tableInitialStart && this.tableLoadFailure))  {
-        await this.loadQuestionTable1();
+        this.fragenArray = await this.loadQuestionTable1();
         tableInitialStart = true;
       }
       await this.delay(100);
     }
   }
 
+  private async updateTableBeta() {
+    ///let tableInitialStart = false;
+    this.tableFilled = false;
+
+    await this.test().then(res => this.fragenArray = res);
+  }
+
   private async loadQuestionTable1() {
+    let returnArray: Array<Frage>;
     this.tableLoadFailure = false;
-    this.restService.getQuestions(this.numberOfQuestionsToLoad, 1).subscribe((fragen) => {
-      this.fragenArray = fragen;
+
+    await this.restService.getQuestions(this.numberOfQuestionsToLoad, 1).subscribe((fragen) => {
       this.tableFilled = true;
+      return returnArray = fragen;
     }, () => {
       this.tableLoadFailure = true;
     });
+    return returnArray;
+  }
+
+  private async test() {
+    let returnArray: Array<Frage>;
+    returnArray = await this.restService.getQuestionsBeta(this.numberOfQuestionsToLoad, 1);
+    return returnArray;
   }
 
   private async rightAnswer() {
@@ -131,8 +154,10 @@ export class XQuizService {
     }
   }
 
-  private time() {
-
+  private async timer() {
+    while (this.running) {
+      ///this.timerdiv.style.width = String((this.timeLeft * 0.0625)) + '%';
+    }
   }
 
   /*Setting functions*/
@@ -155,6 +180,10 @@ export class XQuizService {
 
   public setBlinkIntervall(intervall: number) {
     this.blinkIntervall = intervall;
+  }
+
+  public setTime(time: number) {
+    this.timeInMs = time;
   }
 }
 

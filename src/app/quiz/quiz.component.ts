@@ -55,7 +55,7 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
     switch (sessionStorage.getItem('gamemode')) {
       case 'xquiz': await this.xquiz.initializeGame(buttonA, buttonB, buttonC, buttonD, Number(sessionStorage.getItem('anzahlFragen')),
                                                     timerDiv);
-                    this.frage = this.xquiz.startQuiz();
+                    this.xquiz.startQuiz().then(res => this.frage = res);
     }
   }
 
