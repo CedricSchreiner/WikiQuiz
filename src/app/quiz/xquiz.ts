@@ -1,43 +1,17 @@
 import { Injectable } from '@angular/core';
 import { RestService } from '../service/rest.service';
 import { Observable } from 'rxjs/Observable';
+import { QuizService} from './quizegame';
 
 @Injectable()
-export class XQuizService {
-
-  private buttonA: HTMLButtonElement;
-  private buttonB: HTMLButtonElement;
-  private buttonC: HTMLButtonElement;
-  private buttonD: HTMLButtonElement;
-  private button: HTMLButtonElement; /*Only Used when time is up*/
-
-  private timerdiv: HTMLDivElement;
-  private wrongAnswerColor = '#FF0000';
-  private rightAnswerColor = '#01DF01';
-  private defaultButtonColor = '#0d87cf';
-  private questionArray: Frage[];
-  private tmpQuestionArray: Frage[];
-  private running: boolean;
-  private gameFinishedObserver: Observable<boolean>;
-  private gameFinished: boolean;
-  private answeredQuestions: number;
-  private rightAnswers: number;
-  private spentTime: number;
-  private timeLeft: number;
-
-  /*Variables for Settings*/
-
-  private blinkingTimes: number; /*default 3 times*/
+export class XQuizService extends QuizService {
   private numberOfQuestions: number;
-  private arrayFragenPointer: number;
-  private numberOfQuestionsToLoad: number; /*default 5*/
-  private blinkIntervall: number; /*default 500ms*/
-  private timeInMs: number; /*default 1600ms*/
-  private jokerSupport: boolean; /*default false (Not supported in this gamemode)*/
-
+  private spentTime: number;
+  private answeredQuestions: number;
   /*------------------------------------------------------------------------------------------------------------------*/
   /*Public Section*/
   constructor(public restService: RestService) {
+    super(restService);
   }
 
   /**
@@ -53,36 +27,12 @@ export class XQuizService {
    * @param {HTMLDivElement} timer
    * @returns {Promise<Observable<boolean>>}
    */
-
   public async initializeGame(buttonA: HTMLButtonElement, buttonB: HTMLButtonElement, buttonC: HTMLButtonElement,
                  buttonD: HTMLButtonElement, button: HTMLButtonElement, anzahlFragen: number, timer: HTMLDivElement) {
-    this.buttonA = buttonA;
-    this.buttonB = buttonB;
-    this.buttonC = buttonC;
-    this.buttonD = buttonD;
-    this.button = button;
-    this.timerdiv = timer;
-    this.blinkingTimes = 3;
     this.numberOfQuestions = anzahlFragen;
-    this.arrayFragenPointer = -1;
-    this.numberOfQuestionsToLoad = 5;
-    this.blinkIntervall = 500;
-    this.running = false;
-    this.timeInMs = 1600;
-    this.gameFinished = false;
-    this.answeredQuestions = 0;
-    this.rightAnswers = 0;
     this.spentTime = 0;
-    this.jokerSupport = false;
-
-    /*initialize questionarray*/
-    await this.loadQuestions().then(res => this.questionArray = res);
-    console.log(this.questionArray); /*<--REMOVE*/
-    this.loadQuestions().then(res => this.tmpQuestionArray = res);
-    this.gameFinishedObserver = Observable.create((observer) => {
-      observer.next(this.gameFinished);
-    });
-    return this.gameFinishedObserver;
+    this.answeredQuestions = 0;
+    return await super.initialize(buttonA, buttonB, buttonC, buttonD, button, timer).then();
   }
 
   /**
@@ -90,9 +40,7 @@ export class XQuizService {
    * @returns {Promise<Frage>} erste Frage aus dem Antwortenarray
    */
   public async startQuiz() {
-    this.running = true;
-    this.timer().then();
-    return this.nextQuestion();
+    return super.startQuiz();
   }
 
   /**
@@ -113,30 +61,14 @@ export class XQuizService {
     }
     this.running = true;
     this.timer().then();
-
-    console.log('Richtige Antworten: ' + this.rightAnswers);
-    console.log('Verbrauchte Zeit: ' + this.spentTime);
-  }
-
-  /**
-   * Gibt die naechte Frage im Array zurueck
-   * @returns {Frage}
-   */
-  public nextQuestion(): Frage {
-    this.arrayFragenPointer++;
-    if (this.arrayFragenPointer === this.numberOfQuestionsToLoad - 1) {
-      this.questionArray = this.tmpQuestionArray;
-      this.loadQuestions().then(res => this.tmpQuestionArray = res);
-      this.arrayFragenPointer = 0;
-    }
-    return this.questionArray[this.arrayFragenPointer];
+    return this.nextQuestion();
   }
 
   /**
    * Wird am Ende des Spiel aufgerufen. Berechnet die Punkte die der Spieler erreicht hat.
    * @returns {number}
    */
-  calculatePoints(): number {
+  public calculatePoints(): number {
     const questionPoints = 3250 / this.numberOfQuestions * (this.numberOfQuestions - this.rightAnswers);
     console.log(questionPoints);
     const timePoints = 1750 / 1600 / this.numberOfQuestions;
@@ -145,48 +77,14 @@ export class XQuizService {
   }
 
   /*Private Section*/
-  /**
-   * Laedt eine bestimme Anzahl an neuen Fragen fuer das Spiel.
-   * @returns {Promise<Array<Frage>>}
-   */
-
-  private async loadQuestions() {
-    let errorLoadingQuestions: boolean;
-    let returnArray: Array<Frage>;
-    do {
-      errorLoadingQuestions = false;
-      returnArray = await this.restService.getQuestionsBeta(this.numberOfQuestionsToLoad, 1)
-        .then().catch(() => {
-        errorLoadingQuestions = true;
-      });
-    } while (errorLoadingQuestions);
-    return returnArray;
-  }
 
   /**
    * Wenn der User eine richtige Antwort ausgewaehlt hat, werden die Buttons entsprechend gefaerbt.
    * @returns {Promise<void>}
    */
-
-  private async rightAnswer() {
-    this.buttonStatus(false);
+  protected async rightAnswer() {
     this.addTime(true);
-    this.rightAnswers++;
-    this.setButtonColor(Number(this.questionArray[this.arrayFragenPointer].SolutionNumber), this.rightAnswerColor);
-    await this.delay(this.blinkIntervall * 2 * (this.blinkingTimes - 1));
-    this.setButtonColor(Number(this.questionArray[this.arrayFragenPointer].SolutionNumber), this.defaultButtonColor);
-    this.buttonStatus(true);
-  }
-
-  /**
-   * Aktiviert/Deaktiert die Buttons.
-   * @param {boolean} active
-   */
-  private buttonStatus(active: boolean) {
-    this.buttonA.disabled = !active;
-    this.buttonB.disabled = !active;
-    this.buttonC.disabled = !active;
-    this.buttonD.disabled = !active;
+    await super.rightAnswer().then();
   }
 
   /**
@@ -194,36 +92,9 @@ export class XQuizService {
    * @param {number} selectedButton
    * @returns {Promise<void>}
    */
-  private async wrongAnswer(selectedButton: number) {
-    this.buttonStatus(false);
+  protected async wrongAnswer(selectedButton: number) {
     this.addTime(false);
-    this.setButtonColor(selectedButton, this.wrongAnswerColor);
-    for (let i = 0; i < this.blinkingTimes; i++) {
-      this.setButtonColor(Number(this.questionArray[this.arrayFragenPointer].SolutionNumber), this.rightAnswerColor);
-      await this.delay(this.blinkIntervall);
-      this.setButtonColor(Number(this.questionArray[this.arrayFragenPointer].SolutionNumber), this.defaultButtonColor);
-      await this.delay(this.blinkIntervall);
-    }
-    this.setButtonColor(selectedButton, this.defaultButtonColor);
-    this.buttonStatus(true);
-  }
-
-  /**
-   * Kann einen einzelnen Button in einer gewuenschten Farbe darstellen.
-   * @param {number} selectedButton
-   * @param {string} color
-   */
-  private setButtonColor(selectedButton: number, color: string) {
-    switch (selectedButton) {
-      case 0: this.buttonA.style.backgroundColor = color;
-        break;
-      case 1: this.buttonB.style.backgroundColor = color;
-        break;
-      case 2: this.buttonC.style.backgroundColor = color;
-        break;
-      case 3: this.buttonD.style.backgroundColor = color;
-        break;
-    }
+    await super.wrongAnswer(selectedButton).then();
   }
 
   /**
@@ -237,52 +108,6 @@ export class XQuizService {
       this.spentTime += 1600;
     }
   }
-  private delay(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
-  /**
-   * Timer der bestimmt wie lange der Spieler Zeit hat eine Frage zu beantworten.
-   * @returns {Promise<void>}
-   */
-  private async timer() {
-    this.timeLeft = this.timeInMs;
-    while (this.running === true) {
-      await this.delay(10).then();
-      this.timerdiv.style.width = String((this.timeLeft * 0.0625)) + '%';
-      this.timeLeft--;
-      if (this.timeLeft === 0) {
-        this.running = false;
-        this.button.click();
-      }
-    }
-  }
-
-  /*Setting functions*/
-
-  public setWrongAnswerColor(color: string) {
-    this.wrongAnswerColor = color;
-  }
-
-  public setRightAnswerColor(color: string) {
-    this.rightAnswerColor = color;
-  }
-
-  public setDefaultButtonColor(color: string) {
-    this.defaultButtonColor = color;
-  }
-
-  public setnumberOfQuestionsToLoad(questionsToLoad: number) {
-    this.numberOfQuestionsToLoad = questionsToLoad;
-  }
-
-  public setBlinkIntervall(intervall: number) {
-    this.blinkIntervall = intervall;
-  }
-
-  public setTime(time: number) {
-    this.timeInMs = time;
-  }
 
   /*Getter*/
 
@@ -293,14 +118,4 @@ export class XQuizService {
   public supportJoker(): boolean {
     return this.jokerSupport;
   }
-}
-
-interface Frage {
-  Verbalization: string;
-  Option0: string;
-  Option1: string;
-  Option2: string;
-  Option3: string;
-  Solution: string;
-  SolutionNumber: number;
 }

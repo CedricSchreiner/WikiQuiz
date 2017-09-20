@@ -98,6 +98,7 @@ export class TimeQuizService {
     }
     this.running = true;
     this.timer().then();
+    return this.nextQuestion();
   }
 
   /*
@@ -110,10 +111,20 @@ export class TimeQuizService {
   */
 
   /**
+   * Wird am Ende des Spiel aufgerufen. Berechnet die Punkte die der Spieler erreicht hat.
+   * @returns {number}
+   */
+  public calculatePoints(): number {
+    return 1000;
+  }
+
+  /*Private Section*/
+
+  /**
    * Gibt die naechte Frage im Array zurueck
    * @returns {Frage}
    */
-  public nextQuestion(): Frage {
+  private nextQuestion(): Frage {
     this.arrayFragenPointer++;
     if (this.arrayFragenPointer === this.numberOfQuestionsToLoad - 1) {
       this.questionArray = this.tmpQuestionArray;
@@ -123,15 +134,6 @@ export class TimeQuizService {
     return this.questionArray[this.arrayFragenPointer];
   }
 
-  /**
-   * Wird am Ende des Spiel aufgerufen. Berechnet die Punkte die der Spieler erreicht hat.
-   * @returns {number}
-   */
-  public calculatePoints(): number {
-    return 1000;
-  }
-
-  /*Private Section*/
   /**
    * Laedt eine bestimme Anzahl an neuen Fragen fuer das Spiel.
    * @returns {Promise<Array<Frage>>}

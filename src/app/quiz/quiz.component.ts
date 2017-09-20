@@ -60,6 +60,7 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
                           timerDiv).then(res => this.gameFinished = res);
                         this.timequiz.startQuiz().then(res => this.frage = res);
                         this.gamemodeForJoker = this.timequiz.supportJoker();
+                        break;
     }
   }
 
@@ -68,28 +69,23 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public async nextQuestion(selectedButtonNumber: number) {
-    let finished = false;
     switch (sessionStorage.getItem('gamemode')) {
       case 'xquiz':
-        await this.xquiz.selectedAnswer(selectedButtonNumber);
-        this.frage = this.xquiz.nextQuestion();
+        await this.xquiz.selectedAnswer(selectedButtonNumber).then(res => this.frage = res);
         break;
       case 'survival':
-        await this.survivalQuiz.selectedAnswer(selectedButtonNumber);
-        this.frage = this.survivalQuiz.nextQuestion();
+        await this.survivalQuiz.selectedAnswer(selectedButtonNumber).then(res => this.frage = res);
         break;
       case 'time':
-        await this.timequiz.selectedAnswer(selectedButtonNumber);
-        this.frage = this.timequiz.nextQuestion();
+        await this.timequiz.selectedAnswer(selectedButtonNumber).then(res => this.frage = res);
         break;
     }
     this.gameFinished.subscribe((data) => {
-      finished = data;
+      if (data) {
+        this.frage = null;
+        this.showResult();
+      }
     });
-    if (finished) {
-      this.frage = null;
-      this.showResult();
-    }
   }
 
   public activateJoker(selectedjoker: number) {
