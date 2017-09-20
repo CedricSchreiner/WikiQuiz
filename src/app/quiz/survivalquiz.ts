@@ -23,6 +23,7 @@ export class SurvivalQuizService {
   private rightAnswers: number;
   private spentTime: number;
   private timeLeft: number;
+  private jokerActive: boolean; /*Indicated if a joker is active*/
 
   /*Variables for Settings*/
   private blinkingTimes: number; /*default 3 times*/
@@ -93,19 +94,23 @@ export class SurvivalQuizService {
    * @returns {Promise<void>}
    */
   public async selectedAnswer(selectedButtonNumber: number) {
-    this.answeredQuestions++;
-    console.log(this.answeredQuestions);
-    this.running = false;
-    if (Number(this.questionArray[this.arrayFragenPointer].SolutionNumber) !== selectedButtonNumber) {
-      await this.wrongAnswer(selectedButtonNumber);
+    if (!this.jokerActive) {
+      this.answeredQuestions++;
+      console.log(this.answeredQuestions);
+      this.running = false;
+      if (Number(this.questionArray[this.arrayFragenPointer].SolutionNumber) !== selectedButtonNumber) {
+        await this.wrongAnswer(selectedButtonNumber);
+      } else {
+        await this.rightAnswer();
+      }
+      if (this.lives === 0) {
+        this.gameFinished = true;
+      }
+      this.running = true;
+      this.timer().then();
     } else {
-      await this.rightAnswer();
+
     }
-    if (this.lives === 0) {
-      this.gameFinished = true;
-    }
-    this.running = true;
-    this.timer().then();
   }
 
   public activateJoker(joker: number) {
@@ -113,6 +118,10 @@ export class SurvivalQuizService {
       case 1: this.fJoker.deleteAnswers(Number(this.questionArray[this.arrayFragenPointer].SolutionNumber), this.buttonA,
         this.buttonB, this.buttonC, this.buttonD);
     }
+  }
+
+  private jokerControl() {
+
   }
 
   /**

@@ -19,10 +19,10 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.createTopTenPlayerXquiz();
-    this.createTopTenOverallTableXquiz();
     this.createTopTenPlayerSurvival();
-    this.createTopTenOverallSurvival();
     this.createTopTenPlayerTimeQuiz();
+    this.createTopTenOverallTableXquiz();
+    this.createTopTenOverallSurvival();
     const personalXquizTab = (<HTMLLinkElement>document.getElementById('personal-xquiz-tab'));
     const personalTimeTab = (<HTMLLinkElement>document.getElementById('personal-time-tab'));
     const personalSurvivalTab = (<HTMLLinkElement>document.getElementById('personal-survival-tab'));
@@ -59,7 +59,6 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
     let cell: HTMLTableCellElement;
     let table: HTMLTableElement;
     table = (<HTMLTableElement>document.getElementById('stats-table-personal-xquiz'));
-    console.log(table);
     this.restService.getTopTenStatisticsPlayer('xquiz').subscribe((stats => {
       this.stats = stats;
       row = table.rows[0];
@@ -82,11 +81,9 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
   createTopTenPlayerSurvival() {
     let row: HTMLTableRowElement;
     let cell: HTMLTableCellElement;
-    const table = (<HTMLTableElement>document.getElementById('stats-table-personal-time'));
+    const table = (<HTMLTableElement>document.getElementById('stats-table-personal-survival'));
     this.restService.getTopTenStatisticsPlayer('survival').subscribe((stats => {
       this.stats = stats;
-
-      console.log(this.stats);
       row = table.rows[0];
       for (let i = 1; i < 11; i++) {
         row = table.rows[i];
@@ -109,7 +106,6 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
     let cell: HTMLTableCellElement;
     let table: HTMLTableElement;
     table = (<HTMLTableElement>document.getElementById('stats-table-personal-time'));
-    console.log(table);
     this.restService.getTopTenStatisticsPlayer('time').subscribe((stats => {
       this.stats = stats;
       row = table.rows[0];
