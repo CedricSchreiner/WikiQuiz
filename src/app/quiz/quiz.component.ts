@@ -1,8 +1,8 @@
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { SurvivalQuizService } from './survivalquiz';
-import { XQuizService } from './xquiz';
+import { SurvivalQuizService } from './quiz_survival';
+import { XQuizService } from './quiz_xquestions';
 import { Observable } from 'rxjs/Observable';
-import { TimeQuizService } from './timequiz';
+import { TimeQuizService } from './quiz_time';
 
 
 @Component({
@@ -15,13 +15,12 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
   public frage: Frage;
   public gamemodeForJoker: boolean;
   public avatarLinkString: string;
-  public verbrauchteGesamtZeit: number;
-  public fiftyFiftyDisabled: boolean;
-  public specialJokerDisabled: boolean;
+  public jokerDisabled = false;
   public deactivateSpecialJoker = false;
   public deactivateFiftyFiftyJoker = false;
   private forceFullLeave = true;
   private gameFinished: Observable<boolean>;
+  private jokerDisabledObserver: Observable<boolean>;
 
 
   constructor(private survivalQuiz: SurvivalQuizService, private xquiz: XQuizService, private timequiz: TimeQuizService) {
@@ -80,6 +79,13 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
         await this.timequiz.selectedAnswer(selectedButtonNumber).then(res => this.frage = res);
         break;
     }
+    if (this.jokerDisabled) {
+      this.jokerDisabledObserver.subscribe((data) => {
+        if (!data) {
+          this.jokerDisabled = false;
+        }
+      });
+    }
     this.gameFinished.subscribe((data) => {
       if (data) {
         this.frage = null;
@@ -91,8 +97,9 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
   public activateJoker(selectedjoker: number) {
     console.log('pressed');
     switch (sessionStorage.getItem('gamemode')) {
-      case 'survival': this.survivalQuiz.activateJoker(selectedjoker);
+      case 'survival': this.jokerDisabledObserver = this.survivalQuiz.joker(selectedjoker);
                        break;
+
     }
   }
 
@@ -101,7 +108,8 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
       case 'xquiz':    sessionStorage.setItem('rightAnswers', this.xquiz.getNumberOfRightAnswers().toString());
                        sessionStorage.setItem('numberOfQuestions', sessionStorage.getItem('anzahlFragen'));
                        break;
-      case 'survival': sessionStorage.setItem('rightAnswers', this.survivalQuiz.getNumberOfRightAnswers().toString());
+      case 'survival': sessionStorage.setItem('numberOfQuestions', String(this.survivalQuiz.getNumberOfRightAnswers() + 3));
+                       sessionStorage.setItem('rightAnswers', this.survivalQuiz.getNumberOfRightAnswers().toString());
                        break;
       case 'time':     sessionStorage.setItem('numberOfQuestions', this.timequiz.getNumberAnsweredQuestions().toString());
                        sessionStorage.setItem('rightAnswers', this.timequiz.getNumberOfRightAnswers().toString());

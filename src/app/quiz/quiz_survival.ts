@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { RestService } from '../service/rest.service';
 import { Observable } from 'rxjs/Observable';
-import { FiftyFiftyJokerService } from './fifty_fifty_joker';
+import { FiftyFiftyJokerService } from './joker_fifty_fifty';
+import { SpecialJokerService} from './joker_special';
 
 @Injectable()
 export class SurvivalQuizService {
@@ -24,6 +25,7 @@ export class SurvivalQuizService {
   private spentTime: number;
   private timeLeft: number;
   private jokerActive: boolean; /*Indicated if a joker is active*/
+  private selectedJoker: number;
 
   /*Variables for Settings*/
   private blinkingTimes: number; /*default 3 times*/
@@ -34,7 +36,7 @@ export class SurvivalQuizService {
   private lives: number; /*default 3*/
   private jokerSupport: boolean; /*default true*/
 
-  constructor(private restService: RestService, private fJoker: FiftyFiftyJokerService) {
+  constructor(private restService: RestService, private fJoker: FiftyFiftyJokerService, private sJoker: SpecialJokerService) {
   }
 
   /**
@@ -70,6 +72,10 @@ export class SurvivalQuizService {
     this.spentTime = 0;
     this.lives = 3;
     this.jokerSupport = true;
+    this.selectedJoker =  0;
+    this.fJoker.setJokerCount(2);
+    this.sJoker.setJokerCount(2);
+    this.sJoker.setButtons(buttonA, buttonB, buttonC, buttonD);
 
     /*initialize questionarray*/
     await this.loadQuestions().then(res => this.questionArray = res);
@@ -96,7 +102,6 @@ export class SurvivalQuizService {
   public async selectedAnswer(selectedButtonNumber: number) {
     if (!this.jokerActive) {
       this.answeredQuestions++;
-      console.log(this.answeredQuestions);
       this.running = false;
       if (Number(this.questionArray[this.arrayFragenPointer].SolutionNumber) !== selectedButtonNumber) {
         await this.wrongAnswer(selectedButtonNumber);
@@ -110,19 +115,68 @@ export class SurvivalQuizService {
       this.timer().then();
       return this.nextQuestion();
     } else {
-
+      this.whenJokerActive(this.selectedJoker, selectedButtonNumber);
+        switch (this.selectedJoker) {
+          case 1: if (!this.jokerActive) {
+                    const frage = await this.selectedAnswer(selectedButtonNumber);
+                    this.fJoker.resetButtons(this.defaultButtonColor);
+                    return frage;
+                  }
+                  break;
+          case 2: if (!this.jokerActive) {
+                    if (this.sJoker.getGuessLeft() === 0) {
+                      const frage = await this.selectedAnswer(Number(this.questionArray[this.arrayFragenPointer].SolutionNumber));
+                      this.sJoker.resetButtons(this.defaultButtonColor);
+                      return frage;
+                    } else {
+                      this.lives--;
+                      this.buttonStatus(false);
+                      this.setButtonColor(selectedButtonNumber, this.wrongAnswerColor);
+                      await this.delay(this.blinkIntervall * 2 * (this.blinkingTimes - 1));
+                      const frage = this.nextQuestion();
+                      this.sJoker.resetButtons(this.defaultButtonColor);
+                      this.buttonStatus(true);
+                      return frage;
+                    }
+                  } else {
+                    return this.questionArray[this.arrayFragenPointer];
+                  }
+        }
     }
   }
 
-  public activateJoker(joker: number) {
+  public joker(joker: number): Observable<boolean> {
+    this.selectedJoker = joker;
+    this.jokerActive = false;
     switch (joker) {
-      case 1: this.fJoker.deleteAnswers(Number(this.questionArray[this.arrayFragenPointer].SolutionNumber), this.buttonA,
-        this.buttonB, this.buttonC, this.buttonD);
+      case 1: if (this.fJoker.isJokerLeft()) {
+                this.fJoker.disableWrongAnswers(Number(this.questionArray[this.arrayFragenPointer].SolutionNumber), this.buttonA,
+                  this.buttonB, this.buttonC, this.buttonD);
+                this.jokerActive = true;
+              }
+              break;
+      case 2: if (this.sJoker.isJokerLeft()) {
+                this.sJoker.setStatus(true);
+                this.sJoker.setAnswer(this.questionArray[this.arrayFragenPointer].SolutionNumber);
+                this.jokerActive = true;
+              }
+              break;
     }
+    return Observable.create((observer) => {
+      observer.next(this.jokerActive);
+    });
   }
 
-  private jokerControl() {
-
+  private whenJokerActive(joker: number, selectedAnswer: number) {
+    switch (joker) {
+      case 1: if (this.jokerActive) {
+                this.jokerActive = this.fJoker.whenJokerActive();
+              }
+              break;
+      case 2: if (this.jokerActive) {
+                this.jokerActive = this.sJoker.selectAnswer(selectedAnswer);
+              }
+    }
   }
 
   /**

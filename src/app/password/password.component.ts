@@ -46,7 +46,6 @@ export class PasswordComponent implements OnInit {
         this.restService.changePassword(this.password1).subscribe((post) => {
           this.text = 'Password successfully changed';
           sessionStorage.setItem('password', this.password1);
-          console.log(post);
         }, (err: any) => {
           this.status = err.status;
           if (err.status === 0) {

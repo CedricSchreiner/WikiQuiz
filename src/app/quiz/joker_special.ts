@@ -11,7 +11,7 @@ export class SpecialJokerService {
   private solutionNumber: number;
   private guessesLeft = 2;
 
-  deleteAnswers(selectedAnswer: number): boolean {
+  selectAnswer(selectedAnswer: number): boolean {
     this.guessesLeft--;
     if (Number(selectedAnswer) !== Number(this.solutionNumber)) {
       switch (selectedAnswer) {
@@ -23,6 +23,11 @@ export class SpecialJokerService {
                 break;
         case 3: this.buttonD.style.backgroundColor = '#c0c1c4';
                 break;
+      }
+      if (this.guessesLeft === 0) {
+        this.setAnswerButtonColor();
+        this.jokersLeft--;
+        return false;
       }
       return true;
     }else {
@@ -36,22 +41,15 @@ export class SpecialJokerService {
         case 3: this.buttonD.style.backgroundColor = '#FF0000';
           break;
       }
-      this.guessesLeft = 2;
+      this.jokersLeft--;
+      this.guessesLeft = -1;
       this.active = false;
       return false;
     }
   }
 
-  getGuessesLeft(): number {
-    return this.guessesLeft;
-  }
-
   setJokerCount(jokerCount: number) {
     this.jokersLeft = jokerCount;
-  }
-
-  isJokerActive(): boolean {
-    return this.active;
   }
 
   setButtons(buttonA: HTMLButtonElement, buttonB: HTMLButtonElement, buttonC: HTMLButtonElement, buttonD: HTMLButtonElement) {
@@ -74,8 +72,19 @@ export class SpecialJokerService {
     }
   }
 
+  resetButtons(color: string) {
+    this.buttonA.style.backgroundColor = color;
+    this.buttonB.style.backgroundColor = color;
+    this.buttonC.style.backgroundColor = color;
+    this.buttonD.style.backgroundColor = color;
+  }
+
   setAnswer(solutionNumber: number) {
     this.solutionNumber = solutionNumber;
+  }
+
+  getGuessLeft(): number {
+    return this.guessesLeft;
   }
 
   /**
@@ -89,11 +98,8 @@ export class SpecialJokerService {
     this.active = status;
   }
 
-  reduceUseges() {
-    this.jokersLeft--;
-  }
-
   isJokerLeft() {
+    console.log('Joker left: ' + this.jokersLeft);
     return (Number(this.jokersLeft) !== 0);
   }
 }

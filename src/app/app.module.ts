@@ -16,13 +16,13 @@ import { OptionsComponent } from './options/options.component';
 import { InfoComponent } from './info/info.component';
 import { AvatarComponent } from './avatar/avatar.component';
 import { PasswordComponent } from './password/password.component';
-import { SurvivalQuizService } from './quiz/survivalquiz';
+import { SurvivalQuizService } from './quiz/quiz_survival';
 import { QuizComponent } from './quiz/quiz.component';
-import { XQuizService } from './quiz/xquiz';
-import { FiftyFiftyJokerService } from './quiz/fifty_fifty_joker';
+import { XQuizService } from './quiz/quiz_xquestions';
+import { FiftyFiftyJokerService } from './quiz/joker_fifty_fifty';
 import { PopupComponent } from './popup/popup.component';
-import { SpecialJokerService } from './quiz/spezial_joker';
-import { TimeQuizService } from './quiz/timequiz';
+import { SpecialJokerService } from './quiz/joker_special';
+import { TimeQuizService } from './quiz/quiz_time';
 
 const appRoutes: Routes = [
   {path: '', component: LoginComponent},

@@ -1,15 +1,12 @@
 import { Injectable } from '@angular/core';
 import { RestService } from '../service/rest.service';
 import { Observable } from 'rxjs/Observable';
-import { QuizService} from './quizegame';
+import {QuizService} from './quiz_game';
 
 @Injectable()
-export class XQuizService extends QuizService {
-  private numberOfQuestions: number;
+export class TimeQuizService extends QuizService {
   private spentTime: number;
   private answeredQuestions: number;
-  /*------------------------------------------------------------------------------------------------------------------*/
-  /*Public Section*/
   constructor(public restService: RestService) {
     super(restService);
   }
@@ -23,16 +20,17 @@ export class XQuizService extends QuizService {
    * @param {HTMLButtonElement} buttonC
    * @param {HTMLButtonElement} buttonD
    * @param {HTMLButtonElement} button
-   * @param {number} anzahlFragen
    * @param {HTMLDivElement} timer
    * @returns {Promise<Observable<boolean>>}
    */
   public async initializeGame(buttonA: HTMLButtonElement, buttonB: HTMLButtonElement, buttonC: HTMLButtonElement,
-                 buttonD: HTMLButtonElement, button: HTMLButtonElement, anzahlFragen: number, timer: HTMLDivElement) {
-    this.numberOfQuestions = anzahlFragen;
+                              buttonD: HTMLButtonElement, button: HTMLButtonElement, timer: HTMLDivElement) {
+    const observer =  await super.initialize(buttonA, buttonB, buttonC, buttonD, button, timer).then();
     this.spentTime = 0;
     this.answeredQuestions = 0;
-    return await super.initialize(buttonA, buttonB, buttonC, buttonD, button, timer).then();
+    this.setTime(3000);
+    this.timeIntervall = 100;
+    return observer;
   }
 
   /**
@@ -50,9 +48,6 @@ export class XQuizService extends QuizService {
    */
   public async selectedAnswer(selectedButtonNumber: number) {
     this.answeredQuestions++;
-    if (this.answeredQuestions === this.numberOfQuestions) {
-      this.gameFinished = true;
-    }
     this.running = false;
     if (Number(this.questionArray[this.arrayFragenPointer].SolutionNumber) !== selectedButtonNumber) {
       await this.wrongAnswer(selectedButtonNumber);
@@ -69,11 +64,7 @@ export class XQuizService extends QuizService {
    * @returns {number}
    */
   public calculatePoints(): number {
-    const questionPoints = 3250 / this.numberOfQuestions * (this.numberOfQuestions - this.rightAnswers);
-    console.log(questionPoints);
-    const timePoints = 1750 / 1600 / this.numberOfQuestions;
-    console.log(timePoints);
-    return Math.round(5000 - questionPoints - timePoints * this.spentTime);
+    return 1000;
   }
 
   /*Private Section*/
@@ -83,7 +74,6 @@ export class XQuizService extends QuizService {
    * @returns {Promise<void>}
    */
   protected async rightAnswer() {
-    this.addTime(true);
     await super.rightAnswer().then();
   }
 
@@ -93,29 +83,35 @@ export class XQuizService extends QuizService {
    * @returns {Promise<void>}
    */
   protected async wrongAnswer(selectedButton: number) {
-    this.addTime(false);
+    this.timeInMs -= 1000;
     await super.wrongAnswer(selectedButton).then();
   }
 
   /**
-   * Addiert die verbrauchte Zeit auf die bereits verbrauchte Zeit.
-   * @param {boolean} questionRight
+   * Timer der bestimmt wie lange der Spieler Zeit hat eine Frage zu beantworten.
+   * @returns {Promise<void>}
    */
-  private addTime(questionRight: boolean) {
-    if (questionRight) {
-      this.spentTime += this.timeInMs - this.timeLeft;
-    } else {
-      this.spentTime += 1600;
+  protected async timer() {
+    this.timeLeft = this.timeInMs;
+    while (this.running === true) {
+      await this.delay(this.timeIntervall).then();
+      this.timerdiv.style.width = String((this.timeLeft * this.timerDivAdd)) + '%';
+      this.timeLeft--;
+      if (this.timeLeft === 0) {
+        this.gameFinished = true;
+        this.running = false;
+        this.button.click();
+      }
     }
   }
 
   /*Getter*/
+  public getNumberAnsweredQuestions(): number {
+    return this.answeredQuestions;
+  }
 
   public getNumberOfRightAnswers(): number {
     return this.rightAnswers;
   }
 
-  public supportJoker(): boolean {
-    return this.jokerSupport;
-  }
 }

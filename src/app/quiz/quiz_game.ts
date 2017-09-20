@@ -19,16 +19,16 @@ export class QuizService {
   protected numberOfQuestionsToLoad: number; /*default 5*/
   protected blinkIntervall: number; /*default 500ms*/
   protected timeInMs: number; /*default 1600ms*/
-  protected jokerSupport: boolean; /*default false (Not supported in this gamemode)*/
+  protected jokerSupport: boolean; /*default false*/
   protected timeIntervall: number; /*default 10ms*/
 
   /*private variables*/
-  private timerDivAdd: number; /*berechnet wie viel nach einem Tick vom Timer(%) abgezogen wird*/
+  protected timerDivAdd: number; /*berechnet wie viel nach einem Tick vom Timer(%) abgezogen wird*/
   private wrongAnswerColor = '#FF0000';
   private rightAnswerColor = '#01DF01';
   private defaultButtonColor = '#0d87cf';
-  private button: HTMLButtonElement; /*Only Used when time is up*/
-  private timerdiv: HTMLDivElement;
+  protected button: HTMLButtonElement; /*Only Used when time is up*/
+  protected timerdiv: HTMLDivElement;
 
   /*------------------------------------------------------------------------------------------------------------------*/
   /*Public Section*/
@@ -223,6 +223,11 @@ export class QuizService {
 
   public setTime(time: number) {
     this.timeInMs = time;
+    this.timerDivAdd = 100 / time;
+  }
+
+  public supportJoker(): boolean {
+    return this.jokerSupport;
   }
 }
 
