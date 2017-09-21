@@ -133,7 +133,7 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.gamemode.includes('xquiz')) {
       return this.xquiz.calculatePoints();
     } else if (this.gamemode === 'survival') {
-      return this.survivalQuiz.calculatePoints(1, 1, 1);
+      return this.survivalQuiz.calculatePoints();
     } else if (this.gamemode === 'time') {
       return this.timequiz.calculatePoints();
     }

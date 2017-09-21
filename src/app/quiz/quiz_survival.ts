@@ -26,6 +26,7 @@ export class SurvivalQuizService {
   private timeLeft: number;
   private jokerActive: boolean; /*Indicated if a joker is active*/
   private selectedJoker: number;
+  private usedJoker: number;
 
   /*Variables for Settings*/
   private blinkingTimes: number; /*default 3 times*/
@@ -73,6 +74,7 @@ export class SurvivalQuizService {
     this.lives = 3;
     this.jokerSupport = true;
     this.selectedJoker =  0;
+    this.usedJoker = 0;
     this.fJoker.setJokerCount(2);
     this.sJoker.setJokerCount(2);
     this.sJoker.setButtons(buttonA, buttonB, buttonC, buttonD);
@@ -150,12 +152,14 @@ export class SurvivalQuizService {
     this.jokerActive = false;
     switch (joker) {
       case 1: if (this.fJoker.isJokerLeft()) {
+                this.usedJoker++;
                 this.fJoker.disableWrongAnswers(Number(this.questionArray[this.arrayFragenPointer].SolutionNumber), this.buttonA,
                   this.buttonB, this.buttonC, this.buttonD);
                 this.jokerActive = true;
               }
               break;
       case 2: if (this.sJoker.isJokerLeft()) {
+                this.usedJoker++;
                 this.sJoker.setStatus(true);
                 this.sJoker.setAnswer(this.questionArray[this.arrayFragenPointer].SolutionNumber);
                 this.jokerActive = true;
@@ -197,10 +201,10 @@ export class SurvivalQuizService {
    * Wird am Ende des Spiel aufgerufen. Berechnet die Punkte die der Spieler erreicht hat.
    * @returns {number}
    */
-  public calculatePoints(anzahlrichtigeAntworten: number, verbrauchteZeit: number, anzahlerBenutzerJoker: number): number {
-    const jokerPoints = anzahlerBenutzerJoker * 100;
-    const zeitPunkte = ((1600 * (anzahlrichtigeAntworten + 3)) - verbrauchteZeit) * 0.0625;
-    const antwortenPunkte = anzahlrichtigeAntworten * 150;
+  public calculatePoints(): number {
+    const jokerPoints = this.usedJoker * 100;
+    const zeitPunkte = ((1600 * (this.rightAnswers + 3)) - this.spentTime) * 0.0625;
+    const antwortenPunkte = this.rightAnswers * 150;
     return Math.round(zeitPunkte + antwortenPunkte - jokerPoints);
   }
 
