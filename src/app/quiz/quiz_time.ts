@@ -83,7 +83,7 @@ export class TimeQuizService extends QuizService {
    * @returns {Promise<void>}
    */
   protected async wrongAnswer(selectedButton: number) {
-    this.timeInMs -= 1000;
+    this.timeInMs -= 100;
     await super.wrongAnswer(selectedButton).then();
   }
 
@@ -97,7 +97,7 @@ export class TimeQuizService extends QuizService {
       await this.delay(this.timeIntervall).then();
       this.timerdiv.style.width = String((this.timeLeft * this.timerDivAdd)) + '%';
       this.timeLeft--;
-      if (this.timeLeft === 0) {
+      if (this.timeLeft <= 0) {
         this.gameFinished = true;
         this.running = false;
         this.button.click();

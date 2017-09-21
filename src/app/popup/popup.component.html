@@ -8,7 +8,7 @@
 
 
   <!--Main Menu-->
-  <div id="resultMenu" *ngIf="isUserLoggesIn && userPlayedGame">
+  <div id="resultMenu" *ngIf="isUserLoggesIn && userPlayedGame" (window:beforeunload)="leave()">
     <div id="starsImageDiv">
       <img id="imageStars" src={{starLogoLink}}/>
         <div id="resultDiv">

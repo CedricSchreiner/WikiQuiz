@@ -3,6 +3,7 @@ import { SurvivalQuizService } from './quiz_survival';
 import { XQuizService } from './quiz_xquestions';
 import { Observable } from 'rxjs/Observable';
 import { TimeQuizService } from './quiz_time';
+import {isNullOrUndefined} from 'util';
 
 
 @Component({
@@ -18,9 +19,11 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
   public jokerDisabled = false;
   public deactivateSpecialJoker = false;
   public deactivateFiftyFiftyJoker = false;
+  public gameStarted = true;
   private forceFullLeave = true;
   private gameFinished: Observable<boolean>;
   private jokerDisabledObserver: Observable<boolean>;
+  private gamemode: string;
 
 
   constructor(private survivalQuiz: SurvivalQuizService, private xquiz: XQuizService, private timequiz: TimeQuizService) {
@@ -44,41 +47,43 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
     const button = (<HTMLButtonElement>document.getElementById('wrong-answer'));
     const timerDiv = (<HTMLDivElement> document.getElementById('timer-status-bar'));
 
-    switch (sessionStorage.getItem('gamemode')) {
-      case 'xquiz':     await this.xquiz.initializeGame(buttonA, buttonB, buttonC, buttonD, button,
-                          Number(sessionStorage.getItem('anzahlFragen')), timerDiv).then( res => this.gameFinished = res);
-                        this.xquiz.startQuiz().then(res => this.frage = res);
-                        this.gamemodeForJoker = this.xquiz.supportJoker();
-                        break;
-      case 'survival':  await this.survivalQuiz.initializeGame(buttonA, buttonB, buttonC, buttonD, button,
-                          timerDiv).then(res => this.gameFinished = res);
-                        this.survivalQuiz.startQuiz().then(res => this.frage = res);
-                        this.gamemodeForJoker = this.survivalQuiz.supportJoker();
-                        break;
-      case 'time':      await this.timequiz.initializeGame(buttonA, buttonB, buttonC, buttonD, button,
-                          timerDiv).then(res => this.gameFinished = res);
-                        this.timequiz.startQuiz().then(res => this.frage = res);
-                        this.gamemodeForJoker = this.timequiz.supportJoker();
-                        break;
+    if (this.gamemode.includes('xquiz')) {
+      await this.xquiz.initializeGame(buttonA, buttonB, buttonC, buttonD, button,
+        Number(sessionStorage.getItem('anzahlFragen')), timerDiv).then( res => this.gameFinished = res);
+      this.xquiz.startQuiz().then(res => this.frage = res);
+      this.gamemodeForJoker = this.xquiz.supportJoker();
+    } else if (this.gamemode === 'survival') {
+      await this.survivalQuiz.initializeGame(buttonA, buttonB, buttonC, buttonD, button,
+        timerDiv).then(res => this.gameFinished = res);
+      this.survivalQuiz.startQuiz().then(res => this.frage = res);
+      this.gamemodeForJoker = this.survivalQuiz.supportJoker();
+    } else if (this.gamemode === 'time') {
+      await this.timequiz.initializeGame(buttonA, buttonB, buttonC, buttonD, button,
+        timerDiv).then(res => this.gameFinished = res);
+      this.timequiz.startQuiz().then(res => this.frage = res);
+      this.gamemodeForJoker = this.timequiz.supportJoker();
     }
   }
 
   async ngOnInit() {
+    this.gamemode = sessionStorage.getItem('gamemode');
+    if (isNullOrUndefined(this.gamemode)) {
+      this.gameStarted = false;
+      this.link('menu');
+    }
+
     this.avatarLinkString = './assets/' + sessionStorage.getItem('link'); // fuer den Avatar
   }
 
   public async nextQuestion(selectedButtonNumber: number) {
-    switch (sessionStorage.getItem('gamemode')) {
-      case 'xquiz':
-        await this.xquiz.selectedAnswer(selectedButtonNumber).then(res => this.frage = res);
-        break;
-      case 'survival':
-        await this.survivalQuiz.selectedAnswer(selectedButtonNumber).then(res => this.frage = res);
-        break;
-      case 'time':
-        await this.timequiz.selectedAnswer(selectedButtonNumber).then(res => this.frage = res);
-        break;
+    if (this.gamemode.includes('xquiz')) {
+      await this.xquiz.selectedAnswer(selectedButtonNumber).then(res => this.frage = res);
+    } else if (this.gamemode === 'survival') {
+      await this.survivalQuiz.selectedAnswer(selectedButtonNumber).then(res => this.frage = res);
+    } else if (this.gamemode === 'time') {
+      await this.timequiz.selectedAnswer(selectedButtonNumber).then(res => this.frage = res);
     }
+
     if (this.jokerDisabled) {
       this.jokerDisabledObserver.subscribe((data) => {
         if (!data) {
@@ -95,25 +100,28 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public activateJoker(selectedjoker: number) {
-    console.log('pressed');
-    switch (sessionStorage.getItem('gamemode')) {
-      case 'survival': this.jokerDisabledObserver = this.survivalQuiz.joker(selectedjoker);
-                       break;
+    console.log('Active:' + this.jokerDisabled);
+    if (!this.jokerDisabled) {
+      switch (sessionStorage.getItem('gamemode')) {
+        case 'survival':
+          this.jokerDisabledObserver = this.survivalQuiz.joker(selectedjoker);
+          this.jokerDisabledObserver.subscribe( (data) => this.jokerDisabled = data);
+          break;
 
+      }
     }
   }
 
   private showResult() {
-    switch (sessionStorage.getItem('gamemode')) {
-      case 'xquiz':    sessionStorage.setItem('rightAnswers', this.xquiz.getNumberOfRightAnswers().toString());
-                       sessionStorage.setItem('numberOfQuestions', sessionStorage.getItem('anzahlFragen'));
-                       break;
-      case 'survival': sessionStorage.setItem('numberOfQuestions', String(this.survivalQuiz.getNumberOfRightAnswers() + 3));
-                       sessionStorage.setItem('rightAnswers', this.survivalQuiz.getNumberOfRightAnswers().toString());
-                       break;
-      case 'time':     sessionStorage.setItem('numberOfQuestions', this.timequiz.getNumberAnsweredQuestions().toString());
-                       sessionStorage.setItem('rightAnswers', this.timequiz.getNumberOfRightAnswers().toString());
-                       break;
+    if (this.gamemode.includes('xquiz')) {
+      sessionStorage.setItem('rightAnswers', this.xquiz.getNumberOfRightAnswers().toString());
+      sessionStorage.setItem('numberOfQuestions', sessionStorage.getItem('anzahlFragen'));
+    } else if (this.gamemode === 'survival') {
+      sessionStorage.setItem('numberOfQuestions', String(this.survivalQuiz.getNumberOfRightAnswers() + 3));
+      sessionStorage.setItem('rightAnswers', this.survivalQuiz.getNumberOfRightAnswers().toString());
+    } else if (this.gamemode === 'time') {
+      sessionStorage.setItem('numberOfQuestions', this.timequiz.getNumberAnsweredQuestions().toString());
+      sessionStorage.setItem('rightAnswers', this.timequiz.getNumberOfRightAnswers().toString());
     }
 
     sessionStorage.setItem('points', this.calcPoints().toString());
@@ -122,10 +130,12 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private calcPoints(): number {
-    switch (sessionStorage.getItem('gamemode')) {
-      case 'xquiz'   : return this.xquiz.calculatePoints();
-      case 'survival': return this.survivalQuiz.calculatePoints(1, 1, 1);
-      case 'time'    : return this.timequiz.calculatePoints();
+    if (this.gamemode.includes('xquiz')) {
+      return this.xquiz.calculatePoints();
+    } else if (this.gamemode === 'survival') {
+      return this.survivalQuiz.calculatePoints(1, 1, 1);
+    } else if (this.gamemode === 'time') {
+      return this.timequiz.calculatePoints();
     }
   }
 

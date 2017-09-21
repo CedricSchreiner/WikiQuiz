@@ -11,37 +11,26 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
   stats: Statistic[];
   avatarLinkString: string;
   userInTopListSurvival: boolean;
-  userInTopListXquiz: boolean;
+  userInTopListTime: boolean;
+  userInTopListXquizTen: boolean;
+  userInTopListXquizThirty: boolean;
+  userInTopListXquizFifty: boolean;
   isUserLoggesIn: boolean;
 
   constructor(private restService: RestService) {
   }
 
   ngAfterViewInit() {
-    /*
-    this.createTopTenPlayerXquiz();
-    this.createTopTenPlayerSurvival();
-    this.createTopTenPlayerTimeQuiz();
-    this.createTopTenOverallTableXquiz();
+    this.createTopTenPlayerXquizTen();
+    this.createTopTenPlayerXquizThirty();
+    this.createTopTenPlayerXquizFifty();
+    this.createTopTenOverallTime();
     this.createTopTenOverallSurvival();
-    const personalXquizTab = (<HTMLLinkElement>document.getElementById('personal-xquiz-tab'));
-    const personalTimeTab = (<HTMLLinkElement>document.getElementById('personal-time-tab'));
-    const personalSurvivalTab = (<HTMLLinkElement>document.getElementById('personal-survival-tab'));
-    const worldXquizTab = (<HTMLLinkElement>document.getElementById('world-xquiz-tab'));
-    const worldSurvivalTab = (<HTMLLinkElement>document.getElementById('world-survival-tab'));
-    personalXquizTab.innerHTML = 'Top 10 Personal XQuiz';
-    personalSurvivalTab.innerHTML = 'Top 10 Personal Survival';
-    personalTimeTab.innerHTML = 'Top 10 Personmal Time';
-    worldXquizTab.innerHTML = 'Top 10 World Wide XQuiz';
-    worldSurvivalTab.innerHTML = 'Top 10 World Wide Survival';
-    if (window.screen.width < 961) {
-      personalXquizTab.innerHTML = 'Pers.<br>XQuiz';
-      personalSurvivalTab.innerHTML = 'Pers.<br>Survival';
-      personalTimeTab.innerHTML = 'Pers.<br>Time';
-      worldXquizTab.innerHTML = 'World<br>XQuiz';
-      worldSurvivalTab.innerHTML = 'World<br>Survival';
-    }
-    */
+    this.createTopTenOverallTableXquizTen();
+    this.createTopTenOverallTableXquizThirty();
+    this.createTopTenOverallTableXquizFifty();
+    this.createTopTenPlayerTimeQuiz();
+    this.createTopTenPlayerSurvival();
   }
 
   ngOnInit() {
@@ -51,17 +40,68 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
       this.link('');
     }
     this.avatarLinkString = './assets/' + sessionStorage.getItem('link');
-    this.userInTopListXquiz = false;
+    this.userInTopListXquizTen = false;
+    this.userInTopListXquizThirty = false;
+    this.userInTopListXquizFifty = false;
     this.userInTopListSurvival = false;
+    this.userInTopListTime = false;
 
   }
 
-  createTopTenPlayerXquiz() {
+  createTopTenPlayerXquizTen() {
     let row: HTMLTableRowElement;
     let cell: HTMLTableCellElement;
     let table: HTMLTableElement;
-    table = (<HTMLTableElement>document.getElementById('stats-table-personal-xquiz'));
-    this.restService.getTopTenStatisticsPlayer('xquiz').subscribe((stats => {
+    table = (<HTMLTableElement>document.getElementById('stats-table-personal-xquiz-ten'));
+    this.restService.getTopTenStatisticsPlayer('xquiz_ten').subscribe((stats => {
+      this.stats = stats;
+      row = table.rows[0];
+      for (let i = 1; i < 11; i++) {
+        row = table.rows[i];
+        cell = row.cells[0];
+        cell.innerHTML = String(i + '.');
+        for (let j = 1; j < 4; j++) {
+          cell = row.cells[j];
+          if (this.stats.length >= i) {
+            cell.innerHTML = this.get(i - 1, j);
+          } else {
+            cell.innerHTML = '-';
+          }
+        }
+      }
+    }));
+  }
+
+  createTopTenPlayerXquizThirty() {
+    let row: HTMLTableRowElement;
+    let cell: HTMLTableCellElement;
+    let table: HTMLTableElement;
+    table = (<HTMLTableElement>document.getElementById('stats-table-personal-xquiz-thirty'));
+    this.restService.getTopTenStatisticsPlayer('xquiz_thirty').subscribe((stats => {
+      this.stats = stats;
+      row = table.rows[0];
+      for (let i = 1; i < 11; i++) {
+        row = table.rows[i];
+        cell = row.cells[0];
+        cell.innerHTML = String(i + '.');
+        for (let j = 1; j < 4; j++) {
+          cell = row.cells[j];
+          if (this.stats.length >= i) {
+            cell.innerHTML = this.get(i - 1, j);
+          } else {
+            cell.innerHTML = '-';
+          }
+        }
+      }
+    }));
+  }
+
+  createTopTenPlayerXquizFifty() {
+    let row: HTMLTableRowElement;
+    let cell: HTMLTableCellElement;
+    let table: HTMLTableElement;
+    table = (<HTMLTableElement>document.getElementById('stats-table-personal-xquiz-fifty'));
+    this.restService.getTopTenStatisticsPlayer('xquiz_fifty').subscribe((stats => {
       this.stats = stats;
       row = table.rows[0];
       for (let i = 1; i < 11; i++) {
@@ -127,12 +167,228 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
     }));
   }
 
-  createTopTenOverallTableXquiz() {
+  createTopTenOverallTableXquizTen() {
     let row: HTMLTableRowElement;
     let cell: HTMLTableCellElement;
-    const table = (<HTMLTableElement>document.getElementById('stats-table-world-xquiz'));
-    const lastRow = (<HTMLTableRowElement>document.getElementById('last-row-xquiz'));
-    this.restService.getTopTenStatisticsOverall('xquiz').subscribe((stats => {
+    let tableFull = true;
+    const table = (<HTMLTableElement>document.getElementById('stats-table-world-xquiz-ten'));
+    const lastRow = (<HTMLTableRowElement>document.getElementById('last-row-xquiz-ten'));
+    lastRow.style.visibility = 'hidden';
+    this.restService.getTopTenStatisticsOverall('xquiz_ten').subscribe((stats => {
+      this.stats = stats;
+      row = table.rows[0];
+      for (let i = 1; i < 11; i++) {
+        row = table.rows[i];
+        cell = row.cells[0];
+        cell.innerHTML = String(i + '.');
+        for (let j = 1; j < 6; j++) {
+          cell = row.cells[j];
+          if (this.stats.length >= i) {
+            cell.innerHTML = this.get(i - 1, j);
+          } else {
+            cell.innerHTML = '-';
+            tableFull = false;
+          }
+        }
+      }
+      for (let i = 0; i < 10; i++) {
+        row = table.rows[i + 1];
+        cell = row.cells[5];
+        if (sessionStorage.getItem('username') === cell.innerHTML) {
+          this.userInTopListXquizTen = true;
+        }
+      }
+      if (!this.userInTopListXquizTen && tableFull) {
+        lastRow.style.visibility = 'visible';
+        this.restService.getStatisticsPlayer('xquiz_ten').subscribe((statsTop => {
+          this.stats[0] = statsTop;
+          row = table.rows[11];
+          for (let i = 0; i < 5; i++) {
+            cell = row.cells[i + 1];
+            if (this.stats !== undefined) {
+              cell.innerHTML = this.get(0, i + 1);
+              if (cell.innerHTML === '-' && i === 3) {
+                row.cells[0].innerHTML = 'Not Played';
+              }
+            } else {
+              cell.innerHTML = '-';
+            }
+          }
+          cell = row.cells[5];
+          cell.innerHTML = sessionStorage.getItem('username');
+        }));
+      }
+    }));
+  }
+
+  createTopTenOverallTableXquizThirty() {
+    let row: HTMLTableRowElement;
+    let cell: HTMLTableCellElement;
+    let tableFull = true;
+    const table = (<HTMLTableElement>document.getElementById('stats-table-world-xquiz-thirty'));
+    const lastRow = (<HTMLTableRowElement>document.getElementById('last-row-xquiz-thirty'));
+    lastRow.style.visibility = 'hidden';
+    this.restService.getTopTenStatisticsOverall('xquiz_thirty').subscribe((stats => {
+      this.stats = stats;
+      row = table.rows[0];
+      for (let i = 1; i < 11; i++) {
+        row = table.rows[i];
+        cell = row.cells[0];
+        cell.innerHTML = String(i + '.');
+        for (let j = 1; j < 6; j++) {
+          cell = row.cells[j];
+          if (this.stats.length >= i) {
+            cell.innerHTML = this.get(i - 1, j);
+          } else {
+            cell.innerHTML = '-';
+            tableFull = false;
+          }
+        }
+      }
+      for (let i = 0; i < 10; i++) {
+        row = table.rows[i + 1];
+        cell = row.cells[5];
+        if (sessionStorage.getItem('username') === cell.innerHTML) {
+          this.userInTopListXquizThirty = true;
+        }
+      }
+      if (!this.userInTopListXquizThirty && tableFull) {
+        lastRow.style.visibility = 'visible';
+        this.restService.getStatisticsPlayer('xquiz_thirty').subscribe((statsTop => {
+          this.stats[0] = statsTop;
+          row = table.rows[11];
+          for (let i = 0; i < 5; i++) {
+            cell = row.cells[i + 1];
+            if (this.stats !== undefined) {
+              cell.innerHTML = this.get(0, i + 1);
+              if (cell.innerHTML === '-' && i === 3) {
+                row.cells[0].innerHTML = 'Not Played';
+              }
+            } else {
+              cell.innerHTML = '-';
+            }
+          }
+          cell = row.cells[5];
+          cell.innerHTML = sessionStorage.getItem('username');
+        }));
+      }
+    }));
+  }
+
+  createTopTenOverallTableXquizFifty() {
+    let row: HTMLTableRowElement;
+    let cell: HTMLTableCellElement;
+    let tableFull = true;
+    const table = (<HTMLTableElement>document.getElementById('stats-table-world-xquiz-fifty'));
+    const lastRow = (<HTMLTableRowElement>document.getElementById('last-row-xquiz-fifty'));
+    lastRow.style.visibility = 'hidden';
+    this.restService.getTopTenStatisticsOverall('xquiz_fifty').subscribe((stats => {
+      this.stats = stats;
+      row = table.rows[0];
+      for (let i = 1; i < 11; i++) {
+        row = table.rows[i];
+        cell = row.cells[0];
+        cell.innerHTML = String(i + '.');
+        for (let j = 1; j < 6; j++) {
+          cell = row.cells[j];
+          if (this.stats.length >= i) {
+            cell.innerHTML = this.get(i - 1, j);
+          } else {
+            cell.innerHTML = '-';
+            tableFull = false;
+          }
+        }
+      }
+      for (let i = 0; i < 10; i++) {
+        row = table.rows[i + 1];
+        cell = row.cells[5];
+        if (sessionStorage.getItem('username') === cell.innerHTML) {
+          this.userInTopListXquizFifty = true;
+        }
+      }
+      if (!this.userInTopListXquizFifty && tableFull) {
+        lastRow.style.visibility = 'visible';
+        this.restService.getStatisticsPlayer('xquiz_fifty').subscribe((statsTop => {
+          this.stats[0] = statsTop;
+          row = table.rows[11];
+          for (let i = 0; i < 5; i++) {
+            cell = row.cells[i + 1];
+            if (this.stats !== undefined) {
+              cell.innerHTML = this.get(0, i + 1);
+              if (cell.innerHTML === '-' && i === 3) {
+                row.cells[0].innerHTML = 'Not Played';
+              }
+            } else {
+              cell.innerHTML = '-';
+            }
+          }
+          cell = row.cells[5];
+          cell.innerHTML = sessionStorage.getItem('username');
+        }));
+      }
+    }));
+  }
+
+  createTopTenOverallSurvival() {
+    let row: HTMLTableRowElement;
+    let cell: HTMLTableCellElement;
+    const table = (<HTMLTableElement>document.getElementById('stats-table-world-survival'));
+    const lastRow = (<HTMLTableRowElement>document.getElementById('last-row-survival'));
+    lastRow.style.visibility = 'hidden';
+    this.restService.getTopTenStatisticsOverall('survival').subscribe((stats => {
+      this.stats = stats;
+      console.log(stats);
+      row = table.rows[0];
+      for (let i = 1; i < 11; i++) {
+        row = table.rows[i];
+        cell = row.cells[0];
+        cell.innerHTML = String(i + '.');
+        for (let j = 1; j < 6; j++) {
+          cell = row.cells[j];
+          if (this.stats.length >= i) {
+            cell.innerHTML = this.get(i - 1, j);
+          } else {
+            cell.innerHTML = '-';
+          }
+        }
+      }
+      for (let i = 0; i < 10; i++) {
+        row = table.rows[i + 1];
+        cell = row.cells[5];
+        if (sessionStorage.getItem('username') === cell.innerHTML) {
+          this.userInTopListSurvival = true;
+        }
+      }
+      if (!this.userInTopListSurvival) {
+        lastRow.style.visibility = 'visible';
+        this.restService.getStatisticsPlayer('survival').subscribe((statsTop => {
+          this.stats[0] = statsTop;
+          row = table.rows[11];
+          for (let i = 0; i < 5; i++) {
+            cell = row.cells[i + 1];
+            if (this.stats !== undefined) {
+              cell.innerHTML = this.get(0, i + 1);
+              if (cell.innerHTML === '-' && i === 3) {
+                row.cells[0].innerHTML = 'Not Played';
+              }
+            } else {
+              cell.innerHTML = '-';
+            }
+          }
+          cell = row.cells[5];
+          cell.innerHTML = sessionStorage.getItem('username');
+        }));
+      }
+    }));
+  }
+
+  createTopTenOverallTime() {
+    let row: HTMLTableRowElement;
+    let cell: HTMLTableCellElement;
+    const table = (<HTMLTableElement>document.getElementById('stats-table-world-time'));
+    const lastRow = (<HTMLTableRowElement>document.getElementById('last-row-time'));
+    lastRow.style.visibility = 'hidden';
+    this.restService.getTopTenStatisticsOverall('time').subscribe((stats => {
       this.stats = stats;
       row = table.rows[0];
       for (let i = 1; i < 11; i++) {
@@ -152,74 +408,25 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
         row = table.rows[i + 1];
         cell = row.cells[5];
         if (sessionStorage.getItem('username') === cell.innerHTML) {
-          this.userInTopListXquiz = true;
+          this.userInTopListTime = true;
         }
       }
-      if (!this.userInTopListXquiz) {
+      if (!this.userInTopListTime) {
         lastRow.style.visibility = 'visible';
-        this.restService.getStatisticsPlayer('xquiz').subscribe((statsTop => {
+        this.restService.getStatisticsPlayer('time').subscribe((statsTop => {
           this.stats[0] = statsTop;
           row = table.rows[11];
           for (let i = 0; i < 5; i++) {
             cell = row.cells[i + 1];
             if (this.stats !== undefined) {
               cell.innerHTML = this.get(0, i + 1);
+              if (cell.innerHTML === '-' && i === 3) {
+                row.cells[0].innerHTML = 'Not Played';
+              }
             } else {
               cell.innerHTML = '-';
             }
           }
-          cell = row.cells[0];
-          cell.innerHTML = 'Your rank';
-          cell = row.cells[5];
-          cell.innerHTML = sessionStorage.getItem('username');
-        }));
-      }
-    }));
-  }
-
-  createTopTenOverallSurvival() {
-    let row: HTMLTableRowElement;
-    let cell: HTMLTableCellElement;
-    const table = (<HTMLTableElement>document.getElementById('stats-table-world-survival'));
-    const lastRow = (<HTMLTableRowElement>document.getElementById('last-row-survival'));
-    this.restService.getTopTenStatisticsOverall('survival').subscribe((stats => {
-      this.stats = stats;
-      row = table.rows[0];
-      for (let i = 1; i < 11; i++) {
-        row = table.rows[i];
-        cell = row.cells[0];
-        cell.innerHTML = String(i + '.');
-        for (let j = 1; j < 6; j++) {
-          cell = row.cells[j];
-          if (this.stats.length >= i) {
-            cell.innerHTML = this.get(i - 1, j);
-          } else {
-            cell.innerHTML = '-';
-          }
-        }
-      }
-      for (let i = 1; i < 11; i++) {
-        row = table.rows[i];
-        cell = row.cells[5];
-        if (sessionStorage.getItem('username') === cell.innerHTML) {
-          this.userInTopListSurvival = true;
-        }
-      }
-      if (!this.userInTopListSurvival) {
-        ///lastRow.style.visibility = 'visible';
-        this.restService.getStatisticsPlayer('survival').subscribe((statsTop => {
-          this.stats[0] = statsTop;
-          row = table.rows[11];
-          for (let i = 0; i < 5; i++) {
-            cell = row.cells[i + 1];
-            if (this.stats !== undefined) {
-              cell.innerHTML = this.get(0, i + 1);
-            } else {
-              cell.innerHTML = '-';
-            }
-          }
-          cell = row.cells[0];
-          cell.innerHTML = 'Your rank';
           cell = row.cells[5];
           cell.innerHTML = sessionStorage.getItem('username');
         }));

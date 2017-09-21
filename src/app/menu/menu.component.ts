@@ -48,7 +48,7 @@ export class MenuComponent implements OnInit {
 
   start(gamemode: string, anzahlFragen: string) {
     sessionStorage.setItem('gamemode', gamemode);
-    if (gamemode !== 'survival') {
+    if (gamemode.includes('xquiz')) {
       sessionStorage.setItem('anzahlFragen', anzahlFragen);
     }
     window.location.href = 'game';

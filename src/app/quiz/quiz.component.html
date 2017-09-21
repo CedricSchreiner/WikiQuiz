@@ -1,5 +1,5 @@
 <!--<div *ngIf="test">-->
-<div (window:beforeunload)="ngOnDestroy()">
+<div (window:beforeunload)="ngOnDestroy()" *ngIf="gameStarted">
   <app-background></app-background>
 
   <!--Navbar-->
