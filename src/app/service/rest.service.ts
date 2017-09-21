@@ -99,4 +99,14 @@ export class RestService {
       '?gamemode=' + gamemode, {headers: myHeader})
       .map(res => res.json());
   }
+
+  getPlayerRank(gamemode: string) {
+    const myHeader = new Headers();
+    myHeader.append('Authorization', 'Basic ' + btoa(sessionStorage.getItem('email') +
+      ':' + sessionStorage.getItem('password')));
+
+    return this.http.get('http://localhost:8080/quiz/webapi/stats/auth/ranking/' + sessionStorage.getItem('id') +
+      '/' + gamemode, {headers: myHeader})
+      .map(res => res.json());
+  }
 }

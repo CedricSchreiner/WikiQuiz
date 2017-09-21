@@ -168,6 +168,7 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
   }
 
   createTopTenOverallTableXquizTen() {
+    let ranking: Rank;
     let row: HTMLTableRowElement;
     let cell: HTMLTableCellElement;
     let tableFull = true;
@@ -209,6 +210,11 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
               cell.innerHTML = this.get(0, i + 1);
               if (cell.innerHTML === '-' && i === 3) {
                 row.cells[0].innerHTML = 'Not Played';
+              } else if (i === 3) {
+                this.restService.getPlayerRank('xquiz_ten').subscribe((rank) => {
+                  ranking = rank;
+                  row.cells[0].innerHTML = String(ranking.ranking);
+                });
               }
             } else {
               cell.innerHTML = '-';
@@ -222,6 +228,7 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
   }
 
   createTopTenOverallTableXquizThirty() {
+    let ranking: Rank;
     let row: HTMLTableRowElement;
     let cell: HTMLTableCellElement;
     let tableFull = true;
@@ -263,6 +270,11 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
               cell.innerHTML = this.get(0, i + 1);
               if (cell.innerHTML === '-' && i === 3) {
                 row.cells[0].innerHTML = 'Not Played';
+              } else if (i === 3) {
+                this.restService.getPlayerRank('xquiz_ten').subscribe((rank) => {
+                  ranking = rank;
+                  row.cells[0].innerHTML = String(ranking.ranking);
+                });
               }
             } else {
               cell.innerHTML = '-';
@@ -276,6 +288,7 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
   }
 
   createTopTenOverallTableXquizFifty() {
+    let ranking: Rank;
     let row: HTMLTableRowElement;
     let cell: HTMLTableCellElement;
     let tableFull = true;
@@ -317,6 +330,11 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
               cell.innerHTML = this.get(0, i + 1);
               if (cell.innerHTML === '-' && i === 3) {
                 row.cells[0].innerHTML = 'Not Played';
+              }  else if (i === 3) {
+                this.restService.getPlayerRank('xquiz_ten').subscribe((rank) => {
+                  ranking = rank;
+                  row.cells[0].innerHTML = String(ranking.ranking);
+                });
               }
             } else {
               cell.innerHTML = '-';
@@ -330,6 +348,7 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
   }
 
   createTopTenOverallSurvival() {
+    let ranking: Rank;
     let row: HTMLTableRowElement;
     let cell: HTMLTableCellElement;
     const table = (<HTMLTableElement>document.getElementById('stats-table-world-survival'));
@@ -370,6 +389,11 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
               cell.innerHTML = this.get(0, i + 1);
               if (cell.innerHTML === '-' && i === 3) {
                 row.cells[0].innerHTML = 'Not Played';
+              } else if (i === 3) {
+                this.restService.getPlayerRank('xquiz_ten').subscribe((rank) => {
+                  ranking = rank;
+                  row.cells[0].innerHTML = String(ranking.ranking);
+                });
               }
             } else {
               cell.innerHTML = '-';
@@ -475,4 +499,8 @@ interface Statistic {
   gameMode: string;
   punktZahl: number;
   userName: string;
+}
+
+interface Rank {
+  ranking: number;
 }
