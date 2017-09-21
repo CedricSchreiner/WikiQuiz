@@ -368,6 +368,14 @@ export class SurvivalQuizService {
   public supportJoker(): boolean {
     return this.jokerSupport;
   }
+
+  public getLives(): number {
+    return this.lives;
+  }
+
+  public getSJokerUsages() {
+    return this.sJoker.getUsagesLeft();
+  }
 }
 
 interface Frage {

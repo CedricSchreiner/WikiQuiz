@@ -31,11 +31,23 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     /*
+    if (this.gamemode.includes('xquiz')) {
+      localStorage.setItem('spielstand', sessionStorage.getItem('email') + ':' +
+        this.gamemode + ':' +
+        sessionStorage.getItem('anzahlFragen') + ':' +
+        this.xquiz.getNumberOfAnsweredQuestions() + ':' +
+        this.xquiz.getNumberOfRightAnswers() + this.xquiz.getSpentTime() + ':3');
+    } else if (this.gamemode === 'survival') {
+      localStorage.setItem('spielstand', sessionStorage.getItem('email') +
+        this.gamemode +
+        this.survivalQuiz.getLives() + this.survivalQuiz.getSJokerUsages());
+    } else if (this.gamemode === 'time' {
+    }
+    */
     if (this.forceFullLeave) {
       sessionStorage.removeItem('gamemode');
       sessionStorage.removeItem('anzahlFragen');
     }
-    */
   }
 
   async ngAfterViewInit() {

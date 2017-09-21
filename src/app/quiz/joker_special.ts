@@ -99,7 +99,10 @@ export class SpecialJokerService {
   }
 
   isJokerLeft() {
-    console.log('Joker left: ' + this.jokersLeft);
     return (Number(this.jokersLeft) !== 0);
+  }
+
+  getUsagesLeft() {
+    return this.jokersLeft;
   }
 }

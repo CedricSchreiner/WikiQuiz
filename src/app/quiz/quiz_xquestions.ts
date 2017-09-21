@@ -118,4 +118,12 @@ export class XQuizService extends QuizService {
   public supportJoker(): boolean {
     return this.jokerSupport;
   }
+
+  public getNumberOfAnsweredQuestions() {
+    return this.answeredQuestions;
+  }
+
+  public getSpentTime() {
+    return this.spentTime;
+  }
 }
