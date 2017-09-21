@@ -18,6 +18,7 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    /*
     this.createTopTenPlayerXquiz();
     this.createTopTenPlayerSurvival();
     this.createTopTenPlayerTimeQuiz();
@@ -40,6 +41,7 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
       worldXquizTab.innerHTML = 'World<br>XQuiz';
       worldSurvivalTab.innerHTML = 'World<br>Survival';
     }
+    */
   }
 
   ngOnInit() {
