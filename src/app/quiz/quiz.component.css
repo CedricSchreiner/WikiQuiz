@@ -67,6 +67,12 @@
 @media (orientation: portrait)
 {
 
+  .answer-string{
+    font-size: 60%;
+    font-style: inherit;
+    text-align: left;
+  }
+
 	#rahmenderFrage
 	{
 		position: relative;
@@ -76,7 +82,7 @@
 	#rahmenderAntwort
 	{
 		position: absolute;
-		top: 365px;
+		top: 350px;
 	}
 
 	.anchor-frame
@@ -88,6 +94,10 @@
 
 @media (orientation: landscape)
 {
+  .answer-string{
+    font-size: 85%;
+  }
+
 	#rahmenderFrage
 	{
 		position: absolute;
@@ -97,7 +107,7 @@
 	#rahmenderAntwort
 	{
 		position: relative;
-		top: 90px;
+		top: 80px;
 	}
 
 	.anchor-frame
