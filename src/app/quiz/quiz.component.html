@@ -22,7 +22,8 @@
 
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"><ul id="menu-fifty-fifty" class="nav navbar-nav navbar-left" *ngIf="gamemodeForJoker && !deactivateFiftyFiftyJoker">
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul id="menu-fifty-fifty" class="nav navbar-nav navbar-left" *ngIf="gamemodeForJoker && !deactivateFiftyFiftyJoker">
           <li id="menu-item-1" *ngIf="!jokerDisabled"><a (click)="activateJoker(1)">50/50</a></li>
           <li id="menu-item-2" *ngIf="jokerDisabled"><a >50/50</a></li>
         </ul>
@@ -65,6 +66,9 @@
   <!-- Timebar -->
 
   <div class="anchor-frame" id="status-frame">
+    <div class="answer-string" *ngIf="gamemodeForJoker">
+      Lives: {{lives}}
+    </div>
     <div class="Timer">
       <div id="timer-status-bar"></div>
     </div>

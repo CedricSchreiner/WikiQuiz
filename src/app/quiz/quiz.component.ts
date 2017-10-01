@@ -24,6 +24,7 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
   private gameFinished: Observable<boolean>;
   private jokerDisabledObserver: Observable<boolean>;
   private gamemode: string;
+  public lives = 3;
 
 
   constructor(private survivalQuiz: SurvivalQuizService, private xquiz: XQuizService, private timequiz: TimeQuizService) {
@@ -92,6 +93,7 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
       await this.xquiz.selectedAnswer(selectedButtonNumber).then(res => this.frage = res);
     } else if (this.gamemode === 'survival') {
       await this.survivalQuiz.selectedAnswer(selectedButtonNumber).then(res => this.frage = res);
+      this.lives = this.survivalQuiz.getLives();
     } else if (this.gamemode === 'time') {
       await this.timequiz.selectedAnswer(selectedButtonNumber).then(res => this.frage = res);
     }
@@ -119,7 +121,6 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
           this.jokerDisabledObserver = this.survivalQuiz.joker(selectedjoker);
           this.jokerDisabledObserver.subscribe( (data) => this.jokerDisabled = data);
           break;
-
       }
     }
   }

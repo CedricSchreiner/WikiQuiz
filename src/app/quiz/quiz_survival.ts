@@ -123,21 +123,27 @@ export class SurvivalQuizService {
                     const frage = await this.selectedAnswer(selectedButtonNumber);
                     this.fJoker.resetButtons(this.defaultButtonColor);
                     return frage;
+
                   }
                   break;
           case 2: if (!this.jokerActive) {
                     if (this.sJoker.getGuessLeft() === 0) {
                       const frage = await this.selectedAnswer(Number(this.questionArray[this.arrayFragenPointer].SolutionNumber));
                       this.sJoker.resetButtons(this.defaultButtonColor);
+                      console.log('Test');
                       return frage;
                     } else {
                       this.lives--;
+                      ///const frage = await this.selectedAnswer(Number(selectedButtonNumber));
+                      this.running = false;
                       this.buttonStatus(false);
                       this.setButtonColor(selectedButtonNumber, this.wrongAnswerColor);
                       await this.delay(this.blinkIntervall * 2 * (this.blinkingTimes - 1));
                       const frage = this.nextQuestion();
                       this.sJoker.resetButtons(this.defaultButtonColor);
+                      this.running = true;
                       this.buttonStatus(true);
+                      this.timer().then();
                       return frage;
                     }
                   } else {
@@ -205,7 +211,11 @@ export class SurvivalQuizService {
     const jokerPoints = this.usedJoker * 100;
     const zeitPunkte = ((1600 * (this.rightAnswers + 3)) - this.spentTime) * 0.0625;
     const antwortenPunkte = this.rightAnswers * 150;
-    return Math.round(zeitPunkte + antwortenPunkte - jokerPoints);
+    let points = Math.round(zeitPunkte + antwortenPunkte - jokerPoints);
+    if (points < 0) {
+      points = 0;
+    }
+    return points;
   }
 
   /*Private Section*/
@@ -240,13 +250,6 @@ export class SurvivalQuizService {
     this.buttonStatus(true);
   }
 
-  /**
-   * De/A-ktiviert die Joker
-   */
-  private setJokerStatus(activate: boolean) {
-    if (activate) {
-    }
-  }
   /**
    * Aktiviert/Deaktiert die Buttons.
    * @param {boolean} active
