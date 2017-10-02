@@ -4,19 +4,44 @@
 
   <div>
     <ul class="nav nav-tabs">
-      <li class="active"><a id="personal-xquiz-tab" data-toggle="tab" href="#top-ten-personal-xquiz"></a></li>
-      <li><a id="personal-survival-tab" data-toggle="tab" href="#top-ten-personal-survival"></a></li>
-      <li><a id="world-xquiz-tab" data-toggle="tab" href="#top-ten-world-xquiz"></a></li>
-      <li><a id="world-survival-tab" data-toggle="tab" href="#top-ten-world-survival"></a></li>
+      <li class="active dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown">XQuiz
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a data-toggle="tab" href="#top-ten-personal-xquiz-ten">Personal 10</a></li>
+          <li><a data-toggle="tab" href="#top-ten-personal-xquiz-thirty">Personal 30</a></li>
+          <li><a data-toggle="tab" href="#top-ten-personal-xquiz-fifty">Personal 50</a></li>
+          <li><a data-toggle="tab" href="#top-ten-world-xquiz-ten">World 10</a></li>
+          <li><a data-toggle="tab" href="#top-ten-world-xquiz-thirty">World 30</a></li>
+          <li><a data-toggle="tab" href="#top-ten-world-xquiz-fifty">World 50</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown">TimeQuiz
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a data-toggle="tab" href="#top-ten-personal-time">Personal</a></li>
+          <li><a data-toggle="tab" href="#top-ten-world-time">World</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown">SurvivalQuiz
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a data-toggle="tab" href="#top-ten-personal-survival">Personal</a></li>
+          <li><a data-toggle="tab" href="#top-ten-world-survival">World</a></li>
+        </ul>
+      </li>
     </ul>
 
-    <br>
-
     <div class="tab-content">
-      <div id="top-ten-personal-xquiz" class="tab-pane fade in active">
-        <table id="a" (timeupdate)="createTopTenPlayerXquiz()">
+      <div id="top-ten-personal-xquiz-ten" class="tab-pane fade in active">
+        <table id="stats-table-personal-xquiz-ten">
           <thead>
-          <tr id="stats-table-personal-xquiz-header">
+          <tr id="stats-table-personal-xquiz-ten-header">
             <th>Top</th>
             <th>Answered Questions</th>
             <th>Right Answers</th>
@@ -88,10 +113,10 @@
         </table>
       </div>
 
-      <div id="top-ten-personal-survival" class="tab-pane fade">
-        <table id="stats-table-personal-survival">
+      <div id="top-ten-personal-xquiz-thirty" class="tab-pane fade">
+        <table id="stats-table-personal-xquiz-thirty">
           <thead>
-          <tr id="stats-table-personal-survival-header">
+          <tr id="stats-table-personal-xquiz-thirty-header">
             <th>Top</th>
             <th>Answered Questions</th>
             <th>Right Answers</th>
@@ -163,10 +188,190 @@
         </table>
       </div>
 
-      <div id="top-ten-world-xquiz" class="tab-pane fade">
-        <table id="stats-table-world-xquiz">
+      <div id="top-ten-personal-xquiz-fifty" class="tab-pane fade">
+        <table id="stats-table-personal-xquiz-fifty">
           <thead>
-          <tr id="stats-table-world-xquiz-header">
+          <tr id="stats-table-personal-xquiz-fifty-header">
+            <th>Top</th>
+            <th>Answered Questions</th>
+            <th>Right Answers</th>
+            <th>Score</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div id="top-ten-world-xquiz-ten" class="tab-pane fade">
+        <table id="stats-table-world-xquiz-ten">
+          <thead>
+          <tr id="stats-table-world-xquiz-ten-header">
+            <th>Rank</th>
+            <th>Answered Questions</th>
+            <th>Right Answers</th>
+            <th>Highest Score</th>
+            <th>Played Games</th>
+            <th>Player Name</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr id="last-row-xquiz-ten">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div id="top-ten-world-xquiz-thirty" class="tab-pane fade">
+        <table id="stats-table-world-xquiz-thirty">
+          <thead>
+          <tr id="stats-table-world-xquiz-thirty-header">
             <th>Rank</th>
             <th>Answered Questions</th>
             <th>Right Answers</th>
@@ -257,9 +462,190 @@
             <td></td>
             <td></td>
           </tr>
-          <tr *ngIf="userInTopListXquiz == false">
+          <tr id="last-row-xquiz-thirty">
             <td></td>
             <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div id="top-ten-world-xquiz-fifty" class="tab-pane fade">
+        <table id="stats-table-world-xquiz-fifty">
+          <thead>
+          <tr id="stats-table-world-xquiz-fifty-header">
+            <th>Rank</th>
+            <th>Answered Questions</th>
+            <th>Right Answers</th>
+            <th>Highest Score</th>
+            <th>Played Games</th>
+            <th>Player Name</th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr id="last-row-xquiz-fifty">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div id="top-ten-personal-survival" class="tab-pane fade">
+        <table id="stats-table-personal-survival">
+          <thead>
+          <tr id="stats-table-personal-survival-header">
+            <th>Top</th>
+            <th>Answered Questions</th>
+            <th>Right Answers</th>
+            <th>Score</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
             <td></td>
             <td></td>
             <td></td>
@@ -363,7 +749,189 @@
             <td></td>
             <td></td>
           </tr>
-          <tr *ngIf="userInTopListSurvival == false">
+          <tr id="last-row-survival">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+      <div id="top-ten-personal-time" class="tab-pane fade">
+        <table id="stats-table-personal-time">
+          <thead>
+          <tr id="stats-table-personal-xquiz-header">
+            <th>Top</th>
+            <th>Answered Questions</th>
+            <th>Right Answers</th>
+            <th>Score</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div id="top-ten-world-time" class="tab-pane fade">
+        <table id="stats-table-world-time">
+          <thead>
+          <tr id="stats-table-world-time-header">
+            <th>Rank</th>
+            <th>Answered Questions</th>
+            <th>Right Answers</th>
+            <th>Highest Score</th>
+            <th>Played Games</th>
+            <th>Player Name</th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr id="last-row-time">
             <td></td>
             <td></td>
             <td></td>
@@ -383,8 +951,3 @@
     </div>
   </div>
   </div>
-
-
-
-
-

@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Headers, Http} from '@angular/http';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class RestService {
@@ -28,6 +29,15 @@ export class RestService {
       ':' + sessionStorage.getItem('password')));
     return this.http.get('http://localhost:8082/ProjektQuiz/quiz/webapi/fragenresource/' + anzahlFragen + '?query=' + quiztype,
                          {headers: myHeader}).map(res => res.json());
+  }
+
+  async getQuestionsBeta(anzahlFragen: number, quiztype: number) {
+    const myHeader = new Headers();
+    myHeader.append('Authorization', 'Basic ' + btoa(sessionStorage.getItem('email') +
+      ':' + sessionStorage.getItem('password')));
+    const promise = await this.http.get('http://localhost:8080/quiz/webapi/fragenresource/' + anzahlFragen + '?query=' + quiztype,
+      {headers: myHeader}).toPromise();
+    return promise.json();
   }
 
   getTopTenStatisticsOverall(gamemode: string) {
@@ -87,6 +97,16 @@ export class RestService {
 
     return this.http.get('http://localhost:8082/ProjektQuiz/quiz/webapi/stats/auth/' + sessionStorage.getItem('id') +
       '?gamemode=' + gamemode, {headers: myHeader})
+      .map(res => res.json());
+  }
+
+  getPlayerRank(gamemode: string) {
+    const myHeader = new Headers();
+    myHeader.append('Authorization', 'Basic ' + btoa(sessionStorage.getItem('email') +
+      ':' + sessionStorage.getItem('password')));
+
+    return this.http.get('http://localhost:8080/quiz/webapi/stats/auth/ranking/' + sessionStorage.getItem('id') +
+      '/' + gamemode, {headers: myHeader})
       .map(res => res.json());
   }
 }

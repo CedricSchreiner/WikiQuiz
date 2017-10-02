@@ -1,5 +1,5 @@
 <!--<div *ngIf="test">-->
-<div (window:beforeunload)="ngOnDestroy()">
+<div (window:beforeunload)="ngOnDestroy()" *ngIf="gameStarted">
   <app-background></app-background>
 
   <!--Navbar-->
@@ -24,13 +24,13 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul id="menu-fifty-fifty" class="nav navbar-nav navbar-left" *ngIf="gamemodeForJoker && !deactivateFiftyFiftyJoker">
-          <li id="menu-item-1" *ngIf="!fiftyFiftyDisabled"><a (click)="activateJoker(1)">50/50</a></li>
-          <li id="menu-item-3" *ngIf="fiftyFiftyDisabled"><a >50/50</a></li>
+          <li id="menu-item-1" *ngIf="!jokerDisabled"><a (click)="activateJoker(1)">50/50</a></li>
+          <li id="menu-item-2" *ngIf="jokerDisabled"><a >50/50</a></li>
         </ul>
 
         <ul id="menu-spezial-joker" class="nav navbar-nav navbar-left" *ngIf="gamemodeForJoker && !deactivateSpecialJoker">
-          <li id="menu-item-2" *ngIf="!specialJokerDisabled"><a (click)="activateJoker(2)">special Joker</a></li>
-          <li id="menu-item-4" *ngIf="specialJokerDisabled"><a >special Joker</a></li>
+          <li id="menu-item-3" *ngIf="!jokerDisabled"><a (click)="activateJoker(2)">special Joker</a></li>
+          <li id="menu-item-4" *ngIf="jokerDisabled"><a >special Joker</a></li>
         </ul>
       </div> <!--/.navbar-collapse -->
     </div><!-- /.container-fluid -->
@@ -60,12 +60,16 @@
       <p *ngIf="frage != undefined" class="answer-string" id="answer-stringD"> {{frage.Option3}} </p>
     </button>
 
+    <button id="wrong-answer" (click)="nextQuestion(-1)" style="visibility: hidden"></button>
+
   </div>
   <!-- Timebar -->
 
   <div class="anchor-frame" id="status-frame">
+    <div class="answer-string" *ngIf="gamemodeForJoker">
+      Lives: {{lives}}
+    </div>
     <div class="Timer">
-      {{verbrauchteGesamtZeit}} + {{richtigeAntworten}}
       <div id="timer-status-bar"></div>
     </div>
   </div>

@@ -14,6 +14,7 @@ anzFragen: string;
 starLogoLink: string;
 isUserLoggesIn = true;
 userPlayedGame = true;
+forceFullLeave = true;
 
 constructor(private restService: RestService) {
 }
@@ -24,7 +25,7 @@ ngOnInit() {
     this.link('');
   } else if (sessionStorage.getItem('points') !== null) {
     this.punkte = sessionStorage.getItem('points');
-    if (sessionStorage.getItem('gamemode') === 'xquiz') {
+    if (sessionStorage.getItem('gamemode').includes('xquiz')) {
       this.selectStarAmountXQuiz(Number(this.punkte));
     }
     if (sessionStorage.getItem('gamemode') === 'survival') {
@@ -32,10 +33,9 @@ ngOnInit() {
     }
     this.rightQuest = sessionStorage.getItem('rightAnswers');
     this.anzFragen = sessionStorage.getItem('numberOfQuestions');
-    ///this.anzFragen = '20';
-    ///sessionStorage.removeItem('points');
-    ///sessionStorage.removeItem('rightAnswers');
-    ///sessionStorage.removeItem('numberOfQuestions');
+    sessionStorage.removeItem('points');
+    sessionStorage.removeItem('rightAnswers');
+    sessionStorage.removeItem('numberOfQuestions');
     this.updateStatistics();
   } else {
     this.userPlayedGame = false;
@@ -74,14 +74,26 @@ ngOnInit() {
     }
   }
 
+  leave() {
+    if (this.forceFullLeave) {
+      sessionStorage.removeItem('gamemode');
+      sessionStorage.removeItem('anzahlFragen');
+    }
+  }
+
+  retry() {
+    this.forceFullLeave = false;
+    this.link('game');
+  }
+
   start(whichOne: string) {
     switch (whichOne) {
       case '1':
-        window.location.href = '/menu';
+        this.link('menu');
         break;
       case '2':
-        /*sessionStorage.setItem('anzahlFragen', this.anzFragen.toString());*/
-        window.location.href = '/game';
+        this.forceFullLeave = false;
+        this.link('game');
         break;
     }
   }
