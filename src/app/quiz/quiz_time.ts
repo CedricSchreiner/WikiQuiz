@@ -30,6 +30,7 @@ export class TimeQuizService extends QuizService {
     this.answeredQuestions = 0;
     this.setTime(3000);
     this.timeIntervall = 100;
+    this.timeLeft = this.timeInMs;
     return observer;
   }
 
@@ -83,7 +84,7 @@ export class TimeQuizService extends QuizService {
    * @returns {Promise<void>}
    */
   protected async wrongAnswer(selectedButton: number) {
-    this.timeInMs -= 100;
+    this.timeLeft -= 100;
     await super.wrongAnswer(selectedButton).then();
   }
 
@@ -92,7 +93,6 @@ export class TimeQuizService extends QuizService {
    * @returns {Promise<void>}
    */
   protected async timer() {
-    this.timeLeft = this.timeInMs;
     while (this.running === true) {
       await this.delay(this.timeIntervall).then();
       this.timerdiv.style.width = String((this.timeLeft * this.timerDivAdd)) + '%';
