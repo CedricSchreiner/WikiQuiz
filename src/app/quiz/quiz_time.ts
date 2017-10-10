@@ -64,7 +64,7 @@ export class TimeQuizService extends QuizService {
    * @returns {number}
    */
   public calculatePoints(): number {
-    return 1000;
+      return this.rightAnswers * 100;
   }
 
   /*Private Section*/
